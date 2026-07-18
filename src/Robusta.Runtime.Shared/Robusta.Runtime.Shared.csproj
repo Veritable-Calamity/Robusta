@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Internal runtime foundations shared by Robusta clients and servers.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../../sdk/Robusta.Game.Shared/Robusta.Game.Shared.csproj" />
+  </ItemGroup>
+</Project>

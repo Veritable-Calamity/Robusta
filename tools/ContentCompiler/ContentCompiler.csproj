@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Robusta.Tools.ContentCompiler</AssemblyName>
+    <RootNamespace>Robusta.Tools.ContentCompiler</RootNamespace>
+    <Description>Compiles human-authored game content into a validated catalog.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+</Project>

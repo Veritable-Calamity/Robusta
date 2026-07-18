@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Game-facing contracts shared by Robusta clients and servers.</Description>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Robusta.Game.Sdk/Robusta.Game.Sdk.csproj" />
+  </ItemGroup>
+</Project>

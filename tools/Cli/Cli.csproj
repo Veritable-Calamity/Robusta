@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Robusta.Tools.Cli</AssemblyName>
+    <RootNamespace>Robusta.Tools.Cli</RootNamespace>
+    <Description>Supported creator command-line entry point.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+</Project>

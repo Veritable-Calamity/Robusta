@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Description>Robusta client runtime host.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Robusta.Runtime.Shared/Robusta.Runtime.Shared.csproj" />
+    <ProjectReference Include="../../sdk/Robusta.Game.Client/Robusta.Game.Client.csproj" />
+  </ItemGroup>
+</Project>

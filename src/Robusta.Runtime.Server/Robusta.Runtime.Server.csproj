@@ -1,0 +1,11 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <Description>Robusta dedicated-server runtime host.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="../Robusta.Runtime.Shared/Robusta.Runtime.Shared.csproj" />
+    <ProjectReference Include="../../sdk/Robusta.Game.Server/Robusta.Game.Server.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Robusta.Tools.Migration</AssemblyName>
+    <RootNamespace>Robusta.Tools.Migration</RootNamespace>
+    <Description>Assisted Robust Toolbox migration tooling.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+</Project>

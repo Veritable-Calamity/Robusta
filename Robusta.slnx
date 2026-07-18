@@ -1,0 +1,22 @@
+<Solution>
+  <Folder Name="/sdk/">
+    <Project Path="sdk/Robusta.Game.Client/Robusta.Game.Client.csproj" />
+    <Project Path="sdk/Robusta.Game.Sdk/Robusta.Game.Sdk.csproj" />
+    <Project Path="sdk/Robusta.Game.Server/Robusta.Game.Server.csproj" />
+    <Project Path="sdk/Robusta.Game.Shared/Robusta.Game.Shared.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/Robusta.Runtime.Client/Robusta.Runtime.Client.csproj" />
+    <Project Path="src/Robusta.Runtime.Server/Robusta.Runtime.Server.csproj" />
+    <Project Path="src/Robusta.Runtime.Shared/Robusta.Runtime.Shared.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/Robusta.Architecture.Tests/Robusta.Architecture.Tests.csproj" />
+  </Folder>
+  <Folder Name="/tools/">
+    <Project Path="tools/Cli/Cli.csproj" />
+    <Project Path="tools/ContentCompiler/ContentCompiler.csproj" />
+    <Project Path="tools/Migration/Migration.csproj" />
+    <Project Path="tools/PackageVerifier/PackageVerifier.csproj" />
+  </Folder>
+</Solution>

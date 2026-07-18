@@ -1,0 +1,9 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Robusta.Tools.PackageVerifier</AssemblyName>
+    <RootNamespace>Robusta.Tools.PackageVerifier</RootNamespace>
+    <Description>Verifies Robusta package identity, integrity, and provenance.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+</Project>

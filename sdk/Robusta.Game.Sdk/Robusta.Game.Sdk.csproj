@@ -1,0 +1,6 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <Description>Common game-facing contracts and build integration for Robusta games.</Description>
+    <IsPackable>true</IsPackable>
+  </PropertyGroup>
+</Project>
