@@ -85,6 +85,30 @@ public sealed class MilestoneOneContractTests
         }
     }
 
+    [Fact]
+    public void EveryProposedProductAdrIsRegisteredAndRemainsAnOpenDecisionGate()
+    {
+        var proposals = Directory.EnumerateFiles(Path("docs/decisions/product"), "*.md")
+            .Where(file => File.ReadAllText(file).Contains("**Decision status:** Proposed", StringComparison.Ordinal))
+            .Select(file => System.IO.Path.GetFileName(file)[..4])
+            .Order().ToArray();
+        var register = File.ReadAllText(Path("docs/decisions/README.md"));
+        using var catalog = ReadJson("docs/specifications/m1-behavioral-scenarios.json");
+        var proposedGates = catalog.RootElement.GetProperty("decisionGates").EnumerateArray()
+            .Where(gate => gate.GetProperty("state").GetString() == "proposed")
+            .ToArray();
+
+        Assert.NotEmpty(proposals);
+        Assert.All(proposals, proposal => Assert.Contains($"| {proposal} |", register, StringComparison.Ordinal));
+        Assert.NotEmpty(proposedGates);
+        Assert.All(proposedGates, gate => Assert.Equal("product", gate.GetProperty("level").GetString()));
+        var gateSources = proposedGates.Select(gate => gate.GetProperty("source").GetString()!).ToArray();
+        Assert.All(gateSources, source => Assert.True(File.Exists(Path(source.Split('#', 2)[0])), $"Missing gate source: {source}"));
+        Assert.All(proposals, proposal => Assert.Contains(gateSources, source =>
+            File.ReadAllText(Path(source.Split('#', 2)[0])).Contains($"ADR {proposal}", StringComparison.Ordinal)));
+        Assert.Equal("none", catalog.RootElement.GetProperty("implementationClaim").GetString());
+    }
+
     private static string ScenarioId(JsonElement scenario) => scenario.GetProperty("id").GetString()!;
     private static string[] Strings(JsonElement element, string property) => element.GetProperty(property)
         .EnumerateArray().Select(item => item.GetString()!).ToArray();

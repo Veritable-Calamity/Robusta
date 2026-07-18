@@ -1,5 +1,11 @@
 # Documentation Changelog
 
+## 2026-07-18 — Entity lifecycle and simulation time proposed
+
+- Added proposed ADR 0015 for atomic entity birth, capability mutation, death, relationship cleanup, and stale-reference behavior.
+- Added proposed ADR 0016 for fixed authoritative steps, bounded catch-up, whole-world pause, simulation-time timers, and non-authoritative presentation time.
+- Recorded the comparison workshop and nine explicit product choices awaiting approval; no runtime implementation or accepted decision is claimed.
+
 ## 2026-07-18 — Milestone 1 behavioral scenario contract
 
 - Converted the accepted proof statements for ADRs 0003-0009 and 0011-0013 into technology-neutral Given/When/Then scenarios with stable conformance-test names.

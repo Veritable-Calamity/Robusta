@@ -4,7 +4,7 @@
   "updated": "2026-07-18",
   "implementationClaim": "none",
   "decisionGates": [
-    { "id": "product.entity-time", "level": "product", "state": "backlog", "source": "docs/workshops/world-model-question-set.md#b-what-is-a-game-object" },
+    { "id": "product.entity-time", "level": "product", "state": "proposed", "source": "docs/workshops/2026-07-18-world-model-04-entity-lifecycle-and-simulation-time.md" },
     { "id": "product.space-sdk", "level": "product", "state": "backlog", "source": "docs/workshops/world-model-question-set.md#d-how-do-space-and-maps-work" },
     { "id": "product.persistence-tooling", "level": "product", "state": "backlog", "source": "docs/workshops/world-model-question-set.md#f-saving-loading-and-change" },
     { "id": "technical.ownership", "level": "technical", "state": "backlog", "source": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },

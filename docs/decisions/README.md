@@ -64,4 +64,7 @@ This is a new greenfield ADR sequence. It does not continue the numbering of the
 
 ## Active proposals
 
-None.
+| ADR | Decision | Decision status | Implementation |
+|---|---|---|---|
+| 0015 | Give entities an atomic, observable lifecycle | Proposed | Not started |
+| 0016 | Separate simulation, host, and presentation time | Proposed | Not started |
