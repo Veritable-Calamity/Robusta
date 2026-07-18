@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-07-18",
+  "allowedResults": ["Exact", "Renamed", "Converted with warning", "Manual port", "Unsupported"],
+  "cases": [
+    { "id": "simple-data-component", "category": "ecs.component", "fixture": "component with scalar, enum, optional, and entity-reference fields", "observations": ["defaults", "serialization", "validation"] },
+    { "id": "event-driven-interactive-entity", "category": "ecs.system-event", "fixture": "use interaction changes component state", "observations": ["dispatch", "ordering", "cancellation"] },
+    { "id": "predicted-movement", "category": "network.prediction", "fixture": "client input drives predicted movement", "observations": ["latency response", "correction", "replay"] },
+    { "id": "networked-inventory-item", "category": "network.state", "fixture": "item transfers between world and inventory", "observations": ["authority", "visibility", "identity"] },
+    { "id": "prototype-heavy-family", "category": "content.prototype", "fixture": "base, abstract, inherited, and patched definitions", "observations": ["resolved values", "order", "diagnostics"] },
+    { "id": "entity-bound-ui", "category": "ui.bound", "fixture": "authorized user opens and updates entity UI", "observations": ["binding", "messages", "disconnect"] },
+    { "id": "containers-and-transforms", "category": "world.container-transform", "fixture": "entity moves through nested container and map", "observations": ["coordinates", "ownership", "stale reference"] },
+    { "id": "map-grid-interaction", "category": "world.map-grid", "fixture": "construct, split, and deconstruct compact grid cells", "observations": ["topology", "attachment reassignment", "entity count"] },
+    { "id": "physics-collision", "category": "physics.collision", "fixture": "dynamic body collides and raises gameplay event", "observations": ["contact", "ordering", "authority"] },
+    { "id": "localization-and-appearance", "category": "presentation.localization-appearance", "fixture": "localized state selects client appearance", "observations": ["fallback", "resource resolution", "side separation"] },
+    { "id": "server-administration", "category": "operations.administration", "fixture": "authorized server-only command changes session", "observations": ["authorization", "audit log", "client exclusion"] },
+    { "id": "saved-data-migration", "category": "persistence.saved-data", "fixture": "versioned saved world crosses a schema change", "observations": ["backup", "classification", "rollback"] }
+  ]
+}

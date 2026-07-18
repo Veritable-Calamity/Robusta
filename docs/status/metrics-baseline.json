@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-07-18",
+  "policy": "Null means not yet honestly measurable; it is not zero and does not pass a budget.",
+  "metrics": [
+    { "id": "installation-to-playable", "owner": "creator-workflow", "unit": "seconds", "fixture": "clean supported machine to template local play", "baseline": null, "firstCollection": "M2" },
+    { "id": "edit-to-visible", "owner": "creator-workflow", "unit": "seconds", "fixture": "declared resource, prototype, code, and schema edits", "baseline": null, "firstCollection": "M6" },
+    { "id": "diagnostic-accuracy", "owner": "content-workstream", "unit": "percent expected diagnostic and source span", "fixture": "versioned invalid-source corpus", "baseline": null, "firstCollection": "M2" },
+    { "id": "package-reproducibility", "owner": "delivery-workstream", "unit": "percent byte-identical normalized outputs", "fixture": "two clean builds from exact receipt", "baseline": null, "firstCollection": "M3" },
+    { "id": "rollback-success", "owner": "delivery-workstream", "unit": "percent successful recovery trials", "fixture": "versioned install/update failure matrix", "baseline": null, "firstCollection": "M5" },
+    { "id": "compatibility-clarity", "owner": "delivery-workstream", "unit": "percent expected reason and remedy", "fixture": "versioned incompatible client/package/save corpus", "baseline": null, "firstCollection": "M4" },
+    { "id": "tick-stability", "owner": "runtime-workstream", "unit": "p99 tick milliseconds", "fixture": "reference-game representative workload", "baseline": null, "firstCollection": "M4" },
+    { "id": "resource-use", "owner": "runtime-workstream", "unit": "peak resident mebibytes and cpu-seconds", "fixture": "reference-game representative workload", "baseline": null, "firstCollection": "M3" },
+    { "id": "migration-coverage", "owner": "migration-workstream", "unit": "percent by assessment category", "fixture": "conformance-corpus-v1", "baseline": null, "firstCollection": "M7" }
+  ]
+}
+

@@ -43,7 +43,7 @@ Guides explain how to use the released platform. They describe supported workflo
 
 Roadmaps, compatibility matrices, implementation status, benchmark results, and conformance reports show what has actually been built.
 
-The current evidence-gated roadmap is [`status/development-plan.md`](status/development-plan.md). It sequences implementation work but does not change any accepted decision or implementation status.
+The current evidence-gated roadmap is [`status/development-plan.md`](status/development-plan.md). Milestone 0's implemented governance contract, support matrix, evidence ledger, capability register, metrics, reference-game charters, and migration baseline begin at [`status/m0-outcome-and-evidence-contract.md`](status/m0-outcome-and-evidence-contract.md).
 
 ## Order of authority
 

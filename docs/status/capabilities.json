@@ -1,0 +1,34 @@
+{
+  "schemaVersion": 1,
+  "updated": "2026-07-18",
+  "capabilities": [
+    {
+      "id": "governance.evidence-contract",
+      "label": "Preview",
+      "owner": "governance-workstream",
+      "evidence": ["docs/status/m0-outcome-and-evidence-contract.md", "docs/status/evidence/ledger.json"],
+      "missing": ["independent audit of first release scorecard"]
+    },
+    {
+      "id": "artifact-feed.bootstrap",
+      "label": "Experimental",
+      "owner": "delivery-workstream",
+      "evidence": [".github/workflows/ci.yml", "eng/build-artifact-feed.ps1", "eng/verify-external-consumption.ps1"],
+      "missing": ["hosted feed", "signed artifacts", "compatibility policy", "external reference-game use"]
+    },
+    {
+      "id": "game-platform",
+      "label": "Experimental",
+      "owner": "robusta-maintainers",
+      "evidence": ["README.md"],
+      "missing": ["all executable capability evidence from M2-M8"]
+    },
+    {
+      "id": "migration.census",
+      "label": "Experimental",
+      "owner": "migration-workstream",
+      "evidence": ["docs/status/migration/census-v1.json", "docs/status/migration/conformance-corpus-v1.json"],
+      "missing": ["source occurrence counts", "automation", "observable conformance results"]
+    }
+  ]
+}

@@ -4,7 +4,7 @@
 **Decision scope:** the greenfield, release-grade Robusta platform
 **Implementation status:** not yet implemented
 
-The repository now contains an initial buildable scaffold. It establishes project and dependency boundaries only; it does not claim implementation of the accepted product decisions.
+The repository contains a buildable scaffold and the implemented Milestone 0 outcome-and-evidence contract. Milestone 0 establishes scope, support, artifact-feed, measurement, migration-census, and evidence rules; it does not claim a gameplay capability.
 
 ## Project layout
 
@@ -37,6 +37,15 @@ dotnet restore Robusta.slnx
 dotnet build Robusta.slnx --no-restore
 dotnet test tests/Robusta.Architecture.Tests/Robusta.Architecture.Tests.csproj --no-restore
 ```
+
+Build the versioned bootstrap artifact feed and verify ordinary package consumption with:
+
+```powershell
+./eng/build-artifact-feed.ps1
+./eng/verify-external-consumption.ps1
+```
+
+See [`docs/status/m0-outcome-and-evidence-contract.md`](docs/status/m0-outcome-and-evidence-contract.md) for the accepted first-release support matrix and auditable evidence contract.
 
 This repository-ready documentation set records the product-level decisions agreed during the Robusta platform design workshops and evolves as each new question is reviewed.
 

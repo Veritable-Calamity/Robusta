@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://robusta.dev/schemas/evidence-packet/v1",
+  "title": "Robusta evidence packet",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "packetId", "scenarioId", "capabilityId", "facet", "result", "observedAtUtc", "environment", "subject", "artifacts"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "packetId": { "type": "string", "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]+$" },
+    "scenarioId": { "type": "string", "minLength": 1 },
+    "capabilityId": { "type": "string", "minLength": 1 },
+    "facet": {
+      "enum": ["sdk", "external-use", "diagnostics", "tests", "documentation", "inspection", "packaging", "compatibility", "performance", "trust"]
+    },
+    "result": { "enum": ["passed", "failed", "not-applicable"] },
+    "observedAtUtc": { "type": "string", "format": "date-time" },
+    "environment": {
+      "type": "object",
+      "required": ["os", "architecture", "dotnetSdk"],
+      "properties": {
+        "os": { "type": "string" },
+        "architecture": { "type": "string" },
+        "dotnetSdk": { "type": "string" },
+        "ciRun": { "type": ["string", "null"] }
+      },
+      "additionalProperties": true
+    },
+    "subject": {
+      "type": "object",
+      "required": ["repository", "revision", "artifactVersions"],
+      "properties": {
+        "repository": { "type": "string" },
+        "revision": { "type": "string" },
+        "artifactVersions": { "type": "object", "additionalProperties": { "type": "string" } }
+      },
+      "additionalProperties": false
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["name", "value", "unit"],
+        "properties": {
+          "name": { "type": "string" },
+          "value": { "type": "number" },
+          "unit": { "type": "string" },
+          "budget": { "type": ["number", "null"] }
+        },
+        "additionalProperties": false
+      }
+    },
+    "artifacts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "uri", "sha256"],
+        "properties": {
+          "kind": { "type": "string" },
+          "uri": { "type": "string" },
+          "sha256": { "type": "string", "pattern": "^[a-f0-9]{64}$" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "notes": { "type": "string" }
+  }
+}
+

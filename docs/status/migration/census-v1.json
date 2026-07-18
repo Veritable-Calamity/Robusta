@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "snapshotDate": "2026-07-18",
+  "sourceFamily": "Robust Toolbox and Space Station 14",
+  "purpose": "Versioned migration feature inventory; no native Robusta API or automation is implied.",
+  "categories": [
+    { "id": "ecs.component", "legacyConcept": "data component", "observableConcern": "serialized fields and lifecycle", "assessment": "unassessed" },
+    { "id": "ecs.system-event", "legacyConcept": "entity system and local event", "observableConcern": "dispatch targets, ordering, and cancellation", "assessment": "unassessed" },
+    { "id": "network.prediction", "legacyConcept": "predicted input and state", "observableConcern": "authority, correction, and replay", "assessment": "unassessed" },
+    { "id": "network.state", "legacyConcept": "networked component state", "observableConcern": "identity, schema, and visibility", "assessment": "unassessed" },
+    { "id": "content.prototype", "legacyConcept": "prototype inheritance and composition", "observableConcern": "merge order, validation, and provenance", "assessment": "unassessed" },
+    { "id": "ui.bound", "legacyConcept": "entity-bound user interface", "observableConcern": "session, authority, and message behavior", "assessment": "unassessed" },
+    { "id": "world.container-transform", "legacyConcept": "containers, maps, coordinates, and transforms", "observableConcern": "ownership, movement, and stale references", "assessment": "unassessed" },
+    { "id": "world.map-grid", "legacyConcept": "map, grid, chunk, and tile interaction", "observableConcern": "topology, compact data, and entity reassignment", "assessment": "unassessed" },
+    { "id": "physics.collision", "legacyConcept": "fixtures, bodies, and collision events", "observableConcern": "simulation and event behavior", "assessment": "unassessed" },
+    { "id": "presentation.localization-appearance", "legacyConcept": "localization, resources, and appearance", "observableConcern": "resolution, side, and fallback", "assessment": "unassessed" },
+    { "id": "operations.administration", "legacyConcept": "server-only commands and administration", "observableConcern": "authority, diagnostics, and packaging", "assessment": "unassessed" },
+    { "id": "persistence.saved-data", "legacyConcept": "saved maps and state", "observableConcern": "durable identity, versioning, and migration", "assessment": "unassessed" }
+  ]
+}
+

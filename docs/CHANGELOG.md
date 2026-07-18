@@ -1,5 +1,12 @@
 # Documentation Changelog
 
+## 2026-07-18 — Milestone 0 outcome and evidence contract
+
+- Accepted ADR 0014 defining the exact 1.0 boundary, Windows and Ubuntu support matrix, artifact channels, and launcher/registry responsibilities.
+- Added the evidence-packet schema, complete ADR traceability ledger, capability register, metric baselines, and M0 exit assessment.
+- Added independent reference-game charters and a versioned Robust Toolbox migration census and conformance corpus.
+- Added clean-machine CI, versioned SDK packing, external NuGet consumption verification, and architecture tests for the M0 contract.
+
 ## 2026-07-18 — Initial development plan
 
 - Added an evidence-gated development plan derived from accepted product ADRs 0000-0013.

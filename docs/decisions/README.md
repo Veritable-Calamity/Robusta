@@ -60,6 +60,7 @@ This is a new greenfield ADR sequence. It does not continue the numbering of the
 | 0011 | Define a world as an isolated simulation containing multiple maps | Accepted | Not started |
 | 0012 | Separate immutable game definitions, host sessions, and mutable world state | Accepted | Not started |
 | 0013 | Use entities for independent world participants, not all data | Accepted | Not started |
+| 0014 | Define the first-release boundary and delivery responsibilities | Accepted | In progress |
 
 ## Active proposals
 

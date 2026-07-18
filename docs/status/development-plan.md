@@ -4,7 +4,7 @@
 - **Baseline date:** 2026-07-18
 - **Planning horizon:** First supported platform release
 - **Decision authority:** Lower than the platform constitution and accepted ADRs
-- **Current implementation baseline:** Buildable repository scaffold; product ADRs 0000-0013 remain `Not started`
+- **Current implementation baseline:** M0 outcome and evidence contract implemented; gameplay capabilities remain scaffolded and unproven
 
 ## Purpose
 
@@ -68,6 +68,8 @@ flowchart LR
 The sequence is an order of evidence dependencies, not a requirement to serialize all engineering. Early versions of the artifact feed, CLI, package manifest, receipt, reference games, and migration census should begin as soon as their inputs are stable. Their release gates remain at the milestones shown.
 
 ### M0 - Outcome and evidence contract
+
+**Status:** Complete as of 2026-07-18. See [`m0-outcome-and-evidence-contract.md`](m0-outcome-and-evidence-contract.md) for the exit assessment and durable artifacts.
 
 **Objective:** Make scope, support claims, and proof requirements auditable before feature work expands.
 
@@ -313,6 +315,7 @@ Each capability work item must carry this checklist from inception. `Not applica
 | 0011 - Isolated multi-map world | M1 | M2-M3 | Multi-world isolation, disposal, preview world, and multi-map scenario |
 | 0012 - State ownership | M1 | M2-M5 | Catalog sharing, session survival, scoped diagnostics, and durable-service tests |
 | 0013 - Entity boundary | M1 | M2-M3 | Optional-capability entities, structured grid data, inspection, and scale proof |
+| 0014 - First-release boundary and delivery | M0 | M2, M5, M8 | Supported-platform clean-machine runs and launcher or registry boundary audit |
 
 ## Principal risks and controls
 

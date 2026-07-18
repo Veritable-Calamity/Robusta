@@ -1,0 +1,44 @@
+name: clean-machine
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  supported-platform:
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-2025
+            platform: windows-11-x64
+          - os: ubuntu-24.04
+            platform: ubuntu-24.04-x64
+    runs-on: ${{ matrix.os }}
+    name: ${{ matrix.platform }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          global-json-file: global.json
+      - name: Restore
+        run: dotnet restore Robusta.slnx -warnaserror
+      - name: Build
+        run: dotnet build Robusta.slnx --configuration Release --no-restore
+      - name: Test
+        run: dotnet test tests/Robusta.Architecture.Tests/Robusta.Architecture.Tests.csproj --configuration Release --no-restore
+      - name: Build versioned artifact feed
+        shell: pwsh
+        run: ./eng/build-artifact-feed.ps1 -Configuration Release -Output artifacts/feed
+      - name: Verify an external consumer uses packages only
+        shell: pwsh
+        run: ./eng/verify-external-consumption.ps1 -Feed artifacts/feed
+      - uses: actions/upload-artifact@v4
+        with:
+          name: m0-evidence-${{ matrix.platform }}
+          path: |
+            artifacts/feed
+            artifacts/evidence
