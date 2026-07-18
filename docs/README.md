@@ -35,6 +35,8 @@ Specifications define behavior precisely enough to test. Planned examples includ
 - package manifests and locks;
 - save and map migration.
 
+The first catalog is [`specifications/m1-behavioral-scenarios.json`](specifications/m1-behavioral-scenarios.json). It gives the accepted ADR proof statements stable Given/When/Then contracts and test names while leaving unresolved M1 choices behind explicit decision gates.
+
 ## 5. Guides
 
 Guides explain how to use the released platform. They describe supported workflows rather than internal architecture.

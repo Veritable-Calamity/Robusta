@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://robusta.dev/schemas/behavioral-scenarios-v1.json",
+  "title": "Robusta behavioral scenario catalog",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "milestone",
+    "updated",
+    "implementationClaim",
+    "decisionGates",
+    "scenarios"
+  ],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "milestone": { "type": "string", "pattern": "^M[0-9]+$" },
+    "updated": { "type": "string", "format": "date" },
+    "implementationClaim": { "const": "none" },
+    "decisionGates": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/decisionGate" }
+    },
+    "scenarios": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/scenario" }
+    }
+  },
+  "$defs": {
+    "nonEmptyStrings": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "decisionGate": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "level", "state", "source"],
+      "properties": {
+        "id": { "type": "string", "pattern": "^(product|technical)\\.[a-z0-9-]+$" },
+        "level": { "enum": ["product", "technical"] },
+        "state": { "enum": ["backlog", "draft", "proposed", "accepted"] },
+        "source": { "type": "string", "minLength": 1 }
+      }
+    },
+    "scenario": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "title",
+        "serves",
+        "targetMilestone",
+        "state",
+        "sourceProofs",
+        "actors",
+        "given",
+        "when",
+        "then",
+        "qualityFacets",
+        "testNames",
+        "openDecisionGates"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9]+(?:-[a-z0-9]+)*$" },
+        "title": { "type": "string", "minLength": 1 },
+        "serves": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "pattern": "^[0-9]{4}$" }
+        },
+        "targetMilestone": { "type": "string", "pattern": "^M[0-9]+$" },
+        "state": { "const": "specified" },
+        "sourceProofs": { "$ref": "#/$defs/nonEmptyStrings" },
+        "actors": { "$ref": "#/$defs/nonEmptyStrings" },
+        "given": { "$ref": "#/$defs/nonEmptyStrings" },
+        "when": { "$ref": "#/$defs/nonEmptyStrings" },
+        "then": { "$ref": "#/$defs/nonEmptyStrings" },
+        "qualityFacets": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "enum": [
+              "supported-sdk",
+              "external-use",
+              "diagnostics",
+              "automated-tests",
+              "documentation",
+              "inspection",
+              "packaging",
+              "compatibility",
+              "performance",
+              "security"
+            ]
+          }
+        },
+        "testNames": { "$ref": "#/$defs/nonEmptyStrings" },
+        "openDecisionGates": {
+          "type": "array",
+          "items": { "type": "string", "pattern": "^(product|technical)\\.[a-z0-9-]+$" }
+        }
+      }
+    }
+  }
+}

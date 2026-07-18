@@ -1,5 +1,11 @@
 # Documentation Changelog
 
+## 2026-07-18 — Milestone 1 behavioral scenario contract
+
+- Converted the accepted proof statements for ADRs 0003-0009 and 0011-0013 into technology-neutral Given/When/Then scenarios with stable conformance-test names.
+- Added a versioned behavioral-scenario schema and explicit product and technical decision gates without claiming runtime implementation.
+- Added architecture tests that keep the scenario catalog aligned with the evidence ledger and accepted product ADRs.
+
 ## 2026-07-18 — Milestone 0 outcome and evidence contract
 
 - Accepted ADR 0014 defining the exact 1.0 boundary, Windows and Ubuntu support matrix, artifact channels, and launcher/registry responsibilities.
