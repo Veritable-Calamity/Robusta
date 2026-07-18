@@ -49,6 +49,7 @@ Robusta's continuing mission is to take a lessons-learned approach to Robust Too
 - `docs/product/glossary.md` — plain-language terms used throughout the design.
 - `docs/decisions/` — the ADR process, template, accepted decisions, and active proposals.
 - `docs/workshops/` — accepted workshop records, active proposals, and the remaining question set.
+- `docs/status/development-plan.md` — the evidence-gated implementation roadmap derived from the accepted ADRs.
 - `docs/reference/` — source notes and a map from the prototype-era ADRs.
 - `CODEX-HANDOFF.md` — the quick entry point for continuing the workshop in Codex.
 

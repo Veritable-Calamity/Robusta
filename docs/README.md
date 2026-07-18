@@ -43,6 +43,8 @@ Guides explain how to use the released platform. They describe supported workflo
 
 Roadmaps, compatibility matrices, implementation status, benchmark results, and conformance reports show what has actually been built.
 
+The current evidence-gated roadmap is [`status/development-plan.md`](status/development-plan.md). It sequences implementation work but does not change any accepted decision or implementation status.
+
 ## Order of authority
 
 When documents disagree, use this order:

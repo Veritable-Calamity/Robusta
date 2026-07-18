@@ -1,5 +1,12 @@
 # Documentation Changelog
 
+## 2026-07-18 — Initial development plan
+
+- Added an evidence-gated development plan derived from accepted product ADRs 0000-0013.
+- Sequenced product-decision and technical-ADR gates, a published walking skeleton, native gameplay, authoritative multiplayer, delivery and trust, creator workflow, migration, and release qualification.
+- Added milestone exit evidence, the capability definition of done, ADR traceability, major risks, and work safe to begin before the next design workshop.
+- Kept every ADR implementation status at `Not started`; the plan records intended sequencing rather than implementation evidence.
+
 ## 2026-07-18 — Initial design baseline
 
 - Added the Robusta Platform Constitution.
