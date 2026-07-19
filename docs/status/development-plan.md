@@ -4,7 +4,7 @@
 - **Baseline date:** 2026-07-18
 - **Planning horizon:** First supported platform release
 - **Decision authority:** Lower than the platform constitution and accepted ADRs
-- **Current implementation baseline:** M0 outcome and evidence contract implemented; gameplay capabilities remain scaffolded and unproven
+- **Current implementation baseline:** First-release scope and evidence baseline established (roadmap M0 complete); gameplay capabilities remain scaffolded and unproven
 
 ## Purpose
 
@@ -33,7 +33,7 @@ The target outcome is a release that an independent team can install, use to cre
 
 ## Scope guardrails
 
-Until M0 explicitly accepts a different 1.0 boundary, this plan does not make 3D rendering, mobile or console support, arbitrary public scripting, a centralized marketplace, full Space Station 14 parity, or live preservation of every world across arbitrary code changes a release prerequisite. These are permitted early limits from the constitution, not permanent exclusions.
+Unless ADR 0014 is superseded through the normal decision process, this plan does not make 3D rendering, mobile or console support, arbitrary public scripting, a centralized marketplace, full Space Station 14 parity, or live preservation of every world across arbitrary code changes a release prerequisite. These are permitted early limits from the constitution, not permanent exclusions.
 
 ## Workstreams
 
@@ -55,7 +55,7 @@ These workstreams run throughout the program. The milestones below describe when
 
 ```mermaid
 flowchart LR
-    M0["M0: Outcome and evidence contract"] --> M1["M1: Behavioral and technical gates"]
+    M0["M0: First-release scope and evidence baseline"] --> M1["M1: Behavioral and technical gates"]
     M1 --> M2["M2: Published walking skeleton"]
     M2 --> M3["M3: Native gameplay vertical slice"]
     M3 --> M4["M4: Authoritative multiplayer"]
@@ -67,9 +67,9 @@ flowchart LR
 
 The sequence is an order of evidence dependencies, not a requirement to serialize all engineering. Early versions of the artifact feed, CLI, package manifest, receipt, reference games, and migration census should begin as soon as their inputs are stable. Their release gates remain at the milestones shown.
 
-### M0 - Outcome and evidence contract
+### M0 - First-release scope and evidence baseline
 
-**Status:** Complete as of 2026-07-18. See [`m0-outcome-and-evidence-contract.md`](m0-outcome-and-evidence-contract.md) for the exit assessment and durable artifacts.
+**Status:** Complete as of 2026-07-18. See [`first-release-scope-and-evidence-baseline.md`](first-release-scope-and-evidence-baseline.md) for the baseline assessment and durable artifacts.
 
 **Objective:** Make scope, support claims, and proof requirements auditable before feature work expands.
 

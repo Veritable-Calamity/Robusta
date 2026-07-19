@@ -35,7 +35,7 @@ Specifications define behavior precisely enough to test. Planned examples includ
 - package manifests and locks;
 - save and map migration.
 
-The first catalog is [`specifications/m1-behavioral-scenarios.json`](specifications/m1-behavioral-scenarios.json). It gives the accepted ADR proof statements stable Given/When/Then contracts and test names while leaving unresolved M1 choices behind explicit decision gates.
+The product catalog is [`specifications/product-behavior-scenarios.json`](specifications/product-behavior-scenarios.json). It gives accepted ADR proof statements stable Given/When/Then contracts and conformance-test identifiers while leaving unresolved choices behind explicit decision dependencies.
 
 ## 5. Guides
 
@@ -45,7 +45,7 @@ Guides explain how to use the released platform. They describe supported workflo
 
 Roadmaps, compatibility matrices, implementation status, benchmark results, and conformance reports show what has actually been built.
 
-The current evidence-gated roadmap is [`status/development-plan.md`](status/development-plan.md). Milestone 0's implemented governance contract, support matrix, evidence ledger, capability register, metrics, reference-game charters, and migration baseline begin at [`status/m0-outcome-and-evidence-contract.md`](status/m0-outcome-and-evidence-contract.md).
+The current evidence-gated roadmap is [`status/development-plan.md`](status/development-plan.md). The established first-release scope and evidence baseline, support matrix, evidence ledger, capability register, metrics, reference-game charters, and migration baseline begin at [`status/first-release-scope-and-evidence-baseline.md`](status/first-release-scope-and-evidence-baseline.md). The roadmap records this baseline as the completed M0 checkpoint.
 
 ## Order of authority
 

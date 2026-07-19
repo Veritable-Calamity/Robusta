@@ -89,7 +89,7 @@ Approval may accept both proposals, accept either proposal independently, or req
 
 The proposals define observable fixtures for atomic birth and rollback, atomic capability changes, declared relationship cleanup, stale-reference non-aliasing, world disposal, exact headless step advancement, frame-rate independence, overload reporting, pause behavior, timer ownership and cancellation, and non-authoritative client smoothing.
 
-Those fixtures supplement the accepted cross-capability scenarios in [`m1-behavioral-scenarios.json`](../specifications/m1-behavioral-scenarios.json). Stable executable names will be added after the decisions are accepted; no runtime evidence is claimed now.
+Those fixtures supplement the accepted cross-capability scenarios in [`product-behavior-scenarios.json`](../specifications/product-behavior-scenarios.json). Stable executable names will be added after the decisions are accepted; no runtime evidence is claimed now.
 
 ## Technical questions deferred
 

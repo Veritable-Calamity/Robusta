@@ -2,9 +2,10 @@
 
 **Working baseline:** 2026-07-18
 **Decision scope:** the greenfield, release-grade Robusta platform
-**Implementation status:** not yet implemented
+**Runtime capability status:** scaffold only; gameplay capabilities remain unproven
+**Release scope and evidence baseline:** established
 
-The repository contains a buildable scaffold and the implemented Milestone 0 outcome-and-evidence contract. Milestone 0 establishes scope, support, artifact-feed, measurement, migration-census, and evidence rules; it does not claim a gameplay capability.
+The repository contains a buildable scaffold and an established first-release scope and evidence baseline. The baseline defines scope, support, artifact-feed, measurement, migration-census, and evidence rules; it does not claim a gameplay capability.
 
 ## Project layout
 
@@ -45,7 +46,7 @@ Build the versioned bootstrap artifact feed and verify ordinary package consumpt
 ./eng/verify-external-consumption.ps1
 ```
 
-See [`docs/status/m0-outcome-and-evidence-contract.md`](docs/status/m0-outcome-and-evidence-contract.md) for the accepted first-release support matrix and auditable evidence contract.
+See [`docs/status/first-release-scope-and-evidence-baseline.md`](docs/status/first-release-scope-and-evidence-baseline.md) for the accepted first-release support matrix and auditable evidence contract.
 
 This repository-ready documentation set records the product-level decisions agreed during the Robusta platform design workshops and evolves as each new question is reviewed.
 

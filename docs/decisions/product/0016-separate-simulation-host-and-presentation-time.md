@@ -147,7 +147,7 @@ No scheduler, timer, pause, prediction, or rendering-time implementation is clai
 - [ADR 0012](0012-separate-game-host-and-world-state.md)
 - [ADR 0014](0014-define-first-release-boundary-and-delivery.md)
 - [ADR 0015 proposal](0015-give-entities-an-atomic-observable-lifecycle.md)
-- [M1 development gate](../../status/development-plan.md#m1---behavioral-and-technical-gates)
+- [Behavioral and technical decision gate (roadmap M1)](../../status/development-plan.md#m1---behavioral-and-technical-gates)
 - [World-model questions 9-12](../../workshops/world-model-question-set.md#c-how-does-time-work)
 - [Current Robust Toolbox entity manager tick and frame updates](https://github.com/space-wizards/RobustToolbox/blob/master/Robust.Shared/GameObjects/EntityManager.cs)
 - [Space Station 14 prediction guide](https://docs.spacestation14.com/en/ss14-by-example/prediction-guide.html)

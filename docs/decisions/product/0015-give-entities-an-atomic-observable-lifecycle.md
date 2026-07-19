@@ -134,7 +134,7 @@ No entity lifecycle implementation is claimed. Public entity handles, stores, li
 - [ADR 0011](0011-define-world-as-isolated-simulation.md)
 - [ADR 0012](0012-separate-game-host-and-world-state.md)
 - [ADR 0013](0013-use-entities-for-independent-world-participants.md)
-- [M1 development gate](../../status/development-plan.md#m1---behavioral-and-technical-gates)
+- [Behavioral and technical decision gate (roadmap M1)](../../status/development-plan.md#m1---behavioral-and-technical-gates)
 - [World-model questions 5-8](../../workshops/world-model-question-set.md#b-what-is-a-game-object)
 - [Robust Toolbox ECS documentation](https://docs.spacestation14.com/en/robust-toolbox/ecs.html)
 - [Current Robust Toolbox entity manager](https://github.com/space-wizards/RobustToolbox/blob/master/Robust.Shared/GameObjects/EntityManager.cs)

@@ -6,7 +6,7 @@
       "id": "governance.evidence-contract",
       "label": "Preview",
       "owner": "governance-workstream",
-      "evidence": ["docs/status/m0-outcome-and-evidence-contract.md", "docs/status/evidence/ledger.json"],
+      "evidence": ["docs/status/first-release-scope-and-evidence-baseline.md", "docs/status/evidence/ledger.json"],
       "missing": ["independent audit of first release scorecard"]
     },
     {
@@ -21,7 +21,7 @@
       "label": "Experimental",
       "owner": "robusta-maintainers",
       "evidence": ["README.md"],
-      "missing": ["all executable capability evidence from M2-M8"]
+      "missing": ["executable gameplay, creator-workflow, multiplayer, delivery, migration, and release-qualification evidence"]
     },
     {
       "id": "migration.census",

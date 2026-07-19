@@ -6,18 +6,18 @@
 - Added proposed ADR 0016 for fixed authoritative steps, bounded catch-up, whole-world pause, simulation-time timers, and non-authoritative presentation time.
 - Recorded the comparison workshop and nine explicit product choices awaiting approval; no runtime implementation or accepted decision is claimed.
 
-## 2026-07-18 — Milestone 1 behavioral scenario contract
+## 2026-07-18 — Product behavioral scenario catalog established (roadmap M1)
 
 - Converted the accepted proof statements for ADRs 0003-0009 and 0011-0013 into technology-neutral Given/When/Then scenarios with stable conformance-test names.
 - Added a versioned behavioral-scenario schema and explicit product and technical decision gates without claiming runtime implementation.
 - Added architecture tests that keep the scenario catalog aligned with the evidence ledger and accepted product ADRs.
 
-## 2026-07-18 — Milestone 0 outcome and evidence contract
+## 2026-07-18 — First-release scope and evidence baseline established (roadmap M0)
 
 - Accepted ADR 0014 defining the exact 1.0 boundary, Windows and Ubuntu support matrix, artifact channels, and launcher/registry responsibilities.
-- Added the evidence-packet schema, complete ADR traceability ledger, capability register, metric baselines, and M0 exit assessment.
+- Added the evidence-packet schema, complete ADR traceability ledger, capability register, metric baselines, and first-release baseline assessment.
 - Added independent reference-game charters and a versioned Robust Toolbox migration census and conformance corpus.
-- Added clean-machine CI, versioned SDK packing, external NuGet consumption verification, and architecture tests for the M0 contract.
+- Added clean-machine CI, versioned SDK packing, external NuGet consumption verification, and architecture tests for the release scope and evidence baseline.
 
 ## 2026-07-18 — Initial development plan
 
