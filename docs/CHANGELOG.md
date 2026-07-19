@@ -1,5 +1,11 @@
 # Documentation Changelog
 
+## 2026-07-19 — Capability-oriented contract names and executable schemas
+
+- Renamed the product behavior catalog and first-release evidence baseline so their identities describe their contents; milestone codes remain only as roadmap metadata.
+- Split architecture checks into product-behavior, evidence-ledger, capability-registry, measurement, migration, platform-pipeline, and status-schema contracts.
+- Replaced milestone-coded delivery evidence identifiers, added collision-resistant packet identities, and made generated packets and the product behavior catalog execute their JSON Schema contracts.
+
 ## 2026-07-18 — Entity lifecycle and simulation time proposed
 
 - Added proposed ADR 0015 for atomic entity birth, capability mutation, death, relationship cleanup, and stale-reference behavior.

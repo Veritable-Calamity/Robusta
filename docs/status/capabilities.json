@@ -10,7 +10,7 @@
       "missing": ["independent audit of first release scorecard"]
     },
     {
-      "id": "artifact-feed.bootstrap",
+      "id": "delivery.sdk-package-feed",
       "label": "Experimental",
       "owner": "delivery-workstream",
       "evidence": [".github/workflows/ci.yml", "eng/build-artifact-feed.ps1", "eng/verify-external-consumption.ps1"],

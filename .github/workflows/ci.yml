@@ -38,7 +38,7 @@ jobs:
         run: ./eng/verify-external-consumption.ps1 -Feed artifacts/feed
       - uses: actions/upload-artifact@v4
         with:
-          name: m0-evidence-${{ matrix.platform }}
+          name: sdk-package-feed-evidence-${{ matrix.platform }}
           path: |
             artifacts/feed
             artifacts/evidence

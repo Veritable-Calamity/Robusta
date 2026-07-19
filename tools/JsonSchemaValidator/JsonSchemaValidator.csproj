@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <AssemblyName>Robusta.Tools.JsonSchemaValidator</AssemblyName>
+    <RootNamespace>Robusta.Tools.JsonSchemaValidator</RootNamespace>
+    <Description>Validates Robusta JSON artifacts against their declared contracts.</Description>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="JsonSchema.Net" />
+  </ItemGroup>
+</Project>

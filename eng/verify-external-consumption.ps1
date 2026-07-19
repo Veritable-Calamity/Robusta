@@ -21,7 +21,7 @@ try {
 <configuration>
   <packageSources>
     <clear />
-    <add key="robusta-bootstrap" value="$feedPath" />
+    <add key="robusta-local-artifact-feed" value="$feedPath" />
   </packageSources>
 </configuration>
 "@ | Set-Content $nugetConfig -Encoding utf8
@@ -42,14 +42,20 @@ try {
 
     New-Item -ItemType Directory -Force -Path $evidencePath | Out-Null
     $feedIndex = Join-Path $feedPath "index.json"
+    $observedAtUtc = [DateTimeOffset]::UtcNow
+    $packetId = [String]::Format(
+        "external-sdk-package-consumption-{0}-{1}",
+        $observedAtUtc.ToString("yyyyMMddTHHmmssfffZ"),
+        [Guid]::NewGuid().ToString("N"))
+    $packetPath = Join-Path $evidencePath "external-sdk-package-consumption.json"
     [ordered]@{
         schemaVersion = 1
-        packetId = "m0-artifact-001-" + [DateTimeOffset]::UtcNow.ToString("yyyyMMddHHmmss")
-        scenarioId = "M0-ARTIFACT-001"
-        capabilityId = "artifact-feed.bootstrap"
+        packetId = $packetId
+        scenarioId = "external-sdk-package-consumption"
+        capabilityId = "delivery.sdk-package-feed"
         facet = "packaging"
         result = "passed"
-        observedAtUtc = [DateTimeOffset]::UtcNow.ToString("O")
+        observedAtUtc = $observedAtUtc.ToString("O")
         environment = [ordered]@{
             os = [Environment]::OSVersion.VersionString
             architecture = [Runtime.InteropServices.RuntimeInformation]::OSArchitecture.ToString()
@@ -71,7 +77,22 @@ try {
             sha256 = (Get-FileHash $feedIndex -Algorithm SHA256).Hash.ToLowerInvariant()
         })
         notes = "A temporary project outside the repository restored and built using only feed packages."
-    } | ConvertTo-Json -Depth 6 | Set-Content (Join-Path $evidencePath "external-consumption.json") -Encoding utf8
+    } | ConvertTo-Json -Depth 6 | Set-Content $packetPath -Encoding utf8
+
+    $schemaValidatorProject = Join-Path $repositoryRoot "tools/JsonSchemaValidator/JsonSchemaValidator.csproj"
+    $evidencePacketSchema = Join-Path $repositoryRoot "docs/status/evidence/evidence-packet.schema.json"
+    $validatorArguments = @(
+        "run",
+        "--project", $schemaValidatorProject,
+        "--configuration", "Release",
+        "--no-build",
+        "--no-restore",
+        "--",
+        $evidencePacketSchema,
+        $packetPath
+    )
+    dotnet @validatorArguments
+    if ($LASTEXITCODE -ne 0) { throw "The external-consumption evidence packet failed schema validation." }
 }
 finally {
     if (Test-Path -LiteralPath $workPath) {
