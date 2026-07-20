@@ -1,7 +1,7 @@
 # ADR Coherence, Implementation Pain, and First-Release Baseline Audit
 
 - **Audit status:** Complete for accepted ADRs 0000-0038
-- **Resolution update:** ADRs 0026-0038 are accepted; ADR 0037 amends ADR 0024, while dependent spatial, persistence, catalog-adoption, and collaborative-authoring technical decisions remain queued
+- **Resolution update:** ADRs 0026-0038 are accepted; product ADRs 0039-0041 and technical ADRs 0042-0043 are proposed for review, while implementation and the remaining spatial, persistence, client, networking, operations, UGC, and delivery mechanisms remain open
 - **Date:** 2026-07-19
 - **Decision authority:** Advisory; accepted ADRs remain authoritative
 - **Implementation baseline:** Greenfield scaffold; no gameplay capability is demonstrated
@@ -20,7 +20,7 @@ The audit found one direct technical contradiction, one unresolved product-topol
 4. Maps, coordinates, relations, transfer, and the platform/game boundary lacked product answers even though a 2D station-like game and the 1.0 boundary require them.
 5. Persistence, prototype adoption, writable-data rollback, map preview, public UGC execution, publisher trust lifecycle, transport security, server operations, and quantitative migration coverage remain incomplete.
 
-ADRs 0026-0029 subsequently resolved the decision-level scope graph, offline-authority topology, supported-code boundary, and deterministic access/effect contract. Product ADRs 0030-0038 now resolve the spatial, platform-boundary, persistence, catalog-adoption, and map-authoring questions through Option A. ADR 0033 keeps platform-maintained station components on ordinary public package and declared-trust paths, while ADR 0038 supports authenticated server-hosted collaborative document editing without serializing arbitrary gameplay state. All implementations remain not started, and the dependent technical gates remain open.
+ADRs 0026-0029 subsequently resolved the decision-level scope graph, offline-authority topology, supported-code boundary, and deterministic access/effect contract. Product ADRs 0030-0038 now resolve the spatial, platform-boundary, persistence, catalog-adoption, and map-authoring questions through Option A. ADR 0033 keeps platform-maintained station components on ordinary public package and declared-trust paths, while ADR 0038 supports authenticated server-hosted collaborative document editing without serializing arbitrary gameplay state. Proposed product ADRs 0039-0041 make inspection, isolated testing, and bounded replay reviewable, and proposed technical ADRs 0042-0043 make the event/commit and identity/compatibility gaps concrete. No proposal is accepted and all implementations remain not started.
 
 The prudent path is therefore to keep ADR 0014's 1.0 promise intact, make the missing contracts visible as gates, and resist calling the scaffold or a walking skeleton “1.0.” If the intended first release is materially narrower than ADR 0014, ADR 0014 must be superseded explicitly rather than narrowed through a roadmap note.
 
@@ -31,6 +31,7 @@ This audit compared:
 - every accepted product ADR 0000-0016 and 0026-0027;
 - every accepted technical ADR 0017-0025 and 0028-0029;
 - accepted product ADRs 0030-0038 as the disposition of world-model questions 13-23;
+- proposed product ADRs 0039-0041 and proposed technical ADRs 0042-0043 as unaccepted dispositions of open findings;
 - the platform constitution, world-model question set, development plan, capability registry, evidence ledger, migration census, reference-game charters, and metrics baseline;
 - the local greenfield implementation;
 - the Robusta predecessor snapshot at [`61c71c068202c61575e48d6587ba53f300bed69b`](https://github.com/Veritable-Calamity/Robusta/tree/61c71c068202c61575e48d6587ba53f300bed69b);
@@ -109,13 +110,14 @@ Robusta's selected generational handles, atomic birth, explicit scopes, canonica
 | C-03 | 0011, 0012, 0017, 0018, 0020 | Arbitrary trusted C# can mutate statics, retain aliases, start threads, call native code, or block. Scopes and analyzers cannot make hard multi-world isolation or deterministic recovery true for all executable code. | **Decision resolved:** ADR 0026 defines the supported conformance and fault-escalation boundary without mislabeling trusted code as sandboxed. Implementation evidence remains open. |
 | C-04 | 0003, 0018, 0019, 0020 | Parallel-first scheduling lacks enforceable phase access, alias lifetime, side-effect, reducer, I/O, exception, and thread-affinity rules. The predecessor and Robust Toolbox authoring models both expose mutable references and serial effects. | **Decision resolved:** ADR 0029 makes unproven code exclusive and preserves the serial oracle. Implementation evidence remains open. |
 | C-05 | 0011, 0013-0016, 0023-0025, 0030-0038 | **Decision resolved:** accepted Option A answers now define maps, coordinate spaces, typed relations, transfer, platform foundations, persistence, prototype adoption, and source-oriented collaborative map editing. | Derive the spatial, persistence, catalog-adoption, and creator-authority technical ADRs before SDK, wire, save, or collaborative-edit surfaces freeze. Implementation evidence remains open. |
-| C-06 | 0001, 0003, 0014 | A supported 2D desktop client is required, but no renderer, window, input, audio, UI, physics, or platform-threading contract has been chosen. | Select a minimal 2D client stack and public abstraction boundary before the native gameplay vertical slice. |
+| C-06 | 0001, 0003, 0014, 0026, 0033, 0034 | A supported 2D desktop client is required, but no renderer, window, input, audio, UI, physics, or platform-threading contract has been chosen. The options assessment establishes a backend-neutral boundary and bakeoff plan, not a selection. | Accept the public abstraction and affinity contracts, run the documented clean-machine bakeoffs, then select the smallest coherent stack before the native gameplay vertical slice. |
+| C-07 | 0002, 0011, 0014, 0015, 0016, 0020, 0029, 0039-0041 | Inspection, isolated-test, replay, and stronger determinism promises were open product questions. ADRs 0039-0041 now recommend bounded Option A answers. | Explicitly accept, revise, or reject each proposal before its public SDK, production protocol, or durable replay format freezes. |
 
 ### High-priority completeness gaps
 
 | ID | Affected ADRs | Finding | Required disposition |
 |---|---|---|---|
-| P-01 | 0003, 0015, 0019, 0020 | Event categories and same-step semantics are undefined: synchronous queries, cancelable events, buffered notifications, reentrancy, structural visibility, entity-result handles, and post-commit continuation. | Technical event/commit ADR before ordinary systems/events API freezes. |
+| P-01 | 0003, 0015, 0019, 0020, 0029, 0042 | Event categories and same-step semantics require an explicit contract: synchronous requests, commands, gameplay events, notifications, reentrancy, structural visibility, operation results, conflicts, and post-commit continuation. Proposed ADR 0042 recommends typed kinds and transactional commit frontiers. | Review ADR 0042 before ordinary systems/events API freezes. No implementation proceeds from the proposal alone. |
 | P-02 | 0016, 0020 | “Never skip steps” can accumulate unbounded stale work. Per-world fairness, backlog limits, input bounds, load shedding, disconnect, restart, and operator policy are not defined. | Simulation overload and admission/backpressure ADR before production hosting. |
 | P-03 | 0012, 0021, 0024, 0037 | **Product decision resolved:** accepted ADR 0037 keeps existing birth state stable unless an explicit migration commits and amends ADR 0024 so rollback covers preparation rejection and known reversible commit failure while all targets and client publication remain fenced, never arbitrary postcommit rewind. | Define the catalog-adoption transaction and client-generation admission matrix in technical ADRs and executable scenarios. |
 | P-04 | 0006, 0023 | Generated schema is only part of networking. Transport, handshake cryptography, secrecy/owner-only state, PVS, late-input windows, predicted side effects, spawn/deletion reconciliation, correction budgets, and overload policy are missing. | Network transport/session and prediction/interest ADRs before the M4 contract freezes. |
@@ -123,10 +125,10 @@ Robusta's selected generational handles, atomic birth, explicit scopes, canonica
 | P-06 | 0004, 0007, 0008, 0022 | Content addressing proves identity, not publisher authority. Trust roots, key rotation, revocation, downgrade/freeze defense, offline policy, leases, and garbage-collection safety remain open. | Distribution trust-lifecycle ADR before publication is Supported. |
 | P-07 | 0007, 0014, 0018 | Public UGC is required for 1.0, but its declarative operation model, validation, capabilities, deterministic semantics, memory/CPU budgets, and denial behavior are not bounded. | Define 1.0 UGC narrowly as validated data/assets plus a finite game-declared operation set; accept a resource-budget ADR. |
 | P-08 | 0001, 0012, 0014 | Dedicated-server configuration and operation lack layering, secret injection, admin authentication, health/readiness, graceful drain, crash recovery, and backup coordination. | Server operations/configuration ADR before M5. |
-| P-09 | 0018, 0021-0023 | Generated code manifest, content catalog, network schema, and release receipt are separately useful identities, but their linkage and compatibility matrix are not explicit. | Define one identity spine without merging executable code metadata into authored content. |
+| P-09 | 0018, 0021-0023, 0030-0038, 0043 | Generated code manifest, content catalog, network schema, release receipt, runtime, durable, document, session, and spatial identities need explicit linkage without substitution. Proposed ADR 0043 recommends nominal scoped identities, purpose-bound mappings, and operation-specific compatibility. | Review ADR 0043 before identity types or compatibility descriptors become public or durable. |
 | P-10 | 0005, 0008, 0021 | Content identifier grammar, Unicode/case normalization, merge/inheritance/patch semantics, localization/resource identities, semantic digest envelope, and live-generation adoption remain follow-ups. | Settle before identifiers become public or durable. |
 | P-11 | 0010, 0025 | Migration has no immutable predecessor receipt, named Robust Toolbox baseline, weighted coverage target, allowed `ManualPort`/`Unsupported` rate, or compatibility-package retirement policy. | Archive baselines and accept a quantitative migration release profile before M7 qualification. |
-| P-12 | 0002, 0014 | Reference-game repositories and named independent maintainers are not yet provisioned; every performance baseline is `null`. | Treat external use and representative budgets as release blockers, not documentation placeholders. |
+| P-12 | 0002, 0014 | Reference-game repositories and named independent maintainers are not yet provisioned; every performance baseline is `null`. Versioned workload inputs now make measurement taskable but do not provide evidence or pass/fail budgets. | Treat external use and representative budgets as release blockers, not documentation placeholders; assign owners and measure before setting numeric gates. |
 | P-13 | 0003, 0018 | The post-Preview SDK compatibility, deprecation, support-window, and source/binary versioning policy is unspecified. | Accept before publishing a Stable SDK. |
 
 ## ADR-by-ADR assessment
@@ -165,6 +167,8 @@ Robusta's selected generational handles, atomic birth, explicit scopes, canonica
 | 0029 | Necessary enforcement | Keep unknown work exclusive and prove buffered effects against the serial oracle. |
 | 0030-0034 | Accepted spatial/foundation disposition | Derive frame, typed-relation, transfer, genre-neutral platform, and extension-ladder mechanisms; preserve bounded 1.0 proofs for static grids and same-world relocation. |
 | 0035-0038 | Accepted persistence/tooling disposition | Derive checkpoint, durable-reference, catalog-adoption, collaborative document, and isolated-preview mechanisms without conflating source documents with gameplay snapshots. |
+| 0039-0041 | Proposed inspection/testing/replay disposition | Review the bounded Option A promises; do not freeze public inspection, Test SDK, or replay artifacts before acceptance. |
+| 0042-0043 | Proposed foundational technical disposition | Review typed message/commit semantics and the typed identity/compatibility spine before their public or durable contracts freeze. |
 
 ## First-release baseline
 
@@ -214,10 +218,11 @@ A published walking skeleton may be called Preview when it proves external packa
 1. **Completed:** accept ADRs 0026-0029 for conformance/fault boundary, offline authority, corrected scope graph, and deterministic access/effects.
 2. **Completed:** accept ADRs 0030-0034 for maps, coordinates, typed relations, transfer, platform foundations, and extension boundaries.
 3. **Completed:** accept ADRs 0035-0038 for saves, durable references, prototype change, and source-oriented collaborative map editing with isolated preview.
-4. Derive spatial, persistence, event/commit, client-stack, and overload technical ADRs.
-5. Implement one serial semantic path and deterministic buffers first; enable parallel batches over the same path only after validation and oracle evidence exist.
-6. Deliver the external walking skeleton, then freeze networking interest/prediction and the 2D client foundation from real use.
-7. Complete distribution trust, operations, persistence, public UGC, and migration release profiles before 1.0 qualification.
+4. **Review next in parallel lanes:** product ADRs 0039 → 0040 → 0041, and foundational technical ADRs 0042 → 0043. Replay-specific mechanisms wait for ADR 0041 even though the foundational lane is independent.
+5. Derive and review the spatial, persistence, client-boundary, networking, overload, trust, UGC, and operations technical ADRs against the common evaluation workloads.
+6. Implement one serial semantic path and deterministic buffers first; enable parallel batches over the same path only after validation and oracle evidence exist.
+7. Deliver the external walking skeleton, then freeze networking interest/prediction and the 2D client foundation from real use.
+8. Complete distribution trust, operations, persistence, public UGC, and migration release profiles before 1.0 qualification.
 
 ## Additional ADRs generated by this audit
 
@@ -235,14 +240,25 @@ The queued product answers generated from the same audit are now an accepted dep
 
 Each decision accepts Option A. ADR 0033 explicitly denies privileged platform-only station-package paths, ADR 0037 amends ADR 0024, and ADR 0038 adds authenticated server-hosted collaborative document editing while rejecting arbitrary gameplay-world serialization. No implementation is claimed.
 
+The next generated review set remains proposed:
+
+- [ADRs 0039-0041](../workshops/2026-07-19-world-model-06-inspection-testing-and-replay.md) recommend Option A for authorized committed-state inspection, supported-runtime isolated testing, and authoritative replay within a declared compatibility domain.
+- [ADR 0042](../decisions/technical/0042-use-typed-message-kinds-and-transactional-structural-commits.md) recommends typed message kinds and transactional structural commit frontiers.
+- [ADR 0043](../decisions/technical/0043-use-a-typed-identity-and-compatibility-spine.md) recommends nominal scoped identities, purpose-bound mappings, and operation-specific compatibility.
+
+None is accepted or implementation authority.
+
 ## Remaining ADR queue
 
 | Priority | Decision |
 |---|---|
 | P0 | Spatial technical set after ADRs 0030-0034: transform graph, compact grids and topology, spatial queries, physics ordering, interest, and transfer coordination |
 | P0 | Persistence technical set after ADRs 0035-0038: save format and repository, durable identity tables, migration transactions, catalog adoption, and editor protocols |
-| P0 | Event and structural-commit semantics |
-| P0 | 2D client foundation and platform-thread affinity |
+| P0 | Review proposed ADR 0042 for event and structural-commit semantics |
+| P0 | Review proposed ADR 0043 for identity and compatibility linkage |
+| P0 | Minimal M2 client/authority session contract: loopback transport, protected rendezvous, authentication, receipt/schema compatibility, one generated input/state path, rejection, readiness, and cleanup |
+| P0 | 2D client foundation and platform-thread affinity after the documented backend-neutral contract and bakeoffs |
+| P0 | Review proposed product ADRs 0039-0041 and their explicit ADR 0014 first-release amendments |
 | P1 | Network transport/session security, interest/secrecy, prediction side effects, and overload |
 | P1 | Simulation overload, admission, fairness, and host recovery |
 | P1 | Public UGC operation language, validation, and resource budgets |
@@ -250,7 +266,7 @@ Each decision accepts Option A. ADR 0033 explicitly denies privileged platform-o
 | P1 | Server configuration, administration, health, drain, backup, and crash recovery |
 | P1 | Code-manifest, catalog, schema, and receipt identity linkage |
 | P2 | SDK compatibility/deprecation policy and migration release profile |
-| P2 | Replay and stronger numerical determinism after persistence decisions |
+| P2 | Derive replay implementation mechanisms only after ADR 0041 acceptance and persistence compatibility work |
 
 ## Conclusion
 

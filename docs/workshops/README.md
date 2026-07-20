@@ -26,7 +26,9 @@ Each top-level question should be discussed in this order:
 
 ## Workshop status
 
-- `2026-07-19-world-model-05-space-persistence-and-preview.md` — accepted ADRs 0030–0038 via Option A for questions 13–23; ADR 0037 amends ADR 0024, the ADR 0033 public-SDK/no-privileged-internals and ADR 0038 collaborative-source-editing qualifications are recorded, implementation remains not started, and questions 24–26 are queued next.
+- `2026-07-19-world-model-06-inspection-testing-and-replay.md` — proposes Option A in ADRs 0039-0041 for questions 24-26: authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within a declared compatibility domain. None is accepted or implementation authority.
+
+- `2026-07-19-world-model-05-space-persistence-and-preview.md` — accepted ADRs 0030–0038 via Option A for questions 13–23; ADR 0037 amends ADR 0024, the ADR 0033 public-SDK/no-privileged-internals and ADR 0038 collaborative-source-editing qualifications are recorded, and implementation remains not started.
 
 - `2026-07-18-world-model-04-entity-lifecycle-and-simulation-time.md` — accepted ADRs 0015 and 0016: atomic entity lifecycle and fixed simulation time separated from host and presentation time.
 

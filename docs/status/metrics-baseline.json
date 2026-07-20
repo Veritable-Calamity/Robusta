@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-07-18",
+  "updated": "2026-07-19",
   "policy": "Null means not yet honestly measurable; it is not zero and does not pass a budget.",
   "metrics": [
     { "id": "installation-to-playable", "owner": "creator-workflow", "unit": "seconds", "fixture": "clean supported machine to template local play", "baseline": null, "firstCollectionOutcome": "published-walking-skeleton", "plannedMilestone": "M2" },
@@ -11,6 +11,13 @@
     { "id": "compatibility-clarity", "owner": "delivery-workstream", "unit": "percent expected reason and remedy", "fixture": "versioned incompatible client/package/save corpus", "baseline": null, "firstCollectionOutcome": "authoritative-multiplayer", "plannedMilestone": "M4" },
     { "id": "tick-stability", "owner": "runtime-workstream", "unit": "p99 tick milliseconds", "fixture": "reference-game representative workload", "baseline": null, "firstCollectionOutcome": "authoritative-multiplayer", "plannedMilestone": "M4" },
     { "id": "resource-use", "owner": "runtime-workstream", "unit": "peak resident mebibytes and cpu-seconds", "fixture": "reference-game representative workload", "baseline": null, "firstCollectionOutcome": "native-gameplay-and-content-vertical-slice", "plannedMilestone": "M3" },
+    { "id": "frame-and-spatial-query-cost", "owner": "runtime-workstream", "unit": "microseconds and allocations per versioned W1 operation batch", "fixture": "technical-evaluation-workloads W1 station-like static space", "baseline": null, "firstCollectionOutcome": "native-gameplay-and-content-vertical-slice", "plannedMilestone": "M3" },
+    { "id": "network-interest-cost", "owner": "multiplayer-workstream", "unit": "cpu microseconds and bytes per client per second", "fixture": "technical-evaluation-workloads W6 interest and secrecy", "baseline": null, "firstCollectionOutcome": "authoritative-multiplayer", "plannedMilestone": "M4" },
+    { "id": "checkpoint-capture-fence", "owner": "persistence-workstream", "unit": "milliseconds of authoritative-world fence", "fixture": "technical-evaluation-workloads W3 checkpoint graph", "baseline": null, "firstCollectionOutcome": "delivery-trust-compatibility-and-operations", "plannedMilestone": "M5" },
+    { "id": "checkpoint-restore-time", "owner": "persistence-workstream", "unit": "seconds to validated unpublished reconstruction", "fixture": "technical-evaluation-workloads W3 checkpoint graph", "baseline": null, "firstCollectionOutcome": "delivery-trust-compatibility-and-operations", "plannedMilestone": "M5" },
+    { "id": "catalog-adoption-fence", "owner": "creator-workflow", "unit": "milliseconds fenced and milliseconds to reversal", "fixture": "technical-evaluation-workloads W4 catalog adoption", "baseline": null, "firstCollectionOutcome": "complete-creator-workflow", "plannedMilestone": "M6" },
+    { "id": "collaborative-edit-latency", "owner": "creator-workflow", "unit": "p99 milliseconds from admitted command to canonical revision", "fixture": "technical-evaluation-workloads W5 collaborative map document", "baseline": null, "firstCollectionOutcome": "complete-creator-workflow", "plannedMilestone": "M6" },
+    { "id": "preview-startup", "owner": "creator-workflow", "unit": "seconds from valid draft to attached preview client", "fixture": "technical-evaluation-workloads W5 collaborative map document", "baseline": null, "firstCollectionOutcome": "complete-creator-workflow", "plannedMilestone": "M6" },
     { "id": "migration-coverage", "owner": "migration-workstream", "unit": "percent by assessment category", "fixture": "conformance-corpus-v1", "baseline": null, "firstCollectionOutcome": "assisted-robust-toolbox-migration", "plannedMilestone": "M7" }
   ]
 }

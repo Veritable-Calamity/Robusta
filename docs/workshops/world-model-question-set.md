@@ -1,6 +1,6 @@
 # Next Workshop: Worlds, Objects, Time, Maps, and Persistence
 
-**Status:** Questions 1-23 are answered by accepted ADRs 0011-0013, 0015-0016, and 0030-0038. Questions 24-26 are the next queued product questions.
+**Status:** Questions 1-23 are answered by accepted ADRs 0011-0013, 0015-0016, and 0030-0038. Questions 24-26 have review-ready proposed answers in ADRs 0039-0041; none is accepted.
 
 This question set remains at the product and layman level. It should determine what game developers and players can rely on before the team chooses an ECS layout, physics library, map encoding, or save format.
 
@@ -138,16 +138,22 @@ ADR 0038 also permits a server host to run collaborative mapping sessions for au
 
 ### 24. How should a developer inspect a running world?
 
+**Proposed answer:** [ADR 0039](../decisions/product/0039-inspect-running-worlds-through-authorized-snapshots.md), Option A recommended and not accepted.
+
 What information should be visible about an object's components, prototype origin, parent, container, position, network state, and lifecycle?
 
 ### 25. How easy should isolated world tests be?
+
+**Proposed answer:** [ADR 0040](../decisions/product/0040-test-isolated-worlds-through-the-supported-runtime.md), Option A recommended and not accepted.
 
 Can a test create a small world with fake time, known prototypes, and no global state? Can several tests or previews run without contaminating one another?
 
 ### 26. How should replay and determinism fit the world model?
 
+**Proposed answer:** [ADR 0041](../decisions/product/0041-record-versioned-authoritative-replays-with-declared-determinism.md), Option A recommended and not accepted.
+
 What should be recordable, reproducible, or comparable when diagnosing a bug or validating a migration?
 
 ## Recommended discussion order
 
-Questions 1-23 are settled. Questions 24-26 are queued next for runtime inspection, isolated tests, replay, and any stronger determinism promises.
+Questions 1-23 are settled. Review proposed ADRs 0039, 0040, and 0041 in that order for runtime inspection, isolated tests, replay, and the bounded determinism promise. Acceptance still requires an explicit decision for each ADR.

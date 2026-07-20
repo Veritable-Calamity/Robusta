@@ -13,6 +13,8 @@ CI records the exact package versions, feed, source revision, operating system, 
 - **Purpose:** exercise prototypes, maps and constructed grids, entity interaction, prediction, inventory, entity-bound UI, persistence, server administration, and migration-relevant behavior.
 - **First evidence:** Published walking skeleton (roadmap M2)
 - **Completion evidence:** Release qualification (roadmap M8)
+- **Initial technical fixtures:** W0 published loopback walk, W1 station-like static space, W3 checkpoint graph, W4 catalog adoption, W5 collaborative map document, and W6 interest/secrecy from the [technical evaluation workloads](../specifications/technical-evaluation-workloads.md).
+- **First-release spatial boundary:** static compact-grid construction, anchoring, containment, and same-world relocation. Dynamic grid split/merge is a later capability proof under ADR 0031.
 
 ## Contrasting game
 
@@ -22,6 +24,7 @@ CI records the exact package versions, feed, source revision, operating system, 
 - **Purpose:** exercise fast world replacement, many short-lived participants, deterministic match rules, client prediction, spectator sessions, and data-oriented arena state.
 - **First evidence:** Published walking skeleton (roadmap M2)
 - **Completion evidence:** Release qualification (roadmap M8)
+- **Initial technical fixtures:** W0 published loopback walk and W2 contrasting arena from the [technical evaluation workloads](../specifications/technical-evaluation-workloads.md), plus the no-station-package and headless capability-omission profiles.
 
-Named individuals and repository URLs are recorded in the ledger when those repositories are provisioned. Until then, no external-use facet may pass.
+The fixture inputs are provisional until the reference-game owners approve or replace them with versioned alternatives. Named individuals and repository URLs are recorded in the ledger when those repositories are provisioned. Until then, no external-use facet may pass and no provisional measurement becomes a release budget.
 

@@ -3,11 +3,12 @@
 - **Baseline status:** Established
 - **Roadmap checkpoint:** M0 complete
 - **Date:** 2026-07-18
+- **Last reconciled:** 2026-07-19
 - **Owner:** Robusta maintainers
 
-This baseline establishes what may be claimed and how later delivery work must prove it. It does not demonstrate a gameplay capability. Accepted ADRs 0030-0038 answer world-model questions 13-23; their product semantics are settled, while the dependent spatial, persistence, catalog-adoption, and collaborative-authoring technical mechanisms and all implementation evidence remain open. Questions 24-26 remain queued.
+This baseline establishes what may be claimed and how later delivery work must prove it. It does not demonstrate a gameplay capability. Accepted ADRs 0030-0038 answer world-model questions 13-23; their product semantics are settled, while the dependent spatial, persistence, catalog-adoption, and collaborative-authoring technical mechanisms and all implementation evidence remain open. Questions 24-26 now have review-ready proposed answers in ADRs 0039-0041, and foundational technical ADRs 0042-0043 are also proposed; none is accepted or implementation authority. Each product proposal explicitly identifies the amendment its acceptance would make to ADR 0014's first-release diagnostics or qualification floor.
 
-The [2026-07-19 ADR coherence and first-release baseline audit](adr-coherence-and-first-release-baseline-2026-07-19.md) adds a bounded qualification workload, identifies conflicts and missing contracts, and distinguishes a Preview walking skeleton from Robusta 1.0. This M0 record remains the evidence-governance baseline; it is not evidence that the 1.0 feature boundary is executable yet.
+The [2026-07-19 ADR coherence and first-release baseline audit](adr-coherence-and-first-release-baseline-2026-07-19.md) identifies conflicts and missing contracts and distinguishes a Preview walking skeleton from Robusta 1.0. The [technical scope matrix](first-release-technical-scope-matrix.md) records the reconciled release/deferred boundary, while the [evaluation workloads](../specifications/technical-evaluation-workloads.md) make comparison and later budgeting taskable. This M0 record remains the evidence-governance baseline; neither planning artifact is evidence that the 1.0 feature boundary is executable yet.
 
 ## First-release contract
 
@@ -35,6 +36,8 @@ Evidence packets are append-only observations. A failed or superseded run remain
 
 The reference-game charters are in [`reference-games.md`](reference-games.md). Each game must live in a repository with maintainers independent of Robusta implementation approval. Both consume only published artifacts. A fixture inside this repository may test packaging mechanics, but never counts as external-game evidence.
 
+The repository locations and named independent maintainers are not yet assigned. That remains an external-use blocker, and the fixture inputs in the evaluation-workload specification remain provisional until those owners approve or replace them.
+
 ## Migration baseline
 
 [`migration/census-v1.json`](migration/census-v1.json) is the first versioned feature inventory and [`migration/conformance-corpus-v1.json`](migration/conformance-corpus-v1.json) defines the representative cases required by ADR 0010. This migration baseline records the observable legacy concepts and expected assessment categories; it does not claim conversion automation or freeze native contracts.
@@ -47,4 +50,6 @@ The reference-game charters are in [`reference-games.md`](reference-games.md). E
 - Both external games have separate charters, accountable ownership roles, and the published-artifact rule.
 
 The first-release scope and evidence-governance baseline is established, satisfying the M0 roadmap checkpoint. Every accepted product ADR other than ADR 0014 remains `Not started` unless its own executable evidence later demonstrates otherwise; ADR 0014 is `In progress` because later delivery evidence must prove its behavior. Accepted technical ADRs 0017-0025 and 0028-0029 are also unimplemented.
+
+Proposed ADRs 0039-0043 do not enter the accepted evidence ledger or binding roadmap traceability until explicitly accepted. Numeric performance and resource budgets remain `null` until the versioned workloads are measured on supported environments and reviewed.
 

@@ -1,5 +1,13 @@
 # Documentation Changelog
 
+## 2026-07-19 — Inspection, testing, replay, and technical tasking proposed
+
+- Added proposed product ADRs 0039-0041, recommending authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within a declared compatibility domain. No proposal is accepted or implementation authority.
+- Added proposed technical ADRs 0042-0043 for typed message and operation semantics with transactional commit frontiers, and a typed identity and operation-specific compatibility spine. Both recommend Option A and remain unimplemented.
+- Reconciled the first-release route so M2 uses a separate loopback authority, M3 requires static compact grids rather than ADR 0031's deferred dynamic split/merge, and richer networking remains M4 work.
+- Added a first-release technical scope matrix, common station-like and contrasting-game evaluation workloads, and a 2D client/platform assessment that recommends an SDK-owned adapter boundary without selecting a library.
+- Kept numeric budgets, external reference-game evidence, and backend adoption blocked on measured workloads, named repositories and independent owners, and explicit later decisions.
+
 ## 2026-07-19 — Space, persistence, and preview ADRs accepted
 
 - Accepted product ADRs 0030-0038 via Option A, closing world-model questions 13-23 while leaving implementation `Not started` and questions 24-26 queued.

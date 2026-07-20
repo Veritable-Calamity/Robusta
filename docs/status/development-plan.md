@@ -1,7 +1,7 @@
 # Robusta Development Plan
 
 - **Status:** Proposed living implementation plan
-- **Baseline date:** 2026-07-18
+- **Baseline date:** 2026-07-18; reconciled 2026-07-19
 - **Planning horizon:** First supported platform release
 - **Decision authority:** Lower than the platform constitution and accepted ADRs
 - **Current implementation baseline:** First-release scope and evidence baseline established (roadmap M0 complete); gameplay capabilities remain scaffolded and unproven
@@ -19,6 +19,9 @@ The target outcome is a release that an independent team can install, use to cre
 - [`decisions/README.md`](../decisions/README.md) records all accepted and active ADRs with separate implementation statuses.
 - [`world-model-question-set.md`](../workshops/world-model-question-set.md) records accepted answers and unresolved product questions that gate later public contracts.
 - [`adr-coherence-and-first-release-baseline-2026-07-19.md`](adr-coherence-and-first-release-baseline-2026-07-19.md) records cross-ADR conflicts, implementation pressure, and the bounded 1.0 qualification profile.
+- [`first-release-technical-scope-matrix.md`](first-release-technical-scope-matrix.md) distinguishes required 1.0 behavior from deferred capability work.
+- [`technical-evaluation-workloads.md`](../specifications/technical-evaluation-workloads.md) provides common mechanism-comparison fixtures; its sizes are calibration inputs, not release budgets.
+- [`2d-client-platform-options.md`](../reference/2d-client-platform-options.md) records the backend-neutral client boundary, candidate comparisons, and evidence bakeoffs without selecting a dependency.
 - Accepted ADR text and its stated proof scenarios remain authoritative when this plan summarizes them.
 
 ## Delivery rules
@@ -43,6 +46,7 @@ Unless ADR 0014 is superseded through the normal decision process, this plan doe
 | Governance and evidence | 1.0 boundary, support matrix, release scorecard, metrics, evidence ledger | 0000, 0001, 0002 |
 | Game SDK and runtime | Published contracts, analyzers and generators, hosts, worlds, entities, systems, events, inspection | 0001, 0003, 0011, 0012, 0013 |
 | Content | Deterministic package-aware compiler, diagnostics, catalog generations, resolved-form inspection | 0003, 0005, 0012 |
+| Persistence and authored worlds | Checkpoint capture and restore, durable references, catalog adoption, map documents, collaborative edit history | 0008, 0012, 0035-0038 |
 | Multiplayer | Server authority, declared synchronization, prediction, interest, correction, reconnection | 0003, 0006 |
 | Delivery and trust | Manifests, receipts, side-specific packages, verification, installation, process boundaries, rollback | 0004, 0007, 0008 |
 | Creator workflow | Templates, `robusta dev`, orchestration, change classification, supervised restart and reconnect | 0001, 0009 |
@@ -100,9 +104,12 @@ The sequence is an order of evidence dependencies, not a requirement to serializ
 
 1. **Entity and time gate - accepted:** ADRs 0015 and 0016 define object birth and observability; death and cleanup; stale references; capability mutation; simulation steps; pause; timers; and rendering time.
 2. **Space and SDK gate - accepted at the product level:** ADRs 0030-0034 define maps; positions and coordinates; containment; map and world transfer; platform-owned foundations; game-owned concepts; and advanced extension boundaries. Their dependent technical mechanisms remain queued.
-3. **Persistence and tooling gate - accepted at the product level:** ADRs 0035-0038 define save promises and identities; missing or stale saved references; catalog changes affecting existing objects; and source-oriented map editing, including server-hosted collaborative mapping with isolated gameplay preview. Their dependent technical mechanisms remain queued. Questions 24-26 for runtime inspection, isolated world tests, replay, and stronger determinism remain open.
+3. **Persistence and tooling gate - accepted at the product level:** ADRs 0035-0038 define save promises and identities; missing or stale saved references; catalog changes affecting existing objects; and source-oriented map editing, including server-hosted collaborative mapping with isolated gameplay preview. Their dependent technical mechanisms remain queued.
+4. **Inspection, test, and replay gate - proposed:** ADRs 0039-0041 recommend Option A for authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within a declared compatibility domain. Each proposal states the corresponding amendment it would make to ADR 0014's first-release diagnostics or qualification floor. None is accepted, and no public SDK or durable replay contract may freeze from the proposals alone.
 
 The [accepted review set](../workshops/2026-07-19-world-model-05-space-persistence-and-preview.md) records Option A for each ADR 0030-0038. ADR 0033 keeps any platform-maintained station kit on the same public package and trust paths available to independent games, and ADR 0038 adds authenticated server-hosted collaborative document editing without treating arbitrary gameplay-world state as map source. Acceptance authorizes the dependent technical ADR work; it does not claim implementation.
+
+The [proposed inspection, testing, and replay review set](../workshops/2026-07-19-world-model-06-inspection-testing-and-replay.md) records the recommended review order 0039, 0040, then 0041. These proposals make questions 24-26 reviewable but do not close them.
 
 The audit opened two product decisions that are now accepted:
 
@@ -122,6 +129,18 @@ The audit opened two product decisions that are now accepted:
 - [Creator process supervision, structured logs, change classification, reload transactions, restart, and reconnect behavior](../decisions/technical/0024-supervise-the-creator-loop-as-an-observable-transaction.md) — accepted.
 - [Assisted migration IR, rule classification, source edits, and conformance corpus](../decisions/technical/0025-migrate-through-a-source-located-intermediate-model-and-conformance-corpus.md) — accepted; typed migration leads, text replacement has a limited supporting role, and binary emulation is prohibited.
 
+**Proposed technical gates awaiting explicit review:**
+
+- [Typed message kinds and transactional structural commits](../decisions/technical/0042-use-typed-message-kinds-and-transactional-structural-commits.md) — Option A recommended; defines request, command, gameplay-event, notification, commit-frontier, result, conflict, and continuation semantics without changing the accepted serial oracle.
+- [Typed identity and compatibility spine](../decisions/technical/0043-use-a-typed-identity-and-compatibility-spine.md) — Option A recommended; defines nominal scoped identities, purpose-bound mappings, and operation-specific compatibility without merging identities or treating identity as authority.
+- The [2D client/platform assessment](../reference/2d-client-platform-options.md) recommends an SDK-owned boundary and controlled SDL3, Silk.NET, MonoGame, UI, audio, and physics comparisons. It is research, not a backend selection or dependency approval.
+
+**Pre-M2 decision task bundle:**
+
+- Accept a minimal client presentation and platform-thread ownership contract, then compare coherent backend candidates through the published evaluation plan.
+- Accept the smallest ordinary authority-session path: loopback transport, protected launcher rendezvous and credentials, receipt/schema compatibility, one generated bounded input and authoritative state exchange, invalid-input rejection, readiness, diagnostics, shutdown, and orphan cleanup.
+- Keep prediction, broad replication, interest and secrecy, reconnect/resynchronization breadth, correction policy, and network-fault qualification in M4.
+
 **Exit gate:**
 
 - The product questions required by M2 are accepted and represented by technology-neutral behavioral specifications.
@@ -139,16 +158,17 @@ The audit opened two product decisions that are now accepted:
 - Versioned Preview packages for the common, shared, client, and server Game SDK surfaces.
 - A game template that references only published artifacts.
 - A minimal `robusta dev` path that discovers a workspace, restores and builds it, compiles content, starts supervised processes, streams tagged diagnostics, and cleans up the process tree.
-- Minimal client and dedicated-server hosts using one exact game catalog generation.
+- Minimal client and separately launched loopback-authority hosts using one exact game catalog generation and the ordinary generated authoritative path: protected launcher rendezvous, authenticated receipt/schema negotiation, one bounded generated input and state exchange, invalid-input rejection, readiness reporting, and owned cleanup. Rich replication, prediction, interest, reconnect breadth, and network-fault behavior remain M4 work.
 - Host, session, catalog, and world scopes with enforcement against undeclared mutable gameplay state above world scope.
-- A minimal world and entity model conforming to the accepted lifecycle, time, and ownership specifications; transform, name, prototype origin, networking, and saving remain optional.
+- A minimal world and entity model conforming to the accepted lifecycle, time, and ownership specifications; transform, name, prototype origin, general per-entity synchronization, and saving remain optional. The one M2 interaction explicitly opts into the minimum generated state needed for its client/authority proof and does not make synchronization mandatory for every entity.
 - A deterministic minimal content pipeline with package-qualified identities, source-location diagnostics, a catalog fingerprint, and resolved-form inspection.
 - Architecture tests that reject internal SDK references and client/server side leakage.
-- The first external game running from the template without cloning Robusta.
+- Both external reference games running their respective minimal W0 journeys from the template without cloning Robusta; richer native slices remain M3 work.
 
 **Exit gate:**
 
-- On a clean supported machine, a developer installs tools, creates the external game, and reaches local play through one documented command.
+- On a clean supported machine, a developer installs tools, creates the external game, and reaches local play through one documented command that supervises a separate loopback authority under ADR 0027.
+- The station-like and contrasting external repositories each complete that minimal published-artifact journey without internal references or privileged platform paths.
 - Two worlds can share one read-only catalog while entity, system, event, timer, random, map, physics, and replication mutations remain isolated as applicable to the implemented slice.
 - Destroying one world releases its resources without affecting its host, sessions, or another world.
 - An entity without transform, display name, prototype origin, network synchronization, or save policy is valid and inspectable.
@@ -165,8 +185,8 @@ The audit opened two product decisions that are now accepted:
 - A content compiler that implements documented inheritance and reference ordering; explicit merge, replace, remove, reset, dependency, extension, and patch semantics; side separation; validation; normalized output; and provenance.
 - Immutable content-catalog generations with explicit transactional development adoption or documented restart.
 - Multiple maps in one world, coordinates and containment, and explicit entity movement between maps.
-- Purpose-built grid and cell data with inspection, saving and networking hooks; grids may be entities while ordinary installed cells are not automatically entities.
-- Station-like construction behavior covering loose material, structure creation, lattice, plating, flooring, deconstruction, topology split, and attachment reassignment.
+- Purpose-built grid and cell data with structural behavior plus declared inspection, persistence, and networking hooks; grids may be entities while ordinary installed cells are not automatically entities. M3 proves the structural hooks and local scale, not the later M4 network or M5 checkpoint outcomes.
+- Station-like construction behavior covering loose material, static structure creation, lattice, plating, flooring, anchoring, and deconstruction. Dynamic topology split, merge, and split-driven attachment reassignment remain post-1.0 capability work under ADR 0031.
 - Performance fixtures proving that dense data is not forced through general entity lifecycle paths.
 - Both reference games exercising the native SDK early enough to change Preview contracts.
 
@@ -176,7 +196,7 @@ The audit opened two product decisions that are now accepted:
 - Duplicate, ambiguous, invalid, or undeclared cross-package references fail before launch with source-quality diagnostics.
 - A developer can inspect a resolved prototype's values, inheritance, package source, and patches.
 - An external game adds an interactive object using custom components and systems, prototype configuration, lifecycle and gameplay events, localization, appearance, and entity-bound UI without engine changes or internal references.
-- The constructed-grid proof scenario works without one entity per installed cell and meets its stated scale budget.
+- The M3 structural, collision, inspection, and dense-data cases decomposed from the constructed-grid proof work without one entity per installed cell and meet their stated scale budget. Synchronization and persistence cases remain M4 and M5 gates.
 
 ### M4 - Authoritative multiplayer
 
@@ -198,6 +218,7 @@ The audit opened two product decisions that are now accepted:
 - The scenario remains stable within declared budgets under the network-fault matrix.
 - An incompatible client receives a clear rejection before gameplay.
 - The host/session/avatar separation survives world replacement: the connection and player session remain above the world while the avatar is explicitly detached and replaced.
+- The M4 synchronization cases for static-grid changes and attachments pass, and the multi-map relation scenario proves authorized interest while denying contained or hidden state and discovery side channels under its declared threat model.
 
 ### M5 - Delivery, trust, compatibility, and operations
 
@@ -223,6 +244,7 @@ The audit opened two product decisions that are now accepted:
 - Public add-on denial fixtures cannot read undeclared files, open arbitrary network connections, or start processes.
 - Operator and editor extensions do not leak into client or release artifacts.
 - A saved world is migrated transactionally with backup, and users receive a clear compatibility report.
+- The M5 persistence cases for static compact-grid cells, structure identities, attachments, and declared references restore without converting ordinary cells into entities or claiming deferred split/merge support.
 - An operator can install, configure, observe, stop, update, and roll back a dedicated server using release artifacts and documentation alone.
 
 ### M6 - Complete creator workflow
@@ -322,14 +344,14 @@ Each capability work item must carry this checklist from inception. `Not applica
 | 0010 - Assisted migration | M0 census | M7 | Classified corpus with observable conformance |
 | 0011 - Isolated multi-map world | M1 | M2-M3 | Multi-world isolation, disposal, preview world, and multi-map scenario |
 | 0012 - State ownership | M1 | M2-M5 | Catalog sharing, session survival, scoped diagnostics, and durable-service tests |
-| 0013 - Entity boundary | M1 | M2-M3 | Optional-capability entities, structured grid data, inspection, and scale proof |
+| 0013 - Entity boundary | M1 | M2-M5 | Optional-capability entities; M3 structured-grid scale; M4 synchronization hooks; M5 persistence hooks |
 | 0014 - First-release boundary and delivery | M0 | M2, M5, M8 | Supported-platform clean-machine runs and launcher or registry boundary audit |
 | 0015 - Atomic entity lifecycle | M1 | M2-M4 | Atomic birth/change/death, stale-reference, relationship-disposition, and authoritative lifecycle scenarios |
 | 0016 - Simulation, host, and presentation time | M1 | M2-M4 | Fixed-step, overload, pause, timer ownership, and presentation-correction scenarios |
 | 0026 - Supported-code conformance and fault containment | M1 | M3-M5 | World-local fault containment, integrity-unknown escalation, and process-separation evidence |
-| 0027 - Separate local offline authority | M1 | M4-M5 | One-click separate authority, side-projection audit, authenticated local session, and cleanup evidence |
+| 0027 - Separate local offline authority | M1 | M2, then M4-M5 | M2 minimal ordinary generated authority/session path; M4 networking breadth; M5 side-projection, install, and cleanup qualification |
 | 0030 - Runtime maps and frame-qualified coordinates | M1 | M3 | Duplicate map instances, explicit frame conversion, stale-frame rejection, and atomic map lifecycle evidence |
-| 0031 - Typed spatial and object relations | M1 | M3 | Relation atomicity, lifecycle disposition, containment secrecy, and static compact-grid attachment evidence |
+| 0031 - Typed spatial and object relations | M1 | M3 and M4 | M3 relation atomicity, lifecycle disposition, and static compact-grid attachment; M4 containment secrecy and interest evidence |
 | 0032 - Explicit cross-world reconstruction | M1 | M3 and M5 | Same-world identity preservation and fenced single-activation reconstruction evidence; general graph transfer remains post-1.0 |
 | 0033 - Platform mechanics with game-defined semantics | M1 | M3 and M8 | Two contrasting games, optional-capability cost isolation, and equal official/third-party package-path audits |
 | 0034 - Declared advanced-extension ladder | M1 | M5 | Conformance, packaging, fault, trust, support-disclosure, and migration-assessment evidence |
@@ -337,6 +359,8 @@ Each capability work item must carry this checklist from inception. `Not applica
 | 0036 - Explicit durable identities and references | M1 | M5 | Fresh runtime handles, typed reference resolution, missing-target policy, collision, and migration evidence |
 | 0037 - Stable live state under catalog adoption | M1 | M6 | Future-birth adoption, fenced reversible migration, client admission, and restart classification evidence |
 | 0038 - Source map editing and isolated preview | M1 | M6 | Deterministic source round-trip, collaborative creator authority, isolated preview, and production-capability exclusion evidence |
+
+Proposed ADRs 0039-0043 are intentionally absent from the binding traceability table until accepted. Their proposed proof and milestone effects remain in the ADRs and the current review set.
 
 ## Principal risks and controls
 
@@ -368,7 +392,7 @@ The following work does not require choosing unresolved world semantics:
 - Run and version the Robust Toolbox usage census and representative migration corpus.
 - Draft technical ADRs and disposable spikes, clearly labeling them as unaccepted and non-contractual.
 
-Product semantics for world/entity lifecycle, time, maps and relations, transfer, saves, catalog adoption, and map authoring are accepted. Public APIs, durable and wire formats, storage, networking, transfer coordination, checkpoint repositories, collaborative edit protocols, and production migration automation remain gated by the applicable technical decisions. World-model questions 24-26 also remain open.
+Product semantics for world/entity lifecycle, time, maps and relations, transfer, saves, catalog adoption, and map authoring are accepted. Public APIs, durable and wire formats, storage, networking, transfer coordination, checkpoint repositories, collaborative edit protocols, and production migration automation remain gated by the applicable technical decisions. World-model questions 24-26 now have proposed Option A answers in ADRs 0039-0041 but remain open until explicitly accepted; technical ADRs 0042-0043 are likewise review-ready rather than authoritative.
 
 ## Plan maintenance
 

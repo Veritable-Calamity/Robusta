@@ -5,7 +5,7 @@ This directory records decisions for the release-grade Robusta platform.
 ## Two decision levels
 
 - `product/` records user-visible promises and top-level product choices in plain language.
-- `technical/` will record implementation mechanisms that fulfill the product decisions.
+- `technical/` records implementation mechanisms that fulfill the product decisions.
 
 A technical ADR must name the product ADRs it serves. Technical choices may be replaced without changing the product promise when the replacement preserves documented behavior.
 
@@ -79,9 +79,15 @@ ADR 0033 permits batteries-included station conveniences only as ordinary, separ
 
 ## Active drafts and proposals
 
-None.
+| ADR | Decision | Decision status | Implementation | Current review position |
+|---|---|---|---|---|
+| 0039 | Inspect running worlds through authorized snapshots | Proposed | Not started | Option A recommended |
+| 0040 | Test isolated worlds through the supported runtime | Proposed | Not started | Option A recommended |
+| 0041 | Record versioned authoritative replays with declared determinism | Proposed | Not started | Option A recommended |
 
-## Technical decisions
+These proposals answer world-model questions 24-26 but do not settle them until explicitly accepted. Each states the exact amendment its acceptance would make to ADR 0014's first-release diagnostics or qualification floor.
+
+## Accepted technical decisions
 
 Their product-decision coverage is listed in [`technical/README.md`](technical/README.md).
 
@@ -100,3 +106,12 @@ Their product-decision coverage is listed in [`technical/README.md`](technical/R
 | 0029 | Enforce phase-scoped access and buffered deterministic effects | Accepted | Not started |
 
 Accepted product ADR 0037 amends ADR 0024's catalog-adoption rollback contract; it does not authorize arbitrary postcommit world rewind.
+
+## Proposed technical decisions
+
+| ADR | Decision | Decision status | Implementation | Current review position |
+|---|---|---|---|---|
+| 0042 | Use typed message kinds and transactional structural commits | Proposed | Not started | Option A recommended |
+| 0043 | Use a typed identity and compatibility spine | Proposed | Not started | Option A recommended |
+
+Neither proposal authorizes implementation before review and acceptance.
