@@ -1,6 +1,6 @@
 # ADR 0016: Separate simulation, host, and presentation time
 
-- **Decision status:** Proposed
+- **Decision status:** Accepted
 - **Implementation status:** Not started
 - **Date:** 2026-07-18
 - **Decision level:** Product
@@ -20,7 +20,7 @@ Gameplay rules should see stable world time regardless of rendering frequency or
 
 Time affects physics, input, systems, lifecycle commits, timers, random state, networking, testing, replay, and saving. A variable or implicit time model makes the same game behave differently at different frame rates and makes overload indistinguishable from altered game rules.
 
-ADRs 0011 and 0012 already place simulation time, timers, and random state inside an isolated world. ADR 0006 requires server authority while permitting client prediction and smoothing. This proposal defines how those promises meet, without selecting clocks, queues, numeric formats, scheduler phases, or interpolation algorithms.
+ADRs 0011 and 0012 already place simulation time, timers, and random state inside an isolated world. ADR 0006 requires server authority while permitting client prediction and smoothing. This decision defines how those promises meet, without selecting clocks, queues, numeric formats, scheduler phases, or interpolation algorithms.
 
 ## How Robust Toolbox answers today
 
@@ -58,12 +58,12 @@ Give maps, entities, and systems independent platform pause domains. This is pow
 
 ## Decision
 
-If accepted, Robusta will separate authoritative simulation time, host or durable time, and presentation time:
+Robusta will separate authoritative simulation time, host or durable time, and presentation time:
 
 1. **World simulation uses numbered, fixed-duration steps.** A world declares its simulation rate when created; the base step duration remains fixed for that world's lifetime in the first release. Gameplay input, timers, systems, lifecycle changes, and authoritative events belong to defined steps and observable ordering.
 2. **Host time schedules attempts; it is not gameplay time.** Tests and previews can advance an exact number of steps without waiting for a wall clock. External I/O or wall-clock facts affect gameplay only after they become explicit ordered simulation inputs.
 3. **Catch-up is bounded and overload is visible.** A host may run overdue steps within a stated budget. It does not silently skip authoritative steps or enlarge their duration. If the budget is insufficient, the world falls behind wall time and reports backlog, duration, and operational health while networking and administration retain their own service budgets.
-4. **Whole-world pause is the standard platform pause.** Pause takes effect between complete steps. Simulation time, gameplay systems, physics, random advancement, ordinary lifecycle work, and simulation-time timers stop. Host and session responsibilities such as connections, heartbeats, administration, inspection, diagnostics, pause replication, and teardown may continue.
+4. **Whole-world pause is the standard platform pause.** Pause takes effect between complete steps. Simulation time, gameplay systems, physics, random advancement, ordinary lifecycle work, and simulation-time timers stop. Host and session responsibilities such as connections, heartbeats, administration, inspection, diagnostics, pause replication, and host-directed world teardown may continue; teardown is not paused gameplay work.
 5. **Paused gameplay input is explicit.** Ordinary gameplay input received while paused is rejected with a paused outcome unless a later accepted contract defines that operation outside simulation. It is not silently queued for resume. Resume continues at the same simulation instant and does not add elapsed wall time.
 6. **Local suspension is game state, not another hidden clock.** Games may model stun, disabled systems, frozen objects, or local time effects through explicit rules. Robusta 1.0 does not promise arbitrary platform pause domains for individual maps, entities, or systems.
 7. **Ordinary delayed work uses simulation time.** A timer never fires early and becomes eligible at the first simulation boundary at or after its deadline. Pause preserves remaining simulation duration. Equal-deadline and repeating behavior is deterministic and inspectable under the later technical ordering contract.
@@ -73,7 +73,7 @@ If accepted, Robusta will separate authoritative simulation time, host or durabl
 11. **Pause and removal bound presentation.** UI and declared cosmetics may continue while paused, but presentation does not extrapolate authoritative simulation beyond the paused state. A cosmetic exit effect may retain detached presentation data after removal; the ended entity is not live or targetable.
 12. **Rendering availability never changes authority.** Render frequency, dropped frames, and the absence of rendering on a dedicated server do not change authoritative results. Presentation time is not saved or networked as world truth.
 
-Given the same compatible runtime and catalog, initial state, ordered external inputs, and random seed, declared authoritative ordering should not depend on render rate, wall-clock jitter, or thread races. This proposal does not yet promise bit-for-bit numerical identity across every platform or complete replay determinism; the persistence and replay gate will decide any stronger contract.
+Given the same exact runtime and catalog generation, initial state, ordered external inputs, and random seed, declared authoritative ordering should not depend on render rate, wall-clock jitter, or thread races. This decision does not yet promise bit-for-bit numerical identity across every platform or complete replay determinism; the persistence and replay gate will decide any stronger contract.
 
 ## What we deliberately will not do
 
@@ -121,11 +121,11 @@ Given the same compatible runtime and catalog, initial state, ordered external i
 11. A headless server and rendered client agree on authoritative results.
 12. Client interpolation and cosmetic exit effects remain smooth while server correction and removal remain final.
 
-These scenarios will receive stable names in the behavioral specification after acceptance and executable evidence as the corresponding runtime and networking capabilities arrive.
+These scenarios have stable names in the behavioral specification and will receive executable evidence as the corresponding runtime and networking capabilities arrive.
 
 ## Implementation notes
 
-No scheduler, timer, pause, prediction, or rendering-time implementation is claimed. Public time APIs and durable timing formats remain gated by this proposal and later technical ADRs.
+No scheduler, timer, pause, prediction, or rendering-time implementation is claimed. Public time APIs and durable timing formats remain gated by this decision and later technical ADRs.
 
 ## Follow-up decisions
 
@@ -146,7 +146,7 @@ No scheduler, timer, pause, prediction, or rendering-time implementation is clai
 - [ADR 0011](0011-define-world-as-isolated-simulation.md)
 - [ADR 0012](0012-separate-game-host-and-world-state.md)
 - [ADR 0014](0014-define-first-release-boundary-and-delivery.md)
-- [ADR 0015 proposal](0015-give-entities-an-atomic-observable-lifecycle.md)
+- [ADR 0015](0015-give-entities-an-atomic-observable-lifecycle.md)
 - [Behavioral and technical decision gate (roadmap M1)](../../status/development-plan.md#m1---behavioral-and-technical-gates)
 - [World-model questions 9-12](../../workshops/world-model-question-set.md#c-how-does-time-work)
 - [Current Robust Toolbox entity manager tick and frame updates](https://github.com/space-wizards/RobustToolbox/blob/master/Robust.Shared/GameObjects/EntityManager.cs)

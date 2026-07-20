@@ -1,6 +1,6 @@
 # ADR 0015: Give entities an atomic, observable lifecycle
 
-- **Decision status:** Proposed
+- **Decision status:** Accepted
 - **Implementation status:** Not started
 - **Date:** 2026-07-18
 - **Decision level:** Product
@@ -20,7 +20,7 @@ A game developer should never observe a half-created entity, a half-applied capa
 
 Lifecycle behavior reaches almost every later contract: prototypes create entities, systems query components, events observe changes, timers retain targets, networks remove objects, saves retain references, and world disposal must release resources. If these semantics remain accidental, ordinary game code becomes dependent on callback order, storage reuse, or timing quirks that cannot safely evolve.
 
-ADR 0013 says that identity and lifecycle are the minimum meaning of an entity while transform, networking, saving, and prototype origin remain optional. This proposal defines the user-visible lifecycle promise without selecting an entity store, handle layout, callback API, or scheduler.
+ADR 0013 says that identity and lifecycle are the minimum meaning of an entity while transform, networking, saving, and prototype origin remain optional. This decision defines the user-visible lifecycle promise without selecting an entity store, handle layout, callback API, or scheduler.
 
 ## How Robust Toolbox answers today
 
@@ -30,7 +30,7 @@ That model demonstrates why rich lifecycle signals are useful, but it also leave
 
 ## How the Robusta prototype answers today
 
-The greenfield repository contains only SDK and runtime scaffolds. The prototype-era source is evidence rather than the new contract, and no accepted prototype decision in this baseline settles atomic publication, stale references, relationship cleanup, or capability-change visibility. This proposal therefore makes those promises explicit rather than claiming compatibility with prototype behavior.
+The greenfield repository contains only SDK and runtime scaffolds. The prototype-era source is evidence rather than the new contract, and no accepted prototype decision in this baseline settles atomic publication, stale references, relationship cleanup, or capability-change visibility. This decision therefore makes those promises explicit rather than claiming compatibility with prototype behavior.
 
 ## Options considered
 
@@ -54,17 +54,17 @@ Always throw, always return absence, or always ignore. Uniformity is attractive,
 
 ## Decision
 
-If accepted, Robusta will give every entity a world-scoped, all-or-nothing lifecycle:
+Robusta will give every entity a world-scoped, all-or-nothing lifecycle:
 
 1. **Birth is prepared before publication.** An entity may have an identity within controlled construction work, but ordinary queries, systems, events, networking, and game code cannot discover or act on it. Its requested components, initial values, dependencies, and validation complete before one committed publication boundary.
-2. **Failed birth publishes nothing.** Failure cleans acquired resources and leaves no live query result, timer, event, or replication record. The diagnostic identifies the failed definition, capability, dependency, or source when known.
+2. **Failed birth publishes nothing.** Failure cleans acquired resources and leaves no externally visible live query result, timer, event, or replication record. The diagnostic identifies the failed definition, capability, dependency, or source when known.
 3. **Capability changes are atomic.** A live entity may add, remove, or replace optional components when side, authority, dependencies, and game rules allow it. Observers see either the complete old capability set or the complete new set, and receive one committed change observation. Failure leaves the old set intact.
 4. **Identity and lifecycle cannot be removed.** Other platform capabilities remain optional unless a later accepted decision requires one for a particular category. Runtime capability changes do not mutate the entity's immutable prototype or catalog generation.
-5. **Death has semantic finality before cleanup completes.** Once ending commits, the entity disappears from live discovery and accepts no ordinary gameplay mutation, new timer, or new event. Cleanup may continue, but cannot revive a usable zombie. Cleanup failures remain observable and do not prevent best-effort cleanup of remaining resources.
+5. **Death has semantic finality before cleanup completes.** Once ending commits, the entity disappears from live discovery, accepts no ordinary gameplay mutation or delivery, and cannot acquire new owned work. Lifecycle observation and cleanup may continue, but cannot revive a usable zombie. Cleanup failures remain observable and do not prevent best-effort cleanup of remaining resources.
 6. **Ownership, not reference shape, controls cleanup.** Entity- or capability-owned work is cancelled when its owner ends. Parent, child, containment, attachment, and similar relationships declare whether an endpoint's death ends, detaches, rehomes, transfers, or blocks a dependent. A reference alone never implies cascading deletion. World disposal remains able to terminate every world-owned resource.
 7. **Stale references never alias replacements.** Reusing internal capacity cannot make an old reference resolve to a new entity. Cross-world, malformed, not-yet-live, ending, and ended targets remain distinguishable where that improves correction.
 8. **Failure behavior matches intent and remains explicit.** A command requiring a live target returns a structured stale-target failure or documented exception and never silently succeeds. Optional lookup returns absence. Late delivery, cancellation, or cleanup may safely do nothing only when the operation explicitly declares that best-effort behavior and exposes it to diagnostics or inspection.
-9. **Authority remains explicit.** Shared authoritative capability changes and removal are decided by the server. Late client or network work for an ended entity cannot mutate a later entity. Client-only cosmetic state remains separate.
+9. **Authority remains explicit.** Shared authoritative birth, capability changes, and removal are decided by the server. Late client or network work for an ended entity cannot mutate a later entity. Client-only cosmetic state remains separate.
 
 The technical design will define the exact commit boundaries, lifecycle states, validation transaction, observation order, cleanup scheduler, and failure types.
 
@@ -96,7 +96,7 @@ The technical design will define the exact commit boundaries, lifecycle states, 
 - Relationship types must declare disposition rather than inherit one universal cascade.
 - APIs must distinguish required use, optional lookup, and explicitly best-effort work.
 - Cleanup failures need containment and diagnostics.
-- This proposal does not yet define the exact behavior of saved references or entity transfer between worlds.
+- This decision does not yet define the exact behavior of saved references or entity transfer between worlds.
 
 ## How we will prove the decision works
 
@@ -108,14 +108,14 @@ The technical design will define the exact commit boundaries, lifecycle states, 
 6. Ending an entity with an owned dependent ends it exactly once, while an unrelated reference merely becomes stale.
 7. Required stale-target mutation fails clearly, optional lookup returns absence, and declared late delivery is safely ignored and inspectable.
 8. Reusing internal storage never lets an old reference target a new entity.
-9. Authoritative removal reaches clients, and delayed work for the removed identity cannot alter a later entity.
+9. Authoritative birth, capability changes, and removal reach clients as complete committed outcomes, and delayed work for a removed identity cannot alter a later entity.
 10. Disposing one world completes its cleanup without affecting another world, the host, or player sessions.
 
-These scenarios will receive stable names in the behavioral specification after acceptance and executable conformance tests when the corresponding runtime capability exists.
+These scenarios have stable names in the behavioral specification and will receive executable conformance tests when the corresponding runtime capability exists.
 
 ## Implementation notes
 
-No entity lifecycle implementation is claimed. Public entity handles, stores, lifecycle APIs, structural-change scheduling, replication removal, and cleanup mechanisms remain gated by this proposal and later technical ADRs.
+No entity lifecycle implementation is claimed. Public entity handles, stores, lifecycle APIs, structural-change scheduling, replication removal, and cleanup mechanisms remain gated by this decision and later technical ADRs.
 
 ## Follow-up decisions
 

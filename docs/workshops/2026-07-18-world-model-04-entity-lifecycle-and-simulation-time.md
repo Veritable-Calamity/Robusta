@@ -1,15 +1,15 @@
 # World Model Workshop 04: Entity lifecycle and simulation time
 
-- **Workshop status:** Proposed for review
+- **Workshop status:** Accepted
 - **Date:** 2026-07-18
 - **Questions:** 5-12 from the world-model question set
-- **Decision outcome:** ADRs 0015 and 0016 are proposed; neither is accepted
+- **Decision outcome:** ADRs 0015 and 0016 accepted via Option A on 2026-07-19
 
 ## Why these questions are together
 
 Entity birth, structural change, and death need a boundary at which observers see a complete state. Simulation steps, pause, and timers determine where such a boundary can exist. Discussing either half alone would quietly constrain the other.
 
-The proposals remain product-level. They state what developers and players can rely on, while deferring entity storage, handles, scheduler phases, timer queues, clock APIs, thread models, prediction buffers, and serialization.
+The accepted decisions remain product-level. They state what developers and players can rely on, while deferring entity storage, handles, scheduler phases, timer queues, clock APIs, thread models, prediction buffers, and serialization.
 
 ## Accepted constraints
 
@@ -29,7 +29,7 @@ The greenfield Robusta projects remain scaffolds. The prototype-era implementati
 
 ## Proposal A: atomic, observable entity lifecycle
 
-[ADR 0015](../decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md) recommends:
+[ADR 0015](../decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md) establishes:
 
 - prepare and validate an entity before ordinary world code can discover it;
 - publish birth, capability changes, and semantic death as complete world changes;
@@ -50,7 +50,7 @@ The greenfield Robusta projects remain scaffolds. The prototype-era implementati
 
 ## Proposal B: fixed simulation time separated from host and presentation time
 
-[ADR 0016](../decisions/product/0016-separate-simulation-host-and-presentation-time.md) recommends:
+[ADR 0016](../decisions/product/0016-separate-simulation-host-and-presentation-time.md) establishes:
 
 - advance authoritative gameplay in numbered fixed-duration world steps;
 - use host time to schedule step attempts, not as gameplay time;
@@ -83,13 +83,13 @@ The greenfield Robusta projects remain scaffolds. The prototype-era implementati
 8. Presentation time remains non-authoritative and always accepts server correction and removal.
 9. Complete replay and bitwise cross-platform determinism remain deferred to the persistence and tooling gate.
 
-Approval may accept both proposals, accept either proposal independently, or request changes by decision-point number. Until then, both ADRs remain `Proposed`, the catalog's entity/time gate remains open, and public entity, scheduler, timer, pause, and presentation contracts remain unfrozen.
+All nine decision points were approved through Option A for both ADRs on 2026-07-19. The entity-lifecycle and simulation-time product gates are closed; technical mechanisms and public API shapes remain subject to the follow-up technical ADRs named by each decision.
 
 ## Technology-neutral proof
 
-The proposals define observable fixtures for atomic birth and rollback, atomic capability changes, declared relationship cleanup, stale-reference non-aliasing, world disposal, exact headless step advancement, frame-rate independence, overload reporting, pause behavior, timer ownership and cancellation, and non-authoritative client smoothing.
+The decisions define observable fixtures for atomic birth and rollback, atomic capability changes, declared relationship cleanup, stale-reference non-aliasing, world disposal, exact headless step advancement, frame-rate independence, overload reporting, pause behavior, timer ownership and cancellation, and non-authoritative client smoothing.
 
-Those fixtures supplement the accepted cross-capability scenarios in [`product-behavior-scenarios.json`](../specifications/product-behavior-scenarios.json). Stable executable names will be added after the decisions are accepted; no runtime evidence is claimed now.
+Those fixtures supplement the accepted cross-capability scenarios in [`product-behavior-scenarios.json`](../specifications/product-behavior-scenarios.json). They now have stable conformance-test names in that catalog; no runtime evidence is claimed by decision acceptance.
 
 ## Technical questions deferred
 

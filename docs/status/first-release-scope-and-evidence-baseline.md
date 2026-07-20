@@ -5,7 +5,9 @@
 - **Date:** 2026-07-18
 - **Owner:** Robusta maintainers
 
-This baseline establishes what may be claimed and how later delivery work must prove it. It does not demonstrate a gameplay capability or resolve the open world-model decision gates.
+This baseline establishes what may be claimed and how later delivery work must prove it. It does not demonstrate a gameplay capability. Accepted ADRs 0030-0038 answer world-model questions 13-23; their product semantics are settled, while the dependent spatial, persistence, catalog-adoption, and collaborative-authoring technical mechanisms and all implementation evidence remain open. Questions 24-26 remain queued.
+
+The [2026-07-19 ADR coherence and first-release baseline audit](adr-coherence-and-first-release-baseline-2026-07-19.md) adds a bounded qualification workload, identifies conflicts and missing contracts, and distinguishes a Preview walking skeleton from Robusta 1.0. This M0 record remains the evidence-governance baseline; it is not evidence that the 1.0 feature boundary is executable yet.
 
 ## First-release contract
 
@@ -44,5 +46,5 @@ The reference-game charters are in [`reference-games.md`](reference-games.md). E
 - Capability labels and evidence paths are public, and scaffold-only outputs are marked as such.
 - Both external games have separate charters, accountable ownership roles, and the published-artifact rule.
 
-The first-release scope and evidence baseline is established, satisfying the M0 roadmap checkpoint. Product ADRs 0000-0013 remain unimplemented unless their own executable evidence later demonstrates otherwise; ADR 0014 is `In progress` because later delivery evidence must prove its behavior.
+The first-release scope and evidence-governance baseline is established, satisfying the M0 roadmap checkpoint. Every accepted product ADR other than ADR 0014 remains `Not started` unless its own executable evidence later demonstrates otherwise; ADR 0014 is `In progress` because later delivery evidence must prove its behavior. Accepted technical ADRs 0017-0025 and 0028-0029 are also unimplemented.
 

@@ -26,7 +26,9 @@ Each top-level question should be discussed in this order:
 
 ## Workshop status
 
-- `2026-07-18-world-model-04-entity-lifecycle-and-simulation-time.md` — proposed ADRs 0015 and 0016: atomic entity lifecycle and fixed simulation time separated from host and presentation time; explicit approval is pending.
+- `2026-07-19-world-model-05-space-persistence-and-preview.md` — accepted ADRs 0030–0038 via Option A for questions 13–23; ADR 0037 amends ADR 0024, the ADR 0033 public-SDK/no-privileged-internals and ADR 0038 collaborative-source-editing qualifications are recorded, implementation remains not started, and questions 24–26 are queued next.
+
+- `2026-07-18-world-model-04-entity-lifecycle-and-simulation-time.md` — accepted ADRs 0015 and 0016: atomic entity lifecycle and fixed simulation time separated from host and presentation time.
 
 - `2026-07-18-world-model-01-what-is-a-world.md` — accepted and recorded as ADR 0011: a world is an isolated mutable simulation that may contain multiple maps.
 - `2026-07-18-world-model-02-what-belongs-where.md` — accepted and recorded as ADR 0012: immutable game definitions, host and player-session state, and mutable world state have separate owners.

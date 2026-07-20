@@ -61,10 +61,42 @@ This is a new greenfield ADR sequence. It does not continue the numbering of the
 | 0012 | Separate immutable game definitions, host sessions, and mutable world state | Accepted | Not started |
 | 0013 | Use entities for independent world participants, not all data | Accepted | Not started |
 | 0014 | Define the first-release boundary and delivery responsibilities | Accepted | In progress |
+| 0015 | Give entities an atomic, observable lifecycle | Accepted | Not started |
+| 0016 | Separate simulation, host, and presentation time | Accepted | Not started |
+| 0026 | Define the supported game-code conformance and fault-containment boundary | Accepted | Not started |
+| 0027 | Run offline play through a separate local authority | Accepted | Not started |
+| 0030 | Define runtime maps and frame-qualified coordinates | Accepted | Not started |
+| 0031 | Separate spatial, containment, attachment, and lifecycle relations | Accepted | Not started |
+| 0032 | Reconstruct explicitly across world transfers | Accepted | Not started |
+| 0033 | Provide platform mechanics with game-defined semantics | Accepted | Not started |
+| 0034 | Use a declared ladder for advanced game extensions | Accepted | Not started |
+| 0035 | Persist declared world state through versioned checkpoints | Accepted | Not started |
+| 0036 | Use explicit durable identities and reference policies | Accepted | Not started |
+| 0037 | Keep live state stable unless explicitly migrated | Accepted | Not started |
+| 0038 | Edit map sources and preview them in isolated worlds | Accepted | Not started |
 
-## Active proposals
+ADR 0033 permits batteries-included station conveniences only as ordinary, separately versioned game or component packages built through the same published SDK and declared trust mechanisms available to independent developers. They receive no privileged platform internals and remain subject to every accepted ADR. ADR 0038 also permits authority-hosted collaborative mapping sessions for authenticated creators, while canonical source-document transactions and their history—not arbitrary live gameplay state—remain the authored truth.
+
+## Active drafts and proposals
+
+None.
+
+## Technical decisions
+
+Their product-decision coverage is listed in [`technical/README.md`](technical/README.md).
 
 | ADR | Decision | Decision status | Implementation |
 |---|---|---|---|
-| 0015 | Give entities an atomic, observable lifecycle | Proposed | Not started |
-| 0016 | Separate simulation, host, and presentation time | Proposed | Not started |
+| 0017 | Enforce explicit runtime ownership scopes | Accepted | Not started |
+| 0018 | Publish a layered Game SDK with capability boundaries | Accepted | Not started |
+| 0019 | Use generational entity handles and transactional structural commits | Accepted | Not started |
+| 0020 | Run fixed-step worlds through a deterministic phase scheduler | Accepted | Not started |
+| 0021 | Compile content into a canonical provenance catalog | Accepted | Not started |
+| 0022 | Install exact receipts into immutable content-addressed layouts | Accepted | Not started |
+| 0023 | Generate versioned authoritative replication schemas | Accepted | Not started |
+| 0024 | Supervise the creator loop as an observable transaction | Accepted | Not started |
+| 0025 | Migrate through a source-located intermediate model and conformance corpus | Accepted | Not started |
+| 0028 | Model sessions and worlds as sibling host scopes | Accepted | Not started |
+| 0029 | Enforce phase-scoped access and buffered deterministic effects | Accepted | Not started |
+
+Accepted product ADR 0037 amends ADR 0024's catalog-adoption rollback contract; it does not authorize arbitrary postcommit world rewind.

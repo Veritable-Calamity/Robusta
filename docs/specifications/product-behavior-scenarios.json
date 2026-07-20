@@ -3,21 +3,34 @@
   "schemaVersion": 2,
   "catalogId": "product-behavior",
   "updated": "2026-07-19",
-  "sourceDecisionIds": ["0003", "0004", "0005", "0006", "0007", "0008", "0009", "0011", "0012", "0013"],
+  "sourceDecisionIds": ["0003", "0004", "0005", "0006", "0007", "0008", "0009", "0011", "0012", "0013", "0015", "0016", "0026", "0027", "0030", "0031", "0032", "0033", "0034", "0035", "0036", "0037", "0038"],
   "decisionGates": [
-    { "id": "product.entity-lifecycle", "decisionLevel": "product", "decisionStatus": "proposed", "sourceRef": "docs/decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md" },
-    { "id": "product.simulation-time", "decisionLevel": "product", "decisionStatus": "proposed", "sourceRef": "docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md" },
-    { "id": "product.space-sdk", "decisionLevel": "product", "decisionStatus": "backlog", "sourceRef": "docs/workshops/world-model-question-set.md#d-how-do-space-and-maps-work" },
-    { "id": "product.persistence-tooling", "decisionLevel": "product", "decisionStatus": "backlog", "sourceRef": "docs/workshops/world-model-question-set.md#f-saving-loading-and-change" },
-    { "id": "technical.ownership", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
-    { "id": "technical.sdk-topology", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
-    { "id": "technical.entity-runtime", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
-    { "id": "technical.simulation-time", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
+    { "id": "product.entity-lifecycle", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md" },
+    { "id": "product.simulation-time", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md" },
+    { "id": "product.game-code-conformance", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0026-define-supported-game-code-conformance-and-fault-containment.md" },
+    { "id": "product.offline-authority", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0027-run-offline-play-through-a-separate-local-authority.md" },
+    { "id": "product.spatial-frames", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0030-define-runtime-maps-and-frame-qualified-coordinates.md" },
+    { "id": "product.typed-relations", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0031-separate-spatial-containment-attachment-and-lifecycle-relations.md" },
+    { "id": "product.world-transfer", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0032-reconstruct-explicitly-across-world-transfers.md" },
+    { "id": "product.platform-mechanics", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0033-provide-platform-mechanics-with-game-defined-semantics.md" },
+    { "id": "product.extension-ladder", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0034-use-a-declared-ladder-for-advanced-game-extensions.md" },
+    { "id": "product.world-checkpoints", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0035-persist-declared-world-state-through-versioned-checkpoints.md" },
+    { "id": "product.durable-identities", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0036-use-explicit-durable-identities-and-reference-policies.md" },
+    { "id": "product.catalog-adoption", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0037-keep-live-state-stable-unless-explicitly-migrated.md" },
+    { "id": "product.map-authoring-preview", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0038-edit-map-sources-and-preview-in-isolated-worlds.md" },
+    { "id": "technical.ownership", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0017-enforce-explicit-runtime-ownership-scopes.md" },
+    { "id": "technical.scope-attachments", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0028-model-sessions-and-worlds-as-sibling-host-scopes.md" },
+    { "id": "technical.sdk-topology", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0018-publish-layered-game-sdk-and-capability-boundaries.md" },
+    { "id": "technical.entity-runtime", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0019-use-generational-entity-handles-and-transactional-structural-commits.md" },
+    { "id": "technical.simulation-time", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0020-run-fixed-step-worlds-through-a-deterministic-phase-scheduler.md" },
+    { "id": "technical.authoritative-effects", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0029-enforce-phase-scoped-access-and-buffered-effects.md" },
     { "id": "technical.space", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
-    { "id": "technical.identity-content", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
-    { "id": "technical.delivery", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
-    { "id": "technical.network", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
-    { "id": "technical.creator-workflow", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" }
+    { "id": "technical.identity-content", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0021-compile-content-into-a-canonical-provenance-catalog.md" },
+    { "id": "technical.delivery", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0022-install-exact-receipts-into-immutable-content-addressed-layouts.md" },
+    { "id": "technical.network", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0023-generate-versioned-authoritative-replication-schemas.md" },
+    { "id": "technical.creator-workflow", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0024-supervise-the-creator-loop-as-an-observable-transaction.md" },
+    { "id": "technical.persistence", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
+    { "id": "technical.client-platform", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" }
   ],
   "scenarios": [
     {
@@ -32,7 +45,7 @@
       "then": ["the object uses game-defined components, systems, prototype configuration, lifecycle and gameplay events, localization, appearance, entity-bound UI, and authoritative replication", "the game requires no Robusta source change, internal reference, or undocumented host hook", "generated registration and synchronization metadata is deterministic and inspectable"],
       "qualityFacets": ["sdk", "external-use", "tests", "inspection", "packaging"],
       "conformanceTestIds": ["Robusta.Conformance.GameSdk.ExternalInteractiveNetworkedObject"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.space-sdk", "technical.sdk-topology", "technical.entity-runtime", "technical.identity-content", "technical.network"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.spatial-frames", "product.typed-relations", "product.platform-mechanics", "technical.sdk-topology", "technical.entity-runtime", "technical.identity-content", "technical.network"]
     },
     {
       "id": "side-by-side-games",
@@ -116,7 +129,7 @@
       "then": ["inspection shows final component values, inheritance, package source, and applied patches", "package-qualified identities remain distinct", "imported legacy content is classified as exact, converted with warning, manual, or unsupported"],
       "qualityFacets": ["diagnostics", "inspection", "compatibility"],
       "conformanceTestIds": ["Robusta.Conformance.Content.ResolvedCatalogInspection"],
-      "decisionDependencies": ["product.persistence-tooling", "technical.identity-content"]
+      "decisionDependencies": ["product.catalog-adoption", "technical.identity-content"]
     },
     {
       "id": "two-client-network-fault-matrix",
@@ -144,7 +157,7 @@
       "then": ["each undeclared operation is denied with an attributable diagnostic", "the add-on cannot gain full-game execution authority through the launcher", "installing a full executable game is presented separately as an explicit software trust decision"],
       "qualityFacets": ["diagnostics", "tests", "documentation", "trust"],
       "conformanceTestIds": ["Robusta.Conformance.Trust.PublicAddonCapabilityDenial"],
-      "decisionDependencies": ["product.space-sdk", "technical.sdk-topology", "technical.ownership", "technical.delivery"]
+      "decisionDependencies": ["product.extension-ladder", "technical.sdk-topology", "technical.ownership", "technical.delivery"]
     },
     {
       "id": "revocation",
@@ -200,7 +213,7 @@
       "then": ["a human-readable compatibility report identifies the required change", "the original data is backed up before mutation", "the migrated result becomes current only after validation succeeds", "failure leaves a recoverable prior version"],
       "qualityFacets": ["diagnostics", "tests", "documentation", "compatibility"],
       "conformanceTestIds": ["Robusta.Conformance.Compatibility.TransactionalSavedWorldMigration"],
-      "decisionDependencies": ["product.persistence-tooling", "technical.delivery"]
+      "decisionDependencies": ["product.world-checkpoints", "product.durable-identities", "technical.delivery", "technical.persistence"]
     },
     {
       "id": "exact-rollback",
@@ -214,7 +227,7 @@
       "then": ["the prior receipt is selected again", "its compatible writable data is restored without loss", "the failure and rollback outcome are explicit"],
       "qualityFacets": ["diagnostics", "tests", "packaging", "compatibility"],
       "conformanceTestIds": ["Robusta.Conformance.Compatibility.FailedUpdateExactRollback"],
-      "decisionDependencies": ["product.persistence-tooling", "technical.delivery"]
+      "decisionDependencies": ["product.world-checkpoints", "technical.delivery", "technical.persistence"]
     },
     {
       "id": "clean-machine-edit-restart-reconnect",
@@ -228,7 +241,7 @@
       "then": ["the developer reaches the playable workflow through the documented command", "each edit is classified and reported", "compatible changes become visible through the supported path", "restart-required changes supervise a restart and return both clients to a playable session"],
       "qualityFacets": ["sdk", "external-use", "diagnostics", "tests", "documentation"],
       "conformanceTestIds": ["Robusta.Conformance.Creator.CleanMachineEditRestartReconnect"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.persistence-tooling", "technical.entity-runtime", "technical.identity-content", "technical.network", "technical.creator-workflow"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.catalog-adoption", "technical.entity-runtime", "technical.identity-content", "technical.network", "technical.creator-workflow"]
     },
     {
       "id": "process-tree-cleanup",
@@ -256,7 +269,7 @@
       "then": ["time, entities, systems, events, and mutable services advance independently", "a local identity from one world never resolves an object in the other", "untrusted or incompatible executable games still require separate processes"],
       "qualityFacets": ["sdk", "tests", "inspection", "trust"],
       "conformanceTestIds": ["Robusta.Conformance.Worlds.TwoWorldIsolation"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "technical.ownership", "technical.entity-runtime", "technical.simulation-time"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.game-code-conformance", "technical.ownership", "technical.scope-attachments", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects"]
     },
     {
       "id": "world-disposal",
@@ -270,7 +283,7 @@
       "then": ["that world's mutable resources become unreachable and are released within the stated budget", "the host, sessions, and other world continue unaffected", "stale world-local identities cannot resolve into later worlds"],
       "qualityFacets": ["tests", "inspection", "performance"],
       "conformanceTestIds": ["Robusta.Conformance.Worlds.WorldDisposalIsolation"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "technical.ownership", "technical.entity-runtime", "technical.simulation-time"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.game-code-conformance", "technical.ownership", "technical.scope-attachments", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects"]
     },
     {
       "id": "multi-map-world",
@@ -284,7 +297,7 @@
       "then": ["the maps remain parts of the same isolated simulation", "the move has one observable before-and-after result without creating a second entity identity", "the preview or test world cannot mutate the normal world"],
       "qualityFacets": ["sdk", "tests", "inspection"],
       "conformanceTestIds": ["Robusta.Conformance.Worlds.MultiMapTransferAndPreviewIsolation"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.space-sdk", "technical.entity-runtime", "technical.space"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.spatial-frames", "technical.entity-runtime", "technical.space"]
     },
     {
       "id": "shared-catalog-isolated-worlds",
@@ -298,7 +311,7 @@
       "then": ["the catalog remains unchanged and shareable", "every mutation is observable only in its owning world", "a prototype recipe may be shared while each spawned object's values remain world-local", "architecture checks reject undeclared mutable gameplay state at process or catalog scope"],
       "qualityFacets": ["sdk", "tests", "inspection"],
       "conformanceTestIds": ["Robusta.Conformance.Ownership.SharedCatalogIsolatedWorldMutation"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "technical.ownership", "technical.sdk-topology", "technical.entity-runtime", "technical.simulation-time", "technical.space"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.game-code-conformance", "technical.ownership", "technical.scope-attachments", "technical.sdk-topology", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects", "technical.space"]
     },
     {
       "id": "session-survives-world-replacement",
@@ -312,7 +325,7 @@
       "then": ["the host, listener, authenticated session, durable service, and unaffected world remain active", "avatar attachment changes only through the explicit operation", "the durable service does not expose either world's private entities", "logs, metrics, saves, and network diagnostics identify the responsible game, host, session, and world", "a development catalog change is either adopted transactionally or produces a documented restart outcome"],
       "qualityFacets": ["diagnostics", "tests", "inspection", "compatibility"],
       "conformanceTestIds": ["Robusta.Conformance.Ownership.SessionSurvivesWorldReplacement"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.persistence-tooling", "technical.ownership", "technical.entity-runtime", "technical.identity-content", "technical.network"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.world-checkpoints", "technical.ownership", "technical.scope-attachments", "technical.entity-runtime", "technical.identity-content", "technical.network"]
     },
     {
       "id": "optional-capability-entity",
@@ -326,7 +339,7 @@
       "then": ["components and systems model normal independent world participants", "an entity remains valid without transform, display name, prototype origin, network synchronization, or save policy", "splitting a quantity creates a second identity only when independent life begins", "presentation-only effects and UI controls need not enter the authoritative world", "world-wide rules and durable accounts use their proper ownership scopes rather than immortal entities", "inspection distinguishes entity, structure, collection, network, and definition identities"],
       "qualityFacets": ["sdk", "tests", "documentation", "inspection"],
       "conformanceTestIds": ["Robusta.Conformance.Entities.OptionalCapabilityBoundary"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.space-sdk", "product.persistence-tooling", "technical.sdk-topology", "technical.entity-runtime", "technical.space"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.spatial-frames", "product.platform-mechanics", "product.world-checkpoints", "technical.sdk-topology", "technical.entity-runtime", "technical.space"]
     },
     {
       "id": "constructed-grid-scale",
@@ -340,7 +353,287 @@
       "then": ["structure identities are created, expanded, or split when independent lifecycle requires them", "installed cells remain purpose-built addressable data rather than one general entity per cell", "attached or contained objects are reassigned correctly after a split", "game rules can convert loose material into cell state and back into an item", "construction remains correctly inspectable, validated, saved, synchronized, and collidable", "the representative scale fixture meets its published budgets"],
       "qualityFacets": ["tests", "inspection", "compatibility", "performance"],
       "conformanceTestIds": ["Robusta.Conformance.Entities.ConstructedGridBehaviorAndScale"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.space-sdk", "product.persistence-tooling", "technical.entity-runtime", "technical.space", "technical.network"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.spatial-frames", "product.typed-relations", "product.platform-mechanics", "product.world-checkpoints", "technical.entity-runtime", "technical.space", "technical.network"]
+    },
+    {
+      "id": "atomic-entity-publication",
+      "title": "Entity birth publishes one complete outcome or nothing",
+      "sourceDecisionIds": ["0015"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "test author"],
+      "given": ["a prototype-created entity requires several capabilities, initial values, dependencies, and owned resources"],
+      "when": ["creation succeeds and is repeated with one required dependency missing"],
+      "then": ["the successful entity is invisible during preparation and its first ordinary observer sees the complete requested state", "the failed creation reports actionable provenance and publishes no live entity, timer, query result, event, or replication record"],
+      "qualityFacets": ["sdk", "diagnostics", "tests", "inspection"],
+      "conformanceTestIds": ["Robusta.Conformance.Entities.AtomicPublicationAndFailedBirthRollback"],
+      "decisionDependencies": ["technical.entity-runtime", "technical.identity-content"]
+    },
+    {
+      "id": "atomic-capability-change",
+      "title": "Capability changes commit atomically with owned-work cancellation",
+      "sourceDecisionIds": ["0015"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "system author"],
+      "given": ["a live entity has an optional capability with delayed work and a requested multi-capability change"],
+      "when": ["the change succeeds and is repeated with validation forced to fail"],
+      "then": ["observers see one complete before state and one complete after state for the successful change", "the failed change leaves the prior capability set intact", "removing the capability cancels its owned delayed work before that work can run"],
+      "qualityFacets": ["sdk", "tests", "inspection"],
+      "conformanceTestIds": ["Robusta.Conformance.Entities.AtomicCapabilityChangeAndOwnedWorkCancellation"],
+      "decisionDependencies": ["product.simulation-time", "technical.entity-runtime", "technical.simulation-time"]
+    },
+    {
+      "id": "declared-entity-ending",
+      "title": "Entity ending follows declared ownership and never revives stale references",
+      "sourceDecisionIds": ["0015"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "test author", "host operator"],
+      "given": ["entities participate in owned, contained, and unrelated-reference relationships across two isolated worlds"],
+      "when": ["an endpoint ends, internal storage is reused, and one world is disposed"],
+      "then": ["each declared relationship applies its end, detach, rehome, transfer, or rejection disposition without accidental cascade", "an owned dependent ends exactly once while an unrelated reference becomes stale", "required mutation fails clearly, optional lookup returns absence, and declared best-effort late work is safely ignored and inspectable", "an old reference never resolves to a replacement", "world disposal completes cleanup without affecting the other world, host, or player sessions"],
+      "qualityFacets": ["diagnostics", "tests", "inspection"],
+      "conformanceTestIds": ["Robusta.Conformance.Entities.DeclaredEndingAndStaleReferenceSafety"],
+      "decisionDependencies": ["technical.ownership", "technical.entity-runtime"]
+    },
+    {
+      "id": "authoritative-entity-lifecycle",
+      "title": "Shared entity lifecycle outcomes remain server-authoritative",
+      "sourceDecisionIds": ["0015"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md#how-we-will-prove-the-decision-works"],
+      "actors": ["server", "two clients"],
+      "given": ["a shared entity is observed by two clients and internal identity capacity may later be reused"],
+      "when": ["the server creates the entity, changes its capabilities, removes it, and delayed client or network work arrives"],
+      "then": ["both clients receive complete committed birth, change, and removal outcomes", "late work for the removed identity cannot mutate a later entity", "client-only cosmetic state remains separate from shared authority"],
+      "qualityFacets": ["tests", "inspection", "compatibility"],
+      "conformanceTestIds": ["Robusta.Conformance.Entities.AuthoritativeLifecycleAndLateWorkSafety"],
+      "decisionDependencies": ["technical.entity-runtime", "technical.network"]
+    },
+    {
+      "id": "fixed-step-frame-rate-independence",
+      "title": "Fixed simulation steps are independent from wall-clock and rendering frequency",
+      "sourceDecisionIds": ["0016"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "test author"],
+      "given": ["two worlds, an exact runtime and catalog generation, a fixed random seed, and one ordered input trace"],
+      "when": ["an isolated test advances exactly 100 steps and the trace is repeated at 30, 60, and 144 rendered frames per second and on a headless server"],
+      "then": ["the worlds advance independently", "the test waits for no wall clock and observes exact step numbers and timer order", "authoritative lifecycle and timer traces do not depend on render frequency", "the rendered client and headless server agree on authoritative results"],
+      "qualityFacets": ["sdk", "tests", "performance"],
+      "conformanceTestIds": ["Robusta.Conformance.Time.FixedStepFrameRateAndHeadlessIndependence"],
+      "decisionDependencies": ["technical.simulation-time", "technical.authoritative-effects", "technical.entity-runtime"]
+    },
+    {
+      "id": "bounded-catch-up-overload",
+      "title": "Bounded catch-up exposes overload without changing simulation rules",
+      "sourceDecisionIds": ["0016"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md#how-we-will-prove-the-decision-works"],
+      "actors": ["server operator", "performance reviewer"],
+      "given": ["a world is subjected to enough induced load to exceed its stated catch-up budget"],
+      "when": ["the host remains behind wall time across several scheduling attempts"],
+      "then": ["no authoritative step is skipped or stretched", "the world slows relative to wall time", "backlog, duration, and operational health are reported while networking and administration retain their service budgets"],
+      "qualityFacets": ["diagnostics", "tests", "performance"],
+      "conformanceTestIds": ["Robusta.Conformance.Time.BoundedCatchUpReportsOverload"],
+      "decisionDependencies": ["technical.simulation-time"]
+    },
+    {
+      "id": "whole-world-pause",
+      "title": "Whole-world pause freezes simulation at a complete boundary",
+      "sourceDecisionIds": ["0016"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md#how-we-will-prove-the-decision-works"],
+      "actors": ["player", "host operator", "test author"],
+      "given": ["two active worlds with gameplay systems, physics, timers, connections, diagnostics, and inspection"],
+      "when": ["pause is requested during one world's step, gameplay input arrives while paused, wall time passes, and the world resumes"],
+      "then": ["pause takes effect only after the in-progress step completes and does not affect the other world", "simulation time, physics, world timers, random advancement, and gameplay systems remain unchanged", "connections, diagnostics, inspection, pause replication, and host-directed teardown may continue", "paused gameplay input is explicitly rejected and never appears after resume", "resume preserves the same simulation instant and remaining timer delays"],
+      "qualityFacets": ["sdk", "diagnostics", "tests", "inspection"],
+      "conformanceTestIds": ["Robusta.Conformance.Time.WholeWorldPauseBoundaryAndInputRejection"],
+      "decisionDependencies": ["technical.ownership", "technical.entity-runtime", "technical.simulation-time", "technical.network"]
+    },
+    {
+      "id": "timer-ownership-and-restart",
+      "title": "Simulation timers obey ownership and do not silently survive restart",
+      "sourceDecisionIds": ["0016"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "server operator"],
+      "given": ["an owner-bound timer, unrelated delayed work targeting an entity, and an ordinary world timer exist"],
+      "when": ["the owner and target end and the server process restarts"],
+      "then": ["owner-bound work is cancelled", "unrelated delayed work follows the accepted stale-target outcome", "the ordinary world timer does not silently execute after restart", "any future persisted delayed work requires its own accepted representation, ordering, overdue, and recovery contract"],
+      "qualityFacets": ["diagnostics", "tests", "compatibility"],
+      "conformanceTestIds": ["Robusta.Conformance.Time.TimerOwnershipStaleTargetAndRestartBoundary"],
+      "decisionDependencies": ["product.entity-lifecycle", "product.world-checkpoints", "technical.entity-runtime", "technical.simulation-time", "technical.persistence"]
+    },
+    {
+      "id": "non-authoritative-presentation-time",
+      "title": "Presentation remains smooth without acquiring simulation authority",
+      "sourceDecisionIds": ["0016"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md#how-we-will-prove-the-decision-works"],
+      "actors": ["player", "client developer", "server"],
+      "given": ["a client interpolates confirmed state, runs declared cosmetics, and performs permitted bounded prediction"],
+      "when": ["the world pauses, the server corrects state, an entity is removed, and rendered frames are dropped"],
+      "then": ["presentation remains smooth without advancing world time or deciding shared outcomes", "presentation does not extrapolate authoritative simulation beyond the paused state", "server correction and removal remain final", "a cosmetic exit effect may retain only detached presentation data", "render availability never changes authoritative results"],
+      "qualityFacets": ["tests", "inspection", "performance"],
+      "conformanceTestIds": ["Robusta.Conformance.Time.NonAuthoritativePresentationCorrectionAndRemoval"],
+      "decisionDependencies": ["technical.entity-runtime", "technical.simulation-time", "technical.network"]
+    },
+    {
+      "id": "detectable-conformance-violation",
+      "title": "Detectable violations fail before receiving supported-code guarantees",
+      "sourceDecisionIds": ["0026"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0026-define-supported-game-code-conformance-and-fault-containment.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "security reviewer"],
+      "given": ["trusted game code uses a forbidden reference, undeclared capability, invalid lifetime capture, shared mutable static, escaped phase access, or another statically detectable violation"],
+      "when": ["the supported build and activation pipeline validates the game"],
+      "then": ["the violation is rejected with a stable diagnostic and source location", "a deliberately allowed advanced extension is visibly classified as nonconforming instead of silently receiving deterministic or multi-world guarantees", "public UGC cannot use the trusted executable escape path"],
+      "qualityFacets": ["sdk", "diagnostics", "tests", "documentation", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Faults.DetectableConformanceViolation"],
+      "decisionDependencies": ["technical.sdk-topology", "technical.authoritative-effects"]
+    },
+    {
+      "id": "conforming-world-fault-containment",
+      "title": "A conforming world fault stops publication without corrupting another world",
+      "sourceDecisionIds": ["0026"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0026-define-supported-game-code-conformance-and-fault-containment.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "server operator", "test author"],
+      "given": ["one conforming trusted game host runs two worlds and an authoritative system in one world is fault-injected during a buffered phase"],
+      "when": ["the system throws before its batch reaches a committed publication boundary"],
+      "then": ["no output from the failed batch is published", "the affected world enters its documented terminal fault outcome and does not resume from uncertain state", "the other world and host-owned sessions continue only because shared integrity remains known", "diagnostics identify the game, host, world, step, phase, system, operation, and available provenance"],
+      "qualityFacets": ["sdk", "diagnostics", "tests", "inspection", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Faults.ConformingWorldFaultContainment"],
+      "decisionDependencies": ["technical.ownership", "technical.scope-attachments", "technical.authoritative-effects"]
+    },
+    {
+      "id": "integrity-unknown-host-escalation",
+      "title": "A shared-integrity fault escalates instead of continuing gameplay",
+      "sourceDecisionIds": ["0026"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0026-define-supported-game-code-conformance-and-fault-containment.md#how-we-will-prove-the-decision-works"],
+      "actors": ["server operator", "security reviewer"],
+      "given": ["a fault involves host-owned, native, shared, or otherwise integrity-unknown state inside one game-host process"],
+      "when": ["the platform cannot prove that the effect remained inside one conforming world boundary"],
+      "then": ["the game host escalates to its documented process-level outcome instead of continuing authoritative simulation", "an external supervisor reports loss of health and terminates only its owned game-process tree", "launcher, updater, credential, and unrelated game processes retain their separate state", "no diagnostic claims whole-step rollback or safe recovery that was not proved"],
+      "qualityFacets": ["diagnostics", "tests", "documentation", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Faults.IntegrityUnknownHostEscalation"],
+      "decisionDependencies": ["technical.ownership", "technical.authoritative-effects"]
+    },
+    {
+      "id": "one-click-separate-local-authority",
+      "title": "Offline play launches a separate authority without weakening side boundaries",
+      "sourceDecisionIds": ["0027"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0027-run-offline-play-through-a-separate-local-authority.md#how-we-will-prove-the-decision-works"],
+      "actors": ["player", "package auditor", "security reviewer"],
+      "given": ["an exact offline-capable receipt provides separate client, common, and authority projections on a supported machine"],
+      "when": ["the player selects offline play and later closes or interrupts the session"],
+      "then": ["one action starts separate launcher, local-authority, and client processes without manual server configuration", "the client completes the ordinary authenticated compatibility and authoritative protocol over a local endpoint", "the launcher loads no game assembly and the client view exposes no server-only material", "the local authority exposes no public listener by default", "launch-scoped credentials do not appear in command lines, logs, crash reports, or structured diagnostics", "failure or closure produces bounded diagnostics and leaves no orphaned owned process", "startup time and memory use are reported against the published offline budget"],
+      "qualityFacets": ["tests", "packaging", "compatibility", "performance", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Offline.SeparateLocalAuthorityJourney"],
+      "decisionDependencies": ["technical.scope-attachments", "technical.delivery", "technical.network"]
+    },
+    {
+      "id": "multi-map-frame-and-relation-integrity",
+      "title": "Multi-map frames and typed relationships remain atomic and unambiguous",
+      "sourceDecisionIds": ["0030", "0031"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0030-define-runtime-maps-and-frame-qualified-coordinates.md#how-we-will-prove-the-decision-works", "docs/decisions/product/0031-separate-spatial-containment-attachment-and-lifecycle-relations.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "test author", "player", "authorized client", "unauthorized client"],
+      "given": ["one world instantiates the same compiled map definition twice", "the maps contain a moving or splittable structure, nested containment, declared lifecycle dispositions, and a non-spatial entity"],
+      "when": ["equal local coordinates are inspected and converted", "an entity relocates between maps, an item changes containers, a structure splits, and one map ends"],
+      "then": ["equal coordinates in different frames remain distinct and invalid, stale, disconnected, cross-world, or ended-frame conversions fail clearly", "same-world movement preserves entity identity while relation changes and map ending publish complete atomic outcomes", "spatial ancestry, containment, attachment, lifecycle ownership, and references do not substitute for one another", "old map and frame identities never alias replacements while the unaffected map and non-spatial entity continue", "authorized clients and inspection agree while unauthorized clients receive neither contained secret state nor an interest side channel"],
+      "qualityFacets": ["sdk", "diagnostics", "tests", "inspection", "compatibility", "performance"],
+      "conformanceTestIds": ["Robusta.Conformance.Space.MultiMapFrameAndRelationIntegrity"],
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.platform-mechanics", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects", "technical.space", "technical.network"]
+    },
+    {
+      "id": "single-activation-cross-world-transfer",
+      "title": "Cross-world transfer reconstructs state with at most one active side",
+      "sourceDecisionIds": ["0032"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0032-reconstruct-explicitly-across-world-transfers.md#how-we-will-prove-the-decision-works"],
+      "actors": ["player", "server operator", "test author"],
+      "given": ["source and target worlds, a surviving player session, a nested transferable graph, declared exclusions and dispositions, and compatible catalogs exist"],
+      "when": ["transfer is fault-injected before and after source fencing, target preparation, and durable activation", "late source mutations, timers, commands, references, and packets are attempted"],
+      "then": ["the target receives fresh entity and network identities and only declared durable continuity survives", "the session detaches and reattaches explicitly and late source work cannot mutate or activate the target", "at most one side is active and a failure may instead leave a fenced recovery-required state with neither side active", "incompatibility leaves the source authoritative and unchanged", "diagnostics correlate export revision, source fence, target reconstruction, activation record, and final disposition"],
+      "qualityFacets": ["diagnostics", "tests", "inspection", "compatibility", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Transfer.SingleActivationCrossWorldTransfer"],
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.spatial-frames", "product.typed-relations", "product.durable-identities", "technical.scope-attachments", "technical.entity-runtime", "technical.simulation-time", "technical.identity-content", "technical.network", "technical.persistence"]
+    },
+    {
+      "id": "two-game-platform-boundary",
+      "title": "Two different games prove the platform and game-semantics boundary",
+      "sourceDecisionIds": ["0033"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0033-provide-platform-mechanics-with-game-defined-semantics.md#how-we-will-prove-the-decision-works"],
+      "actors": ["station reference-game developer", "contrasting reference-game developer", "independent package developer", "platform maintainer", "release reviewer"],
+      "given": ["the station-like and contrasting reference games consume published artifacts", "a platform-maintained station kit and an independently maintained equivalent use the same declared trust class", "a headless non-spatial profile admits no spatial or client capabilities"],
+      "when": ["both games build, package, run representative gameplay, and reuse one neutral mechanism with different meanings", "the official and independent station packages build, install, run, upgrade, and pass conformance", "a game-specific abstraction is proposed for platform promotion"],
+      "then": ["the station-like game implements inventory, construction, collision, UI, multiplayer interaction, and round flow without an engine fork", "the contrasting game omits station, grid-construction, persistent-world, job, and inventory assumptions", "the official and independent packages use the same public SDK, content, creator, receipt, installation, admission, trust, diagnostics, and conformance paths without privileged engine access", "omitting the station kit removes its payload, dependencies, initialization, and runtime cost while public UGC cannot load its executable assemblies", "unadmitted capabilities allocate no runtime state, start no service, and add no forbidden payload dependency", "minimal-profile budgets are measured and satisfied and public API or package audits find no privileged station semantics", "promotion follows the two-game invariant test without blocking mandatory platform-wide obligations"],
+      "qualityFacets": ["sdk", "external-use", "tests", "inspection", "packaging", "performance"],
+      "conformanceTestIds": ["Robusta.Conformance.Platform.TwoGamePlatformBoundary"],
+      "decisionDependencies": ["product.spatial-frames", "product.typed-relations", "technical.sdk-topology", "technical.space", "technical.client-platform", "technical.network", "technical.delivery"]
+    },
+    {
+      "id": "declared-extension-ladder",
+      "title": "An advanced adapter exposes its support and containment consequences",
+      "sourceDecisionIds": ["0034"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0034-use-a-declared-ladder-for-advanced-game-extensions.md#how-we-will-prove-the-decision-works"],
+      "actors": ["external game developer", "package auditor", "security reviewer", "migration reviewer"],
+      "given": ["an external game requires an unusual adapter and conforming, native or unverifiable, and deliberately private-access fixtures exist"],
+      "when": ["the game builds, packages, executes, faults, upgrades, rolls back, and runs migration assessment"],
+      "then": ["the supported adapter declares identity, version range, side, trust, capabilities, ownership, affinity, determinism, fault policy, native dependencies, and inspection surface", "private reflection, internal service access, and undeclared effects are rejected", "deterministic work matches the serial oracle and conservatively widened conforming work may use its declared exclusive boundary", "unknown native or unsafe work is rejected or visibly nonconforming with lost guarantees", "package projections preserve side separation and faults follow the declared world- or host-level outcome", "unsupported legacy integration is classified as Manual port or Unsupported rather than binary-emulated and public UGC cannot acquire the executable extension path"],
+      "qualityFacets": ["sdk", "external-use", "diagnostics", "tests", "documentation", "packaging", "compatibility", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Extensions.DeclaredExtensionLadder"],
+      "decisionDependencies": ["product.game-code-conformance", "product.platform-mechanics", "technical.ownership", "technical.sdk-topology", "technical.authoritative-effects", "technical.delivery"]
+    },
+    {
+      "id": "atomic-world-checkpoint-and-reference-migration",
+      "title": "A world checkpoint and its references migrate or fail atomically",
+      "sourceDecisionIds": ["0035", "0036"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0035-persist-declared-world-state-through-versioned-checkpoints.md#how-we-will-prove-the-decision-works", "docs/decisions/product/0036-use-explicit-durable-identities-and-reference-policies.md#how-we-will-prove-the-decision-works"],
+      "actors": ["player", "server operator", "game developer", "security reviewer"],
+      "given": ["a station-like world contains maps, compact-grid state, cyclic relationships, required and optional references, an external deferred reference, and declared durable work", "a later release renames one definition and removes another while a selected known-good checkpoint exists"],
+      "when": ["capture and repository publication are fault-injected", "the checkpoint migrates forward and restores", "corrupt, truncated, oversized, and decompression-bomb artifacts are attempted and executable rollback is requested"],
+      "then": ["capture reflects one committed authoritative boundary and no partial checkpoint is selected or partial world published", "restore allocates fresh runtime handles and reconstructs cycles", "required missing targets reject restore while optional targets become absence with diagnostics and a rename resolves only through explicit migration", "external deferred references publish only as their declared proxy and obey retry and terminal policies", "transient sessions, predictions, native caches, and ordinary timers are absent or reconstructed", "the original or verified backup remains available for rollback and malicious inputs fail within resource limits", "another world and host session remain unchanged"],
+      "qualityFacets": ["diagnostics", "tests", "inspection", "compatibility", "performance", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Persistence.AtomicWorldCheckpointAndReferenceMigration"],
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.spatial-frames", "product.typed-relations", "technical.ownership", "technical.entity-runtime", "technical.simulation-time", "technical.identity-content", "technical.delivery", "technical.persistence"]
+    },
+    {
+      "id": "catalog-adoption-existing-state",
+      "title": "Catalog adoption preserves existing state unless migration commits",
+      "sourceDecisionIds": ["0037"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0037-keep-live-state-stable-unless-explicitly-migrated.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "server operator", "connected player"],
+      "given": ["two worlds use an old generation and existing doors have damage and open-state changes", "a new generation changes birth defaults, provides one declared reversible migration, and is unavailable to one connected client"],
+      "when": ["adoption is fault-injected during preparation and reversible commit", "a component-layout or network-schema change is attempted", "a postcommit game fault is injected"],
+      "then": ["existing state remains unchanged unless the declared migration targets it while future births use the new generation", "preparation failure changes no targeted world and targeted worlds cannot advance or publish during multi-world commit", "commit failure restores all targets before success is published", "a client lacking the generation receives no new-generation birth or migrated state and follows its declared reconnect, restart, or detach outcome", "incompatible changes restart rather than masquerading as reload", "postcommit faults report the committed generation without claiming arbitrary rollback and inspection preserves birth and migration provenance"],
+      "qualityFacets": ["sdk", "diagnostics", "tests", "inspection", "compatibility"],
+      "conformanceTestIds": ["Robusta.Conformance.Content.CatalogAdoptionExistingState"],
+      "decisionDependencies": ["product.game-code-conformance", "product.simulation-time", "product.world-checkpoints", "product.durable-identities", "technical.ownership", "technical.scope-attachments", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects", "technical.identity-content", "technical.network", "technical.creator-workflow", "technical.persistence"]
+    },
+    {
+      "id": "isolated-map-edit-preview",
+      "title": "Map editing and preview share validation without sharing mutable state",
+      "sourceDecisionIds": ["0038"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0038-edit-map-sources-and-preview-in-isolated-worlds.md#how-we-will-prove-the-decision-works"],
+      "actors": ["creator-authority operator", "two authenticated game creators", "unauthorized participant", "preview player", "package auditor"],
+      "given": ["a clean workspace has an exact development lock and a canonical creator draft containing compact cells, prototype entities, and typed relations", "a deliberately installed creator-authority profile exposes authenticated author, reviewer, and observer roles"],
+      "when": ["two creators concurrently submit revisioned document commands, including stale conflicts, undo or compensating commands, disconnect, reconnect, save, reopen, and headless validation", "an unauthorized participant attempts to edit and retrieve hidden draft material", "ordinary damage, timers, physics, and spawned effects mutate the derived mapping view", "two clients preview through a separately launched local authority, two previews run concurrently, and release artifacts are built and audited"],
+      "then": ["accepted commands converge on one canonical revision and stale commands receive deterministic conflict outcomes", "history attributes actor, base revision, command, result, and source locations while revision-aware undo never silently erases another creator's accepted work", "disconnect and reconnect preserve the admitted shared revision and unauthorized requests disclose no hidden draft data or edit capability", "invalid work remains recoverable but cannot preview or package", "atomic save and reopen preserve authored identity and canonical fingerprint while excluding gameplay-only mutations from map source", "preview uses distinct editor-session, creator-authority, authority-process, world, map, and client identities and gameplay mutations never flow back automatically", "concurrent previews share no mutable simulation state and editor, headless, and release validation produce equivalent diagnostics", "ordinary production artifacts contain no creator authority, collaborative endpoint, watcher, development endpoint, or permissive draft parser"],
+      "qualityFacets": ["sdk", "external-use", "diagnostics", "tests", "inspection", "packaging", "compatibility"],
+      "conformanceTestIds": ["Robusta.Conformance.Creator.IsolatedMapEditPreview"],
+      "decisionDependencies": ["product.offline-authority", "product.spatial-frames", "product.typed-relations", "product.platform-mechanics", "product.catalog-adoption", "technical.identity-content", "technical.creator-workflow", "technical.space", "technical.client-platform", "technical.network", "technical.delivery"]
     }
   ]
 }

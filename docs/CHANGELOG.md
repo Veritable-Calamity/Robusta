@@ -1,5 +1,58 @@
 # Documentation Changelog
 
+## 2026-07-19 — Space, persistence, and preview ADRs accepted
+
+- Accepted product ADRs 0030-0038 via Option A, closing world-model questions 13-23 while leaving implementation `Not started` and questions 24-26 queued.
+- Recorded that ADR 0037 amends ADR 0024's catalog-adoption rollback contract without promising arbitrary postcommit world rewind.
+- Qualified ADR 0033 so optional batteries-included station conveniences are ordinary, separately versioned game or component packages using the same published SDK and declared trust mechanisms available to independent developers; they receive no privileged internals and create no new trust tier.
+- Qualified ADR 0038 to support authority-hosted collaborative mapping for authenticated creators, including live or in-world editing, while canonical source-document transactions remain the authored truth and arbitrary gameplay-world state is not serialized back into map sources.
+
+## 2026-07-19 — Space, persistence, and preview ADR review set drafted
+
+- Added draft product ADRs 0030-0034 for runtime maps and typed coordinate domains, distinct spatial and lifecycle relations, explicit cross-world reconstruction, a genre-neutral platform floor, and a declared advanced-extension ladder.
+- Added draft product ADRs 0035-0038 for versioned declared checkpoints, scoped durable identities and missing-reference policies, stable live state during catalog adoption, and source-oriented map editing with isolated local-authority previews.
+- Set Option A as the current review position for each new ADR without accepting any decision or claiming implementation.
+- Updated the workshop queue, decision indexes, roadmap gates, coherence audit, and first-release baseline so dependent technical ADRs remain blocked until this product review completes.
+
+## 2026-07-19 — ADRs 0026-0029 accepted
+
+- Accepted ADR 0026 via Option A, defining the supported in-process game-code conformance boundary and fail-closed fault outcomes without claiming arbitrary trusted code is sandboxed.
+- Accepted ADR 0027 via Option A, selecting one-click offline play through a separately installed and launcher-supervised local authority.
+- Accepted ADR 0028 via Option A, amending ADR 0017 so host-owned session and world scopes are siblings joined by explicit attachment scopes.
+- Accepted ADR 0029 via Option A, supplying ADR 0020 with phase-scoped access, deterministic buffered effects, safe exclusive fallback, and serial-oracle semantics.
+- Added evidence-ledger entries and conformance scenarios for detectable violations, localized and integrity-unknown faults, and the separate local-authority journey; implementation remains not started.
+
+## 2026-07-19 — ADR coherence and first-release baseline audit
+
+- Audited product ADRs 0000-0016 and technical ADRs 0017-0025 against the greenfield scaffold, the pinned Robusta predecessor, Robust Toolbox, Space Station 14, and established engine and supply-chain practices.
+- Recorded the ADR 0017 scope-graph conflict, offline-authority topology collision, deterministic-parallelism enforcement gap, unresolved spatial and persistence foundations, and the bounded Robusta 1.0 qualification profile.
+- Added draft product ADRs 0026-0027 for supported-code fault containment and separate local authority, plus draft technical ADRs 0028-0029 for corrected host scopes and phase-scoped deterministic effects. No draft is accepted and no implementation is claimed.
+- Pinned predecessor, Robust Toolbox, and Space Station 14 source references used by the audit.
+
+## 2026-07-19 — Remaining technical ADRs accepted
+
+- Accepted ADR 0020 via Option C: deterministic parallel authoritative batches are required from the first release, with stable merge boundaries and a mandatory serial oracle.
+- Accepted ADR 0025 from its recorded review position: typed semantic migration leads, textual replacement is limited to reviewable suggestions, and legacy binary emulation is prohibited.
+- Closed the initial technical ADR review set; implementation remains not started.
+
+## 2026-07-19 — Seven technical ADRs accepted
+
+- Accepted technical ADRs 0017-0019 and 0021-0024 via Option A; implementation remains not started.
+- Kept ADR 0020 open to compare serial-first and deterministic parallel-first authoritative scheduling.
+- Kept ADR 0025 open with typed migration leading, limited interest in text-assisted suggestions, and legacy binary emulation explicitly ruled out.
+
+## 2026-07-19 — Initial technical ADR set derived
+
+- Added draft technical ADRs 0017-0025 for runtime ownership, SDK boundaries, entity lifecycle, deterministic scheduling, canonical content, immutable delivery, authoritative replication, creator supervision, and assisted migration.
+- Linked the behavioral decision gates and development plan to the corresponding drafts without accepting them or claiming implementation.
+- Left space/maps, persistence, replay formats, and dependent editor semantics gated on their queued product decisions.
+
+## 2026-07-19 — Entity lifecycle and simulation time accepted
+
+- Accepted ADR 0015 via Option A for atomic entity birth, capability mutation, death, relationship cleanup, and explicit stale-reference outcomes.
+- Accepted ADR 0016 via Option A for fixed authoritative steps, bounded catch-up, whole-world pause, simulation-time timers, and non-authoritative presentation time.
+- Closed both product decision gates and added stable behavioral scenarios and evidence-ledger traceability without claiming runtime implementation.
+
 ## 2026-07-19 — Capability-oriented contract names and executable schemas
 
 - Renamed the product behavior catalog and first-release evidence baseline so their identities describe their contents; milestone codes remain only as roadmap metadata.
