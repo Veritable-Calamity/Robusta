@@ -1,0 +1,40 @@
+name: Documentation
+description: Report unclear, missing, or incorrect documentation
+title: ""
+type: Task
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping make Robusta easier to understand. A quick note is enough to get us started.
+
+  - type: input
+    id: location
+    attributes:
+      label: Where is the documentation?
+      description: Share a link or file path, or tell us what you searched for if the documentation is missing.
+      placeholder: https://..., docs/..., or "I searched for..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is unclear, missing, or incorrect?
+      placeholder: I was trying to learn... but...
+    validations:
+      required: true
+
+  - type: textarea
+    id: improvement
+    attributes:
+      label: What would make it better?
+      description: Suggest a change if you have one. You do not need to write the final wording.
+      placeholder: It would help if...
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Add examples, screenshots, or other context here.
+

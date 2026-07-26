@@ -1,0 +1,47 @@
+name: Feature idea
+description: Suggest a new capability or an improvement to Robusta
+title: ""
+type: Feature
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing an idea. Start with the need you have; you do not need to arrive with a complete design.
+
+  - type: textarea
+    id: need
+    attributes:
+      label: What would you like to be able to do?
+      description: Describe the goal or problem in your own words.
+      placeholder: I would like to... because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What would a good result look like?
+      description: Tell us how you would expect this to work from a user's point of view.
+      placeholder: A good result would let me...
+    validations:
+      required: true
+
+  - type: textarea
+    id: value
+    attributes:
+      label: Who would this help?
+      description: Let us know who runs into this need and how often it comes up.
+      placeholder: This would help game developers who...
+
+  - type: textarea
+    id: ideas
+    attributes:
+      label: Ideas or examples
+      description: If you have a possible approach, examples from other tools, sketches, or links, share them here.
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Add any tradeoffs, limits, or context you think we should know.
+
