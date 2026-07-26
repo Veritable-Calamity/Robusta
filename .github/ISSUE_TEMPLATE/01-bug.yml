@@ -1,0 +1,62 @@
+name: Bug report
+description: Tell us about something that is not working as expected
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to report a problem. Share what you know, and don't worry if you cannot fill in every detail.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: Tell us what went wrong and what you were trying to do at the time.
+      placeholder: I was trying to... Instead...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: How can we see the problem?
+      description: List the steps, or share a small example. If the problem only happens sometimes, let us know.
+      placeholder: |
+        1. Start with...
+        2. Then...
+        3. Notice that...
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What did you expect?
+      placeholder: I expected...
+    validations:
+      required: true
+
+  - type: input
+    id: version
+    attributes:
+      label: Robusta version or commit
+      description: A package version, release name, or commit is helpful if you have it.
+      placeholder: For example, 0.3.0 or a1b2c3d
+
+  - type: textarea
+    id: environment
+    attributes:
+      label: Your setup
+      description: Include anything that may matter, such as your operating system, .NET version, or whether this affects a client or server.
+      placeholder: Windows 11, .NET 10, dedicated server
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs, screenshots, or other clues
+      description: Paste logs or drag files here. Please remove passwords, tokens, private keys, and other sensitive information.
+
+  - type: textarea
+    id: extra
+    attributes:
+      label: Anything else?
+      description: Add any context that did not fit above.

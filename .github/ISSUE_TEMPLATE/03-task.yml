@@ -1,0 +1,42 @@
+name: Work item
+description: Propose a clear piece of maintenance or project work
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this form for work that is not a bug or a new feature, such as maintenance, cleanup, testing, or project follow-up.
+
+  - type: textarea
+    id: work
+    attributes:
+      label: What needs to be done?
+      description: Give us a short, practical description of the work.
+      placeholder: Update, replace, remove, investigate, or clean up...
+    validations:
+      required: true
+
+  - type: textarea
+    id: reason
+    attributes:
+      label: Why does it matter?
+      description: Explain what this work improves or what problem it prevents.
+      placeholder: This matters because...
+    validations:
+      required: true
+
+  - type: textarea
+    id: done
+    attributes:
+      label: What does done look like?
+      description: List the results someone should be able to check when the work is complete.
+      placeholder: |
+        - [ ] ...
+        - [ ] ...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Helpful context
+      description: Add links, related issues, constraints, or notes for whoever picks this up.
