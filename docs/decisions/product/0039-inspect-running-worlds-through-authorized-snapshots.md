@@ -1,13 +1,14 @@
 # ADR 0039: Inspect running worlds through authorized snapshots
 
-- **Decision status:** Proposed
+- **Decision status:** Accepted
 - **Implementation status:** Not started
 - **Date:** 2026-07-19
+- **Last reconciled:** 2026-07-24
 - **Decision level:** Product
 - **Owners:** Robusta maintainers
 - **Supersedes:** None
-- **Amends if accepted:** ADR 0014 by making the bounded inspection floor an explicit Robusta 1.0 diagnostics requirement
-- **Related decisions:** 0002, 0003, 0006, 0007, 0009, 0011-0016, 0019-0024, 0026-0029, 0030, 0031, 0033-0038
+- **Amends:** ADR 0014 by making the bounded inspection floor an explicit Robusta 1.0 diagnostics requirement
+- **Related decisions:** 0002, 0003, 0006, 0007, 0009, 0011-0016, 0019-0024, 0026-0029, 0030, 0031, 0033-0038, 0042-0051
 
 ## The question
 
@@ -35,7 +36,7 @@ The predecessor and current scaffold have no accepted inspection schema, committ
 
 ### Option A: One capability-scoped, read-only snapshot and query model
 
-Publish schema-derived inspection projections for worlds, maps, entities, relations, time, content provenance, and networking. Observe complete committed boundaries, identify freshness and authority, apply role- and subject-aware redaction before results leave the owning process, and route any requested mutation through a separate declared game, editor, or operator command.
+Publish schema-derived inspection projections for worlds, maps, entities, relations, time, content provenance, and networking. Capture immutable post-phase or post-step observations only after every included value write and structural publication agrees, identify freshness and owning authority, apply role- and subject-aware redaction before results leave the owning process, and route any requested authoritative mutation through a separate declared command.
 
 This provides a common source for creator UI, command-line tools, automated tests, crash diagnostics, and authorized operations. It requires every supported capability to define an inspection projection, sensitivity, limits, and unavailable outcomes.
 
@@ -47,28 +48,39 @@ This is quick for maintainers and can expose every implementation field. It make
 
 This reuses persistence or debugger machinery, but a checkpoint intentionally excludes transient network, prediction, cache, and presentation state, while raw memory contains native resources, aliases, credentials, and half-updated implementation detail. Neither is an honest live inspection model.
 
-## Current review position
+## Decision
 
-Option A is recommended for review. No decision is accepted by this proposal.
+Robusta will use Option A.
 
-Acceptance includes the stated amendment to ADR 0014's diagnostics floor. If first-release inspection is not intended, ADR 0014 must instead be revised explicitly; it must not be broadened or narrowed through implementation alone.
+This decision includes the stated amendment to ADR 0014's diagnostics floor. Any later removal or narrowing of first-release inspection requires an explicit superseding decision; it must not happen through implementation alone.
 
-If accepted, the product contract will be:
+Accepted ADRs 0042-0051 constrain the command, identity, activation, fault, compatibility, state, storage, query, and structural-publication boundaries used below. Their acceptance does not implement this product outcome or activate an inspection schema, codec, endpoint, or SDK surface.
 
-1. An **inspection observation** is a read-only, typed view of one named target at one identified observation boundary. Its envelope distinguishes authority process, world, map, entity, client or session subject where relevant, simulation step, catalog generation, schema version, and capture freshness. It is not a runtime handle, checkpoint, replay, editor document, or permission grant.
-2. Authoritative world inspection observes one complete committed boundary. It never reports a half-applied lifecycle, relationship, timer, catalog-adoption, or structural transaction. A live query may report that its target changed or ended before capture rather than combining values from different boundaries.
-3. The first-release inspection floor covers world health and time; runtime map and frame identity; entity identity and lifecycle; component and capability presence; declared authoritative field values; definition, package, schema, birth-generation, and migration provenance; spatial parent, containment, attachment, lifecycle ownership, and reference relations; frame-qualified position; admitted timers and delayed-work summaries; and applicable authority, prediction, confirmation, interest, visibility, and replication state.
+The product contract is:
+
+1. An **inspection observation** is a read-only, typed view of one named target at one identified observation boundary. Its envelope keeps the owning-authority identity, target kind and target identity, session-world attachment identity where relevant, simulation step, catalog-generation identity, schema identity, and capture freshness in distinct typed fields; none substitutes for another. It is not a runtime handle, checkpoint, replay, editor document, mapping, or permission grant.
+2. Authoritative world inspection captures one immutable post-phase or post-step observation only after all included phase-local component-value writes and the corresponding structural publication, indexes, and commit records agree. A structural frontier alone does not stabilize earlier or concurrent value writes. Capture never exports a phase borrow, retains mutable storage, races a live writer, or invokes game code to reconstruct a value. It reports one complete boundary or a typed changed, ended, or unavailable outcome rather than combining values from different boundaries.
+3. The first-release inspection floor covers world health and time; runtime map and frame identity; entity identity and lifecycle; component and capability presence; declared authoritative field values; definition, package, schema, birth-generation, and migration provenance; spatial parent, containment, attachment, lifecycle ownership, and reference relations; frame-qualified position; admitted timers and delayed-work summaries; and applicable authority, prediction, confirmation, interest, visibility, and replication state. Each projected field group names exactly one owning domain and publication boundary.
 4. A supported platform or Game SDK capability supplies a stable inspection projection sufficient to explain its user-visible outcomes. Generated schema metadata identifies names, types, provenance, sensitivity, and whether a value is authoritative, predicted, derived, cached, presentation-only, or unavailable. An unavailable or unsupported value has an explicit reason; tools do not guess by reflecting private fields.
-5. Inspection distinguishes prototype birth inputs, current mutable world values, explicit current-catalog references, resolved inheritance, applied migrations, and derived values. Display names and source locations aid people but never replace canonical identities.
-6. Client, authority, host, session, editor, and durable-service observations remain separately labeled. A client-side inspector sees only state legitimately admitted to that client. Comparing client prediction with authority state requires separate authorization to each target and never copies authority-only secrets into the ordinary client projection.
-7. Read authority, discovery authority, and mutation authority are distinct. Learning that a world, entity, component, relation, field, or hidden subject exists can itself require authorization. Redaction happens in the process that owns the unredacted state, before serialization, logging, caching, or transmission, and uses stable omitted, redacted, denied, ended, and unavailable outcomes without revealing hidden values through diagnostic detail. Each production protocol declares its discovery and side-channel threat model, response-shape policy, measurement environment, and timing or traffic tolerance; this contract does not claim absolute non-disclosure through every shared-resource timing channel.
-8. Local creator tools, automated tests, authenticated creator-authority sessions, and remote operator tools use the same versioned inspection model but receive different declared capabilities. Public UGC cannot acquire executable inspection power, and administrator or creator status never implies launcher, package-manager, credential, or unrestricted host authority.
-9. Inspection is read-only and does not invoke arbitrary game getters, callbacks, script, filesystem access, network access, or simulation work. A requested change uses a separately authorized, validated, audited game command, map-document transaction, catalog migration, or operator operation with its own lifecycle and failure result. There is no general `set field`, `invoke method`, or private component mutation promise.
-10. Queries declare scope, projection, filtering, ordering, maximum work, maximum result size, timeout, and cancellation behavior. Enumeration and pagination use stable continuation identities or explicitly report that the observed generation changed. A large or adversarial query cannot pause a world indefinitely, allocate without bound, or starve gameplay, networking, supervision, or diagnostics.
-11. Paused worlds remain inspectable at their last committed boundary. A faulted or integrity-unknown world exposes only observations captured through a boundary that remains trustworthy, plus host-owned fault and provenance records; inspection does not execute more game code in an attempt to recover arbitrary state.
-12. Inspection results and audit records follow explicit retention, privacy, and disclosure rules. Secret values, credentials, tokens, raw personal data, and undeclared native memory are never included merely because a caller has general debug access. Production endpoints are disabled unless an operator deliberately configures the appropriate authenticated projection.
-13. Ordinary production client and authority packages contain only the minimum inspection producers needed for supported diagnostics and declared operator use. Creator-only UI, workspace access, private draft inspection, and permissive development endpoints remain in separately declared creator artifacts and are absent from ordinary production projections.
-14. First release requires structured local and authenticated operator inspection, headless query support, source provenance, relation and network explanation, redaction, pagination, and capture at committed boundaries. Arbitrary historical time travel, fleet-wide distributed joins, private-memory browsing, a universal mutation console, and automatic root-cause inference are later capabilities or explicit non-goals.
+5. Cross-version inspection admission uses exact immutable compatibility descriptors, exact resolved policy state, and a reviewed and approved inspection profile under ADR 0047. Before a cross-version observation or endpoint becomes visible, the operation authority must receive one valid complete compatibility report selecting the permitted inspection mode. Successful decoding proves neither compatibility nor authority, and `ReadOnlyInspection` can admit only its named read-only mode; it grants no discovery, resolution, or mutation power.
+6. Inspection distinguishes prototype birth inputs, current mutable world values, explicit current-catalog references, resolved inheritance, applied migrations, and derived values. Display names and source locations aid people but never replace canonical identities.
+7. Client, authority, host, session, editor, and durable-service observations remain separately labeled. Interest, visibility, replication, prediction, confirmation, avatar association, and other attachment-scoped facts name exactly one owning domain and are captured only through an owner-issued live attachment binding carrying its `SessionWorldAttachmentId` and protocol epoch. Detach, reconnect, world replacement, or binding retirement invalidates attachment-scoped targets, mappings, and cursors. A client-side inspector sees only state legitimately admitted to that client. Client-versus-authority comparison consists of two separately authorized and separately captured observations with independent boundaries and freshness; it promises no cross-owner simultaneity and never copies authority-only secrets into the ordinary client projection.
+8. Read authority, discovery authority, and mutation authority are distinct. Learning that a world, entity, component, relation, field, or hidden subject exists can itself require authorization. Redaction happens in the process that owns the unredacted state, before serialization, logging, caching, or transmission, and uses stable omitted, redacted, denied, ended, and unavailable outcomes without revealing hidden values through diagnostic detail. Each production protocol declares its discovery and side-channel threat model, response-shape policy, measurement environment, and timing or traffic tolerance; this contract does not claim absolute non-disclosure through every shared-resource timing channel.
+9. Local creator tools, automated tests, authenticated creator-authority sessions, and remote operator tools use the same versioned inspection meaning but receive different declared capabilities. Public UGC cannot acquire executable inspection power, and administrator or creator status never implies launcher, package-manager, credential, or unrestricted host authority.
+10. Inspection capture and projection are read-only and perform no arbitrary I/O, game getters, callbacks, script execution, filesystem access, network access, or simulation work. A separately governed transport may transmit only an already authorized and redacted result. Any requested change to authoritative world state enters a separately authorized and validated ADR 0042 command and receives that command's immutable terminal result; submission alone is not success. Creator-document transactions, catalog-adoption workflows, and non-world operator operations remain separately governed and cannot become a private component mutation path. There is no general `set field`, `invoke method`, or private component mutation promise.
+11. Queries declare scope, projection, filtering, ordering, maximum work, maximum result size, timeout, and cancellation behavior. A continuation cursor is opaque, bounded, scoped to exactly one immutable observation, and carries no resolution or authority; it becomes invalid when that observation or its required live attachment binding ends. Any external cursor encoding remains forbidden until the inspection owner activates a reviewed ADR 0044 surface. Enumeration either remains on its named observation or explicitly reports that a fresh live capture would cross a generation boundary. A large or adversarial query cannot pause a world indefinitely, allocate without bound, or starve gameplay, networking, supervision, or diagnostics.
+12. A paused but still-open world remains inspectable at its most recent published observation boundary. Once the ADR 0046 owner-closing admission fence wins, no new inspection query resolves or executes against that owner. Inspection may then expose only a pre-fence immutable observation captured while the relevant integrity was `KnownSound` and retained or transferred through the acquisition ledger under a named external retention authority with a proven terminal postcondition, plus host- or supervisor-owned sealed close and fault reports and their bounded late-incident chain. If that evidence is absent, contradictory, or untrustworthy, especially when host integrity is `Unknown`, inspection returns `Unavailable`; it does not promise that a last snapshot always exists or run more game code to manufacture one.
+13. Inspection results and audit records follow explicit retention, privacy, and disclosure rules. Secret values, credentials, tokens, raw personal data, and undeclared native memory are never included merely because a caller has general debug access. Production endpoints are disabled unless an operator deliberately configures the appropriate authenticated projection.
+14. Ordinary production client and authority packages contain only the minimum inspection producers needed for supported diagnostics and declared operator use. Creator-only UI, workspace access, private draft inspection, and permissive development endpoints remain in separately declared creator artifacts and are absent from ordinary production projections.
+15. First release requires structured local and authenticated operator inspection, headless query support, source provenance, relation and network explanation, redaction, pagination, and capture at committed boundaries. Arbitrary historical time travel, fleet-wide distributed joins, private-memory browsing, a universal mutation console, and automatic root-cause inference are later capabilities or explicit non-goals.
+
+## Authority and retained gates
+
+This decision amends only ADR 0014's diagnostics floor and unlocks the `OBS-INSPECTION` technical work package. It does not by itself define or implement the observation schema, activate an ADR 0044 diagnostic or protocol codec, authorize public Game SDK inspection contributions, approve the ADR 0047 inspection compatibility profile, create a remote transport or endpoint, or grant any caller inspection authority.
+
+`OBS-INSPECTION` must still define the observation and target identity declarations, owner-issued bindings, purpose-bound mappings, schema and bounded query protocol, immutable capture mechanism, redaction and retention behavior, and conformance evidence. Cross-version, public, or remote use additionally waits for a reviewed and approved `FND-COMPAT` inspection profile; workload limits wait for `FND-BUDGET` evidence.
+
+Production operator authentication, grants, endpoints, command policy, and audit remain `OPS-ADMIN` work at CP14. Logs, metrics, traces, health, crash reporting, fault aggregation, privacy, cardinality, and operational retention remain `OPS-OBSERVABILITY` work, with ADR 0046 owning the close/fault report semantics. Those surfaces may project authorized inspection data but do not become inspection protocols by implication.
 
 ## What we deliberately will not do
 
@@ -102,27 +114,28 @@ If accepted, the product contract will be:
 
 - An external station-like game developer inspects a damaged door and sees its runtime identity, lifecycle, components, current durability, prototype and package origin, birth catalog generation, applied migrations, containment or attachment relations, and frame-qualified position without private engine access.
 - A contrasting game's hidden card and a station-like antagonist role are absent or redacted for an ordinary client and visible only to an explicitly authorized authority-side observer. Under the versioned protocol threat model and controlled measurement environment, unauthorized responses use the declared common shapes, counts, continuation behavior, and measured timing or traffic tolerance; residual channels and limits remain documented rather than being claimed away.
-- A creator compares a predicted client object with its authoritative counterpart and receives separately labeled step, confirmation, interest, visibility, and schema information without transmitting unrelated server-only state to the client.
-- Inspection during component mutation, entity ending, cross-map movement, and catalog adoption returns one complete before or after boundary, never a mixed result. An ended target produces the declared ended or stale outcome.
+- A creator compares separately captured predicted-client and authoritative observations and receives independently labeled step, freshness, confirmation, interest, visibility, attachment epoch, and schema information without a simultaneity claim or transmission of unrelated server-only state to the client. Detach and reconnect invalidate the old attachment targets, mappings, and cursors.
+- Inspection during component-value mutation, entity ending, cross-map movement, and catalog adoption returns one immutable post-phase or post-step boundary after included values, structures, indexes, and commit records agree, never a mixed result. An ended target produces the declared ended or stale outcome.
 - Two worlds sharing one immutable catalog are inspected concurrently; every observation retains the correct world and generation identity and neither query can access the other's mutable state without separate authority.
-- A paused world reports its stable committed state. A deliberately faulted world exposes the last trustworthy boundary and host-owned fault record without invoking another game callback.
+- A paused open world reports its stable published observation. After an owner-closing fence, a deliberately faulted world exposes a pre-fence `KnownSound` observation only when it was ledgered under a named external retention authority, plus the sealed host or supervisor fault report and bounded late incidents. Missing or integrity-unknown evidence returns `Unavailable` without owner resolution or another game callback.
 - A large station-like world is queried with pagination, cancellation, size limits, and a slow consumer. Gameplay and supervision retain their budgets, continuation behavior is explicit when the observed generation changes, and oversized requests fail predictably.
 - An attempted reflective field read, arbitrary setter, unauthorized remote request, public-UGC escalation, and secret-bearing diagnostic are rejected with stable source-aware or policy-aware results.
-- Headless CLI, automated test, creator UI, and authenticated operator views decode the same versioned observation schema, while package scans find no workspace watcher, creator draft access, or permissive development endpoint in ordinary production client and authority artifacts.
+- Cross-version fixtures admit an observation only through exact descriptors and a valid complete report under the reviewed inspection profile; decoding or a `ReadOnlyInspection` outcome grants no additional authority.
+- Headless CLI, automated test, creator UI, and authenticated operator views decode the same versioned observation schema through separately authorized projections, while package scans find no workspace watcher, creator draft access, or permissive development endpoint in ordinary production client and authority artifacts.
 
 ## Implementation notes
 
-No inspection schema, observation boundary, provenance projection, redaction policy, query engine, remote protocol, UI, or conformance evidence exists. Implementation status remains `Not started`.
+No inspection schema, ADR 0044 inspection identity declaration or codec surface, ADR 0047 inspection profile, immutable value-and-structure observation boundary, owner-issued attachment binding, provenance projection, redaction policy, query engine, fault-safe retention integration, remote protocol, UI, or conformance evidence exists. Implementation status remains `Not started`.
 
 ## Follow-up decisions
 
-- Inspection envelope, schema generation, stable identity vocabulary, and compatibility rules.
+- Inspection envelope, target and cursor identity declarations, ADR 0044 surface profiles, purpose-bound mappings, and an exact ADR 0047 inspection compatibility profile.
 - Commit-boundary capture, immutable observation, pagination, cancellation, and resource-budget mechanisms.
 - Sensitivity declarations, subject-aware authorization, redaction, audit, retention, and timing-disclosure policy.
 - Platform and game-defined inspector contribution contracts and diagnostics for unavailable values.
 - Authority/client comparison, interest-decision explanation, prediction history, and network transport.
 - Creator and operator UI, headless query language, production projection, and remote deployment rules.
-- Fault-safe last-boundary capture and the boundary between inspection, profiling, tracing, and replay.
+- ADR 0046-safe immutable retention and the boundary between inspection, profiling, tracing, crash reporting, and replay.
 
 ## References
 
@@ -132,6 +145,12 @@ No inspection schema, observation boundary, provenance projection, redaction pol
 - [ADR 0023](../technical/0023-generate-versioned-authoritative-replication-schemas.md)
 - [ADR 0026](0026-define-supported-game-code-conformance-and-fault-containment.md)
 - [ADR 0037](0037-keep-live-state-stable-unless-explicitly-migrated.md)
+- [ADR 0042](../technical/0042-use-typed-message-kinds-and-transactional-structural-commits.md)
+- [ADR 0043](../technical/0043-use-a-typed-identity-and-compatibility-spine.md)
+- [ADR 0044](../technical/0044-generate-bounded-identity-declarations.md)
+- [ADR 0045](../technical/0045-generate-typed-capability-graphs-and-closed-activation-plans.md)
+- [ADR 0046](../technical/0046-coordinate-owner-shutdown-through-acquisition-ledgers-and-fault-profiles.md)
+- [ADR 0047](../technical/0047-evaluate-dimensional-compatibility-through-bounded-exact-policy-profiles.md)
 - [World-model question 24](../../workshops/world-model-question-set.md#24-how-should-a-developer-inspect-a-running-world)
 - [Space Station 14 admin tooling and View Variables](https://docs.spacestation14.com/en/community/admin/admin-tooling.html#view-variables)
 - [Space Station 14 prediction guide](https://docs.spacestation14.com/en/ss14-by-example/prediction-guide.html)

@@ -2,8 +2,8 @@
   "$schema": "https://robusta.dev/schemas/behavioral-scenarios-v2.json",
   "schemaVersion": 2,
   "catalogId": "product-behavior",
-  "updated": "2026-07-19",
-  "sourceDecisionIds": ["0003", "0004", "0005", "0006", "0007", "0008", "0009", "0011", "0012", "0013", "0015", "0016", "0026", "0027", "0030", "0031", "0032", "0033", "0034", "0035", "0036", "0037", "0038"],
+  "updated": "2026-07-26",
+  "sourceDecisionIds": ["0003", "0004", "0005", "0006", "0007", "0008", "0009", "0011", "0012", "0013", "0015", "0016", "0026", "0027", "0030", "0031", "0032", "0033", "0034", "0035", "0036", "0037", "0038", "0039", "0040", "0041"],
   "decisionGates": [
     { "id": "product.entity-lifecycle", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0015-give-entities-an-atomic-observable-lifecycle.md" },
     { "id": "product.simulation-time", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0016-separate-simulation-host-and-presentation-time.md" },
@@ -18,12 +18,25 @@
     { "id": "product.durable-identities", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0036-use-explicit-durable-identities-and-reference-policies.md" },
     { "id": "product.catalog-adoption", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0037-keep-live-state-stable-unless-explicitly-migrated.md" },
     { "id": "product.map-authoring-preview", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0038-edit-map-sources-and-preview-in-isolated-worlds.md" },
+    { "id": "product.world-inspection", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0039-inspect-running-worlds-through-authorized-snapshots.md" },
+    { "id": "product.isolated-runtime-testing", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0040-test-isolated-worlds-through-the-supported-runtime.md" },
+    { "id": "product.authoritative-replay", "decisionLevel": "product", "decisionStatus": "accepted", "sourceRef": "docs/decisions/product/0041-record-versioned-authoritative-replays-with-declared-determinism.md" },
     { "id": "technical.ownership", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0017-enforce-explicit-runtime-ownership-scopes.md" },
     { "id": "technical.scope-attachments", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0028-model-sessions-and-worlds-as-sibling-host-scopes.md" },
     { "id": "technical.sdk-topology", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0018-publish-layered-game-sdk-and-capability-boundaries.md" },
     { "id": "technical.entity-runtime", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0019-use-generational-entity-handles-and-transactional-structural-commits.md" },
     { "id": "technical.simulation-time", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0020-run-fixed-step-worlds-through-a-deterministic-phase-scheduler.md" },
     { "id": "technical.authoritative-effects", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0029-enforce-phase-scoped-access-and-buffered-effects.md" },
+    { "id": "technical.message-commit", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0042-use-typed-message-kinds-and-transactional-structural-commits.md" },
+    { "id": "technical.identity-compatibility", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0043-use-a-typed-identity-and-compatibility-spine.md" },
+    { "id": "technical.identity-declarations", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0044-generate-bounded-identity-declarations.md" },
+    { "id": "technical.capability-activation", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0045-generate-typed-capability-graphs-and-closed-activation-plans.md" },
+    { "id": "technical.owner-shutdown", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0046-coordinate-owner-shutdown-through-acquisition-ledgers-and-fault-profiles.md" },
+    { "id": "technical.compatibility-policy", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0047-evaluate-dimensional-compatibility-through-bounded-exact-policy-profiles.md" },
+    { "id": "technical.simulation-state", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0048-generate-stable-component-and-world-resource-schemas.md" },
+    { "id": "technical.simulation-storage", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0049-keep-ecs-storage-private-behind-world-owned-envelopes.md" },
+    { "id": "technical.simulation-query", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0050-generate-phase-scoped-queries-with-canonical-iteration.md" },
+    { "id": "technical.simulation-commit", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0051-plan-and-publish-structural-changes-through-atomic-commit-frontiers.md" },
     { "id": "technical.space", "decisionLevel": "technical", "decisionStatus": "backlog", "sourceRef": "docs/status/development-plan.md#technical-decision-gates-accepted-just-ahead-of-the-work-they-govern" },
     { "id": "technical.identity-content", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0021-compile-content-into-a-canonical-provenance-catalog.md" },
     { "id": "technical.delivery", "decisionLevel": "technical", "decisionStatus": "accepted", "sourceRef": "docs/decisions/technical/0022-install-exact-receipts-into-immutable-content-addressed-layouts.md" },
@@ -45,7 +58,7 @@
       "then": ["the object uses game-defined components, systems, prototype configuration, lifecycle and gameplay events, localization, appearance, entity-bound UI, and authoritative replication", "the game requires no Robusta source change, internal reference, or undocumented host hook", "generated registration and synchronization metadata is deterministic and inspectable"],
       "qualityFacets": ["sdk", "external-use", "tests", "inspection", "packaging"],
       "conformanceTestIds": ["Robusta.Conformance.GameSdk.ExternalInteractiveNetworkedObject"],
-      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.spatial-frames", "product.typed-relations", "product.platform-mechanics", "technical.sdk-topology", "technical.entity-runtime", "technical.identity-content", "technical.network"]
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.spatial-frames", "product.typed-relations", "product.platform-mechanics", "technical.sdk-topology", "technical.entity-runtime", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit", "technical.identity-content", "technical.network"]
     },
     {
       "id": "side-by-side-games",
@@ -367,7 +380,7 @@
       "then": ["the successful entity is invisible during preparation and its first ordinary observer sees the complete requested state", "the failed creation reports actionable provenance and publishes no live entity, timer, query result, event, or replication record"],
       "qualityFacets": ["sdk", "diagnostics", "tests", "inspection"],
       "conformanceTestIds": ["Robusta.Conformance.Entities.AtomicPublicationAndFailedBirthRollback"],
-      "decisionDependencies": ["technical.entity-runtime", "technical.identity-content"]
+      "decisionDependencies": ["technical.entity-runtime", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit", "technical.identity-content"]
     },
     {
       "id": "atomic-capability-change",
@@ -381,7 +394,7 @@
       "then": ["observers see one complete before state and one complete after state for the successful change", "the failed change leaves the prior capability set intact", "removing the capability cancels its owned delayed work before that work can run"],
       "qualityFacets": ["sdk", "tests", "inspection"],
       "conformanceTestIds": ["Robusta.Conformance.Entities.AtomicCapabilityChangeAndOwnedWorkCancellation"],
-      "decisionDependencies": ["product.simulation-time", "technical.entity-runtime", "technical.simulation-time"]
+      "decisionDependencies": ["product.simulation-time", "technical.entity-runtime", "technical.simulation-time", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit"]
     },
     {
       "id": "declared-entity-ending",
@@ -395,7 +408,7 @@
       "then": ["each declared relationship applies its end, detach, rehome, transfer, or rejection disposition without accidental cascade", "an owned dependent ends exactly once while an unrelated reference becomes stale", "required mutation fails clearly, optional lookup returns absence, and declared best-effort late work is safely ignored and inspectable", "an old reference never resolves to a replacement", "world disposal completes cleanup without affecting the other world, host, or player sessions"],
       "qualityFacets": ["diagnostics", "tests", "inspection"],
       "conformanceTestIds": ["Robusta.Conformance.Entities.DeclaredEndingAndStaleReferenceSafety"],
-      "decisionDependencies": ["technical.ownership", "technical.entity-runtime"]
+      "decisionDependencies": ["technical.ownership", "technical.entity-runtime", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit"]
     },
     {
       "id": "authoritative-entity-lifecycle",
@@ -409,7 +422,7 @@
       "then": ["both clients receive complete committed birth, change, and removal outcomes", "late work for the removed identity cannot mutate a later entity", "client-only cosmetic state remains separate from shared authority"],
       "qualityFacets": ["tests", "inspection", "compatibility"],
       "conformanceTestIds": ["Robusta.Conformance.Entities.AuthoritativeLifecycleAndLateWorkSafety"],
-      "decisionDependencies": ["technical.entity-runtime", "technical.network"]
+      "decisionDependencies": ["technical.entity-runtime", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit", "technical.network"]
     },
     {
       "id": "fixed-step-frame-rate-independence",
@@ -634,6 +647,48 @@
       "qualityFacets": ["sdk", "external-use", "diagnostics", "tests", "inspection", "packaging", "compatibility"],
       "conformanceTestIds": ["Robusta.Conformance.Creator.IsolatedMapEditPreview"],
       "decisionDependencies": ["product.offline-authority", "product.spatial-frames", "product.typed-relations", "product.platform-mechanics", "product.catalog-adoption", "technical.identity-content", "technical.creator-workflow", "technical.space", "technical.client-platform", "technical.network", "technical.delivery"]
+    },
+    {
+      "id": "authorized-committed-world-inspection",
+      "title": "Authorized inspection observes one bounded committed world boundary without acquiring mutation authority",
+      "sourceDecisionIds": ["0039"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0039-inspect-running-worlds-through-authorized-snapshots.md#how-we-will-prove-the-decision-works"],
+      "actors": ["external game developer", "creator", "authorized operator", "ordinary client", "unauthorized requester"],
+      "given": ["two worlds share one immutable catalog while retaining isolated mutable state", "a station-like world contains changing entities, typed relations, hidden gameplay state, an attached client, and declared observation limits", "reviewed inspection compatibility, authorization, redaction, retention, and owner-fault profiles are available"],
+      "when": ["authorized and unauthorized callers inspect during value and structural changes, pause, detach, reconnect, catalog adoption, target ending, and owner closing", "a creator compares separately captured client and authority observations", "large, stale, cross-world, reflective, mutation, cross-version, and adversarial queries are attempted"],
+      "then": ["each successful observation names its owner, target, attachment where applicable, committed post-phase or post-step boundary, catalog generation, schema, provenance, freshness, and permitted projection without combining mutable boundaries", "client and authority observations retain independent boundaries and freshness, attachment retirement invalidates attachment-scoped targets and cursors, and no observation or identifier grants discovery or mutation authority", "hidden state is omitted, redacted, or denied before leaving its owner while authorized projections remain source-aware and unauthorized results follow their declared bounded side-channel behavior", "queries remain paginated and resource-bounded, cross-world and stale targets fail without aliasing, and reflection, callbacks, arbitrary I/O, and direct field mutation are never used", "after the owner-closing fence only an externally retained pre-fence KnownSound observation and sealed supervisor evidence may remain available; absent or integrity-unknown evidence returns Unavailable", "headless tools, tests, creator UI, and operator views consume the same versioned inspection meaning through separately authorized projections while production packages exclude undeclared creator powers"],
+      "qualityFacets": ["sdk", "external-use", "diagnostics", "tests", "inspection", "packaging", "compatibility", "performance", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Inspection.AuthorizedCommittedWorldObservation"],
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.game-code-conformance", "product.spatial-frames", "product.typed-relations", "product.catalog-adoption", "technical.ownership", "technical.scope-attachments", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects", "technical.identity-content", "technical.network", "technical.message-commit", "technical.identity-compatibility", "technical.identity-declarations", "technical.capability-activation", "technical.owner-shutdown", "technical.compatibility-policy", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit"]
+    },
+    {
+      "id": "published-isolated-runtime-fixture",
+      "title": "An external game tests isolated worlds through the published ordinary runtime",
+      "sourceDecisionIds": ["0040"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0040-test-isolated-worlds-through-the-supported-runtime.md#how-we-will-prove-the-decision-works"],
+      "actors": ["external game developer", "test author", "CI operator", "package auditor"],
+      "given": ["clean Windows and Linux projects consume an exact published Test SDK without repository, internal, or friend-assembly access", "station-like and contrasting games declare exact catalogs, generated activation plans, owner-scoped adapters, compatibility inputs, and cleanup profiles", "conforming parallel fixtures, loopback client and authority packages, leak fixtures, and separately supervised unsafe fixtures are available"],
+      "when": ["the projects restore, compile, publish ordinary headless worlds, admit ordered inputs, manually advance bounded simulation steps, inspect committed outcomes, and close their owners", "fixtures repeat under serial and admitted parallel scheduling, run concurrently, exercise loopback reconnect, inject runtime and resource faults, and attempt cross-fixture identity use", "ordinary production packages and the qualification process are audited for test-only powers and nonconforming code isolation"],
+      "then": ["external fixtures use ordinary lifecycle, activation, input admission, scheduler, structural commit, observation, effect, fault, and cleanup semantics rather than a mock runtime or private mutation path", "exact inputs and random state produce the declared serial-oracle and admitted parallel outcomes without wall-clock sleeps while changed inputs receive source-located differences and no durable replay guarantee is implied", "worlds share no mutable state, cross-fixture identities and opaque random state fail outside their exact scope, and measured workload results remain attached to their versioned environment rather than becoming unmeasured promises", "all waiters receive one close report with Clean, ClosedWithContainedFaults, or ContainmentLost as governed by the approved profiles; manual simulation time and caller cancellation cannot alter monotonic cleanup deadlines", "unsafe or native qualification runs only in a separately supervised disposable process, loopback teardown proves owned processes and ports are released, and ordinary production artifacts contain no test driver, fake registry, fault injector, permissive setup API, or test credential"],
+      "qualityFacets": ["sdk", "external-use", "diagnostics", "tests", "inspection", "packaging", "compatibility", "performance", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Testing.PublishedIsolatedRuntimeFixture"],
+      "decisionDependencies": ["product.entity-lifecycle", "product.simulation-time", "product.game-code-conformance", "product.offline-authority", "product.spatial-frames", "product.typed-relations", "product.world-inspection", "technical.ownership", "technical.scope-attachments", "technical.sdk-topology", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects", "technical.identity-content", "technical.delivery", "technical.network", "technical.message-commit", "technical.identity-compatibility", "technical.identity-declarations", "technical.capability-activation", "technical.owner-shutdown", "technical.compatibility-policy", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit"]
+    },
+    {
+      "id": "bounded-authoritative-reexecution",
+      "title": "A bounded authoritative replay verifies committed outcomes only inside its admitted exact domain",
+      "sourceDecisionIds": ["0041"],
+      "specificationStatus": "specified",
+      "sourceProofRefs": ["docs/decisions/product/0041-record-versioned-authoritative-replays-with-declared-determinism.md#how-we-will-prove-the-decision-works"],
+      "actors": ["game developer", "replay operator", "compatibility reviewer", "security reviewer"],
+      "given": ["an authorized station-like recording has an exact starting checkpoint or definition, immutable receipts and descriptors, complete admitted input and random-state records, replay-local identities, fixed declared partition semantics, verification projections, and no real external-sink capability", "reviewed replay-reexecution compatibility and replay-owner fault profiles define the admitted domain", "perturbed, incomplete, corrupt, oversized, dependency-mismatched, unauthorized, and nonconforming fixtures are available"],
+      "when": ["the artifact is re-executed headlessly through the ordinary runtime under serial mode and varied worker scheduling that preserves the fixed declared partition scheme", "inputs, random state, partition semantics, catalog transitions, migration outcomes, and committed effect intents are repeated or deliberately changed", "compatibility denial, evaluator failure, divergence, owner faults, lifecycle races, malicious artifacts, and unauthorized access are exercised"],
+      "then": ["Equal is possible only when the admitted exact domain reaches the same covered canonical committed-state and committed effect-intent projections; incidental worker scheduling, task delay, render rate, and fresh runtime identities are not equality inputs", "changed admitted facts report the earliest checked Divergent boundary while incomplete, corrupt, or resource-limited artifacts never masquerade as verified and a changed declared partition scheme requires another compatibility domain", "re-execution compares committed effect intents and admits recorded responses as later ordered inputs without contacting real sinks or repeating external effects", "fresh runtime identities correlate only through purpose-bound replay-local mappings, and stale, forged, cross-artifact, or cross-purpose mappings and identifier possession grant no authority", "a valid denied compatibility report prevents replay-world publication, evaluation failure supplies no admitted mode, ReadOnlyInspection never becomes verification, and integrity-unknown faults cannot return Equal", "artifact parsing, dependency handling, lifecycle operations, disclosure, retention, and deletion remain authenticated, bounded, secret-aware, and unable to acquire packages, credentials, executable trust, or real-sink capability"],
+      "qualityFacets": ["diagnostics", "tests", "inspection", "packaging", "compatibility", "performance", "trust"],
+      "conformanceTestIds": ["Robusta.Conformance.Replay.BoundedAuthoritativeReexecution"],
+      "decisionDependencies": ["product.simulation-time", "product.game-code-conformance", "product.spatial-frames", "product.typed-relations", "product.extension-ladder", "product.world-checkpoints", "product.durable-identities", "product.catalog-adoption", "product.world-inspection", "product.isolated-runtime-testing", "technical.ownership", "technical.scope-attachments", "technical.entity-runtime", "technical.simulation-time", "technical.authoritative-effects", "technical.identity-content", "technical.delivery", "technical.network", "technical.persistence", "technical.message-commit", "technical.identity-compatibility", "technical.identity-declarations", "technical.capability-activation", "technical.owner-shutdown", "technical.compatibility-policy", "technical.simulation-state", "technical.simulation-storage", "technical.simulation-query", "technical.simulation-commit"]
     }
   ]
 }

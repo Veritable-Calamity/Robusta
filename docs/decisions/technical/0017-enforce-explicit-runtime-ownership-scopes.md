@@ -1,7 +1,7 @@
 # ADR 0017: Enforce explicit runtime ownership scopes
 
 - **Decision status:** Accepted
-- **Implementation status:** Not started
+- **Implementation status:** In progress
 - **Date:** 2026-07-19
 - **Decision level:** Technical
 - **Owners:** Runtime workstream
@@ -82,7 +82,7 @@ Logs, metrics, traces, and cleanup reports carry game, host, session, catalog-ge
 
 ## Implementation notes
 
-The repository currently contains project scaffolds only. No scope implementation or runtime evidence is claimed.
+The internal runtime now contains an initial host, world, session, attachment, and catalog-lease ownership kernel with explicit closure states, attachment-first teardown, reverse resource cleanup, and failure aggregation. Generated activation metadata, lifetime-capture validation, cleanup budgets, leak detection, and operational diagnostics remain unimplemented. Focused evidence lives in [`OwnershipScopeTests`](../../../tests/Robusta.Runtime.Tests/Hosting/OwnershipScopeTests.cs).
 
 The [2026-07-19 coherence audit](../../status/adr-coherence-and-first-release-baseline-2026-07-19.md) found that the linear catalog/host/session/world order conflicts with ADR 0012's independent session and world lifetimes. [ADR 0028](0028-model-sessions-and-worlds-as-sibling-host-scopes.md) is accepted and replaces that linear order with sibling world and session scopes joined by explicit attachments.
 

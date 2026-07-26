@@ -1,13 +1,14 @@
 # ADR 0043: Use a typed identity and compatibility spine
 
-- **Decision status:** Proposed
-- **Implementation status:** Not started
-- **Date:** 2026-07-19
+- **Decision status:** Accepted
+- **Implementation status:** In progress
+- **Date:** 2026-07-21
 - **Decision level:** Technical
 - **Owners:** Runtime, content, delivery, persistence, multiplayer, and creator-workflow workstreams
 - **Supersedes:** None
-- **Product decisions served:** 0002, 0003, 0004, 0005, 0006, 0008, 0011, 0012, 0015, 0027, 0030, 0031, 0032, 0035, 0036, 0037, 0038
-- **Related decisions:** 0017, 0019, 0021-0024, 0028, 0042
+- **Amended by:** ADR 0041, which adds bounded replay identities and replay-reexecution compatibility without changing this ADR's nominal-kind, mapping, or common compatibility-spine semantics
+- **Product decisions served:** 0002-0006, 0008, 0011, 0012, 0015, 0027, 0030-0032, 0035-0041
+- **Related decisions:** 0017, 0019, 0021-0024, 0028, 0039-0042, 0044-0051
 
 ## The question
 
@@ -55,11 +56,11 @@ Keep identity representations locally simple and document which values may be co
 
 This minimizes initial infrastructure, but conventions cannot stop cross-kind equality, scope loss during serialization, name-based fallback, or inconsistent compatibility decisions. Failures would emerge at runtime and often after state publication.
 
-## Current review position
+## Decision
 
-Option A is recommended for review. This is a proposed technical position, not an accepted decision and not implementation authority.
+Robusta will use Option A: nominal identity types, explicit mapping records, and a dimensional compatibility vector.
 
-If accepted, the mechanism contract would be:
+The mechanism contract is:
 
 1. Every foundational identity is a nominal generated value type. Its declaration records a stable identity-kind schema, scope kind, issuer kind, encoding version, maximum encoded size, generation or reuse rule, serialization permissions, redaction class, and diagnostic formatter. Public SDK code does not receive a general comparable `Identity`, raw GUID, or string alias.
 2. Equality and ordering are defined only between the same identity type under the same declared scope. Comparing an entity to a network object, a runtime map to a map definition, a checkpoint to a world, or a package to a receipt is a compile-time error in typed code and a stable kind-mismatch result at dynamic boundaries.
@@ -85,6 +86,8 @@ If accepted, the mechanism contract would be:
 | `CheckpointId` | One immutable checkpoint artifact | Durable in repository metadata, parent/source links, migration records, and receipts where selected | Optional lineage, source receipt and schemas, checkpoint-local records, restore result | Runtime world, repository slot, display name, or lineage identity |
 | `WorldLineageId` | An explicitly declared checkpoint continuity domain | Durable only when a save profile promises lineage | Checkpoints in that lineage and authorized durable concepts | Live world, checkpoint, host, issuer, or authority |
 | `CheckpointRecordId` | One checkpoint artifact | Durable only inside that checkpoint and its explicit migration representation | Included records and fresh restore-time entities | Durable identity, runtime slot, catalog definition, or record in another checkpoint |
+| `ReplayArtifactId` | One immutable authoritative replay artifact | Canonical durable artifact identity under the replay profile; retained only by authorized replay storage and diagnostics | Source checkpoint or construction, exact receipts and descriptors, replay records, verification results | Runtime world, checkpoint, receipt, file path, display name, or authority |
+| `ReplayRecordId` | One replay artifact | Durable only inside that artifact and its admitted migration representation | Original declared identities and separately allocated re-execution identities through purpose-bound comparison mappings | Runtime identity, checkpoint record, durable concept, or record in another replay |
 | `DurableId<TDomain>` | One declared issuer and package-qualified domain | Stable only for the continuity contract of that domain; allowed in checkpoints, transfer records, or authorized service data | Checkpoint records, reconstructed entities, external proxies, explicit migrations | Credential, session, entity, catalog definition, or proof of ownership |
 | `CatalogDefinitionId<TKind>` | One package-qualified definition namespace | Stable logical definition identity in catalogs, documents, saves, and schemas; exact resolved meaning also requires generation or fingerprint | Package, source provenance, catalog generation, runtime birth or map instantiation | CLR type, file path, short name, live object, or exact content fingerprint |
 | `CatalogGenerationId` | One immutable resolved catalog projection | Exact artifact identity; retained while leased or referenced by a transaction, world, checkpoint, or diagnostic policy | Receipt, package lock, definitions and schema fingerprints, pinned worlds | Logical definition, mutable catalog, package, or release receipt |
@@ -92,7 +95,7 @@ If accepted, the mechanism contract would be:
 | `PackageId` and `PackageRevisionId` | Publisher-qualified package namespace and one exact package artifact | Logical package identity is stable; exact revision includes version and canonical digest and is receipt material | Dependencies, definitions, schemas, side projections, receipt membership | Definition, receipt, publisher trust, filesystem directory, or loaded assembly |
 | `ReleaseReceiptId` | One canonical signed exact release receipt | Immutable installation, selection, launch, update, rollback, and diagnostic identity | Exact runtime, packages, projections, schemas, catalog generations, extensions, platform requirements | Game name, update channel, installed path, host, or trust decision by itself |
 
-11. The table is a minimum platform set, not a license to compare every row through one interface. Additional identities such as editor session, structural operation, transfer activation, replay artifact, or external-service transaction require their own accepted contract and must follow the same type, scope, mapping, compatibility, and non-authority rules.
+11. The table is a minimum platform set, not a license to compare every row through one interface. Additional identities such as editor session, structural operation, transfer activation, or external-service transaction require their own accepted contract and must follow the same type, scope, mapping, compatibility, and non-authority rules. ADR 0041 adds the two replay kinds to the minimum set, while `REPLAY-AUTHORITATIVE` still owns their exact declarations, codecs, mappings, and retention.
 12. A world pins exactly one admitted catalog generation at a committed boundary. A runtime entity may retain package-qualified birth-definition provenance and a generation; those fields explain construction but do not make the entity equal to its definition. Runtime catalog references that intentionally follow an adopted generation are separately declared per ADR 0037.
 13. One map definition may instantiate several runtime maps, and one document revision may compile into a definition fingerprint under an exact workspace lock. Compilation and instantiation each create provenance mappings. Neither mapping permits edits to mutate a catalog or a running map in place.
 14. A session controls or observes an entity only through an explicit session-world attachment and avatar-association record. A network identity resolves through that attachment's table to one live entity. Detach, reconnect, world replacement, interest loss, and entity death have distinct terminal mappings and cannot reuse an old network resolution.
@@ -101,7 +104,7 @@ If accepted, the mechanism contract would be:
 17. Rename, move, split, merge, clone, or issuer change uses an explicit typed migration record. It identifies old and new kinds and scopes, cardinality, collision policy, retained tombstones, provenance, and compatibility effect. The runtime never guesses from case folding, path similarity, nearest version, display text, registration order, or an ambiguous short name.
 18. Each exact release receipt publishes a compatibility vector with separate identities for at least runtime contract, SDK/API surface, generated component and message layouts, package lock, catalog format and semantic generation, network schema, checkpoint envelope and save profile, creator-document schema and compiler, advanced-extension interfaces, native dependencies, and operating-system/architecture requirements.
 19. Compatibility is an operation-specific relation, not equality and not one Boolean. The common result vocabulary is `Exact`, `Compatible`, `MigrationRequired`, `AdapterRequired`, `RestartRequired`, `ReconnectRequired`, `ReadOnlyInspection`, or `Incompatible`, with stable reasons and every compared dimension. An operation defines which results it may proceed under; it cannot silently downgrade an incompatible required dimension.
-20. One versioned compatibility rules engine evaluates canonical descriptors for install, launch, multiplayer handshake, catalog adoption, checkpoint inspection and restore, map compilation and preview, package loading, and extension admission. Each operation selects only its relevant dimensions but receives the same answer for the same operation, inputs, and policy on every supported machine.
+20. One versioned compatibility rules engine evaluates canonical descriptors for install, launch, multiplayer handshake, catalog adoption, checkpoint inspection and restore, map compilation and preview, package loading, extension admission, and replay re-execution. Each operation selects only its relevant dimensions but receives the same answer for the same operation, inputs, and policy on every supported machine. Replay publication additionally waits for the separately reviewed ADR 0047 replay-reexecution profile required by ADR 0041.
 21. Compatibility policy is itself identified and included in the exact tool or runtime receipt. Range expressions are resolved to exact identities before launch or publication. A mutable channel name, installed directory, process assembly list, or current clock cannot change a completed compatibility result.
 22. Compatibility and mapping checks fail closed before their target becomes visible. Unknown required identity kind, unsupported encoding, missing issuer, expired mapping, incompatible schema, ambiguous migration, collision, or corrupt descriptor produces a stable diagnostic and no guessed target. Optional absence is allowed only where its schema declares that outcome.
 23. Wire, checkpoint, catalog, document, receipt, and diagnostic codecs use generated bounded parsers. They do not reflectively instantiate arbitrary runtime types from identity-kind data. Untrusted inputs have length, nesting, count, allocation, and lookup-rate limits before registry or mapping access.
@@ -140,9 +143,9 @@ Structured identities make logs and support reports more useful but increase car
 
 ## Bounded first-release scope
 
-The proposed 1.0 scope includes generated types and codecs for every identity in the minimum table; stale-safe entity, map, frame, world, session, attachment, and network identities; package-qualified catalog and package identities; exact catalog-generation and release-receipt identities; checkpoint, checkpoint-local, lineage, and declared durable identities; document and revision identities; purpose-bound mapping tables; and compatibility evaluation for install, launch, handshake, catalog admission, checkpoint restore, and map compilation or preview.
+The 1.0 scope includes generated types and codecs for every identity in the minimum table; stale-safe entity, map, frame, world, session, attachment, and network identities; package-qualified catalog and package identities; exact catalog-generation and release-receipt identities; checkpoint, checkpoint-local, lineage, and declared durable identities; document and revision identities; purpose-bound mapping tables; and compatibility evaluation for install, launch, handshake, catalog admission, checkpoint restore, and map compilation or preview.
 
-The 1.0 scope does not include a universal cross-service durable registry, general durable cross-world graph transfer, semantic document branch merge, automatic reverse migration, global object search, cross-release live-object rebasing, or a replay identity and replay-compatibility guarantee. Games may declare bounded durable domains, but operating a federated issuer remains a separate capability.
+The 1.0 scope does not include a universal cross-service durable registry, general durable cross-world graph transfer, semantic document branch merge, automatic reverse migration, global object search, or cross-release live-object rebasing. Accepted ADR 0041 separately adds bounded replay artifact and replay-local identities plus replay-reexecution compatibility within a validated domain. Their exact ADR 0044 declarations, purpose-bound comparison mappings, durable codecs, and ADR 0047 profile remain governed by `REPLAY-AUTHORITATIVE`; they do not create a universal registry, reuse ephemeral runtime identities, or weaken this ADR's operation-specific compatibility rules. Games may declare bounded durable domains, but operating a federated issuer remains a separate capability.
 
 ## How we will prove the decision works
 
@@ -162,15 +165,15 @@ The 1.0 scope does not include a universal cross-service durable registry, gener
 
 ## Implementation notes
 
-No common identity declaration schema, generated nominal types, bounded codecs, mapping-record contract, compatibility descriptor, compatibility rules engine, migration registry, redaction policy, or conformance matrix exists. Current scaffolds provide no implementation evidence for this proposal.
+The internal ownership kernel now uses distinct nominal types for host, world, session, session-world attachment, and catalog-generation identities. These types are runtime-only and intentionally lack public, durable, or wire codecs. The common identity declaration schema, generators, bounded codecs, mapping-record contract, compatibility descriptor, compatibility rules engine, migration registry, redaction policy, and full conformance matrix remain unimplemented.
 
-## Dependencies and interaction with queued product decisions
+## Dependencies and interaction with accepted product decisions
 
-This proposal derives its identity lifetimes from accepted ADRs 0017, 0019, 0021-0023, 0028, and 0030-0038. It does not select an entity-store layout, digest algorithm, wire encoding, checkpoint format, document format, or database. Those mechanisms may vary while preserving the types, scopes, mappings, and compatibility outcomes.
+This decision derives its identity lifetimes from accepted ADRs 0017, 0019, 0021-0023, 0028, and 0030-0041. It does not select an entity-store layout, digest algorithm, wire encoding, checkpoint or replay format, document format, or database. Those mechanisms may vary while preserving the types, scopes, mappings, and compatibility outcomes.
 
-Proposed product [ADR 0039](../product/0039-inspect-running-worlds-through-authorized-snapshots.md), [ADR 0040](../product/0040-test-isolated-worlds-through-the-supported-runtime.md), and [ADR 0041](../product/0041-record-versioned-authoritative-replays-with-declared-determinism.md) may later select runtime-inspection, isolated-test, and replay or determinism outcomes. This proposal does not depend on them. An inspector can display redacted `IdentityDescriptor` values and mapping provenance without gaining resolution authority; isolated tests can create deterministic scoped identity fixtures without promising production values; and a future replay decision can introduce a distinct replay artifact identity and compatibility dimension rather than reusing a checkpoint or receipt identity.
+Accepted product [ADR 0039](../product/0039-inspect-running-worlds-through-authorized-snapshots.md) displays only authorized redacted identity descriptors and mapping provenance without gaining resolution authority. [ADR 0040](../product/0040-test-isolated-worlds-through-the-supported-runtime.md) creates scoped identity fixtures through ordinary allocation and exposes only permitted projections. [ADR 0041](../product/0041-record-versioned-authoritative-replays-with-declared-determinism.md) introduces distinct replay artifact and replay-local record identities, fresh re-execution runtime identities, purpose-bound comparison mappings, and a replay-reexecution compatibility operation rather than reusing checkpoint, receipt, or original ephemeral identities.
 
-ADR 0042 proposes ephemeral operation and message-schema identities. If both ADRs are accepted, those identities use this ADR's nominal declaration and compatibility rules, while their ordering and commit meaning remain owned by ADR 0042. Neither proposal should be implemented with a generic identity escape hatch while the other remains unresolved.
+Accepted ADR 0042 defines ephemeral operation and message-schema identities. Those identities use this ADR's nominal declaration and compatibility rules, while their ordering and commit meaning remain owned by ADR 0042. Neither decision permits a generic identity escape hatch.
 
 ## Follow-up decisions
 
@@ -180,7 +183,7 @@ ADR 0042 proposes ephemeral operation and message-schema identities. If both ADR
 - Durable issuer repository, federation, privacy, retention, and recovery policy.
 - Catalog rename, split, merge, and alias migration mechanics.
 - Diagnostic redaction, high-cardinality storage, and operator search budgets.
-- Replay identity and compatibility only after its product behavior is accepted.
+- Replay artifact and record declarations, purpose-bound comparison mappings, durable codecs, and the reviewed replay-reexecution profile under accepted ADR 0041.
 
 ## References
 

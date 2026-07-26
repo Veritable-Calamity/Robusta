@@ -8,17 +8,6 @@ public sealed class ProjectStructureTests
     private static readonly string RepositoryRoot = FindRepositoryRoot();
 
     [Fact]
-    public void ProjectFileNamesMatchTheirPhysicalDirectories()
-    {
-        var mismatches = ProjectFiles()
-            .Where(path => Path.GetFileNameWithoutExtension(path) != Directory.GetParent(path)!.Name)
-            .Select(path => Path.GetRelativePath(RepositoryRoot, path))
-            .ToArray();
-
-        Assert.Empty(mismatches);
-    }
-
-    [Fact]
     public void GameSdkProjectsDoNotReferenceInternalRuntimeProjects()
     {
         var runtimeRoot = Path.Combine(RepositoryRoot, "src") + Path.DirectorySeparatorChar;
@@ -40,6 +29,38 @@ public sealed class ProjectStructureTests
 
         Assert.DoesNotContain(References(client), reference => ResolveReference(client, reference) == server);
         Assert.DoesNotContain(References(server), reference => ResolveReference(server, reference) == client);
+    }
+
+    [Fact]
+    public void RuntimeHostsDoNotReferenceTheOppositeSideSdk()
+    {
+        var clientHost = Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Robusta.Runtime.Client",
+            "Robusta.Runtime.Client.csproj");
+        var serverHost = Path.Combine(
+            RepositoryRoot,
+            "src",
+            "Robusta.Runtime.Server",
+            "Robusta.Runtime.Server.csproj");
+        var clientSdk = Path.Combine(
+            RepositoryRoot,
+            "sdk",
+            "Robusta.Game.Client",
+            "Robusta.Game.Client.csproj");
+        var serverSdk = Path.Combine(
+            RepositoryRoot,
+            "sdk",
+            "Robusta.Game.Server",
+            "Robusta.Game.Server.csproj");
+
+        Assert.DoesNotContain(
+            References(clientHost),
+            reference => ResolveReference(clientHost, reference) == serverSdk);
+        Assert.DoesNotContain(
+            References(serverHost),
+            reference => ResolveReference(serverHost, reference) == clientSdk);
     }
 
     private static IEnumerable<string> ProjectFiles(string? root = null) =>

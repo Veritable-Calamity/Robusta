@@ -26,7 +26,9 @@ Each top-level question should be discussed in this order:
 
 ## Workshop status
 
-- `2026-07-19-world-model-06-inspection-testing-and-replay.md` — proposes Option A in ADRs 0039-0041 for questions 24-26: authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within a declared compatibility domain. None is accepted or implementation authority.
+- `2026-07-24-simulation-kernel-01-state-storage-query-and-commit.md` — records ADRs 0048-0051 accepted independently via Option A in dependency order: semantic state, private storage, phase-scoped canonical queries, and atomic structural publication. All remain `Not started`, and production CP03 work retains its predecessor, profile, specification, and evidence gates.
+
+- `2026-07-19-world-model-06-inspection-testing-and-replay.md` — records ADRs 0039-0041 accepted via Option A for questions 24-26: authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within a declared compatibility domain. Implementation remains `Not started`.
 
 - `2026-07-19-world-model-05-space-persistence-and-preview.md` — accepted ADRs 0030–0038 via Option A for questions 13–23; ADR 0037 amends ADR 0024, the ADR 0033 public-SDK/no-privileged-internals and ADR 0038 collaborative-source-editing qualifications are recorded, and implementation remains not started.
 

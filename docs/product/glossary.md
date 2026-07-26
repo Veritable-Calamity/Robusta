@@ -12,7 +12,7 @@ The game object currently controlled or represented by a player session inside a
 
 ## Component
 
-A piece of information attached to a game object. Examples: “has health,” “is a door,” “can be picked up,” or “is currently open.”
+Declared entity-owned state describing one capability of a game object. A component has no identity or lifetime independent of its owning entity and its declared component schema. Examples include “has health,” “is a door,” “can be picked up,” or “is currently open.”
 
 ## Content catalog
 
@@ -70,9 +70,17 @@ An intentionally installed application package containing game code and content.
 
 The supported set of contracts, build tools, analyzers, generators, and documentation used by game projects. It is the normal front door into Robusta.
 
+## Test SDK
+
+The published external-game test package that constructs and manually drives ordinary isolated runtime worlds through supported activation, input, observation, and cleanup contracts. It grants no private engine mutation path.
+
 ## Host
 
 A client or server program that combines a Robusta runtime with one exact game package and runs it.
+
+## Inspection observation
+
+A typed, read-only, authorized view of one named target at one immutable committed boundary. It carries distinct owner, target, attachment, catalog, schema, and freshness information and grants no resolution or mutation authority merely by being decoded.
 
 ## Map definition
 
@@ -114,6 +122,18 @@ The released Robusta software that executes a game. A game release records the e
 
 One world-owned live instantiation of a map definition, with its own world-local identity, root spatial frame, mutable spatial state, and lifecycle.
 
+## Authoritative replay artifact
+
+A bounded versioned diagnostic artifact containing an exact starting state or construction, every admitted authoritative input, required random state and descriptors, and named committed verification projections. It re-executes only through an admitted compatibility domain and never repeats real external effects.
+
+## Replay record
+
+An artifact-local durable record used to correlate original facts and fresh re-execution identities for one declared comparison purpose. It is not a runtime identity, checkpoint record, durable gameplay identity, or permission.
+
+## Replay compatibility domain
+
+The exact runtime, game, schema, catalog, platform, numerical, physics, scheduler, partition, extension, policy, and admitted-adapter facts under which authoritative replay verification is allowed. A different unresolved or unevidenced domain cannot inherit the guarantee.
+
 ## Server authority
 
 The rule that the server is the final source of truth for multiplayer game state, even when clients temporarily predict outcomes.
@@ -121,6 +141,10 @@ The rule that the server is the final source of truth for multiplayer game state
 ## System
 
 Game rules or behavior that operate on components and events. Examples: opening doors, applying damage, processing movement, or advancing a round.
+
+## State schema
+
+The stable declared meaning of one component, world resource, or reusable value shape, including its identity, version, fields, limits, side, authority, and permitted projections. It is distinct from a programming-language type, physical storage layout, and wire or file encoding.
 
 ## Scope / lifetime
 
@@ -137,6 +161,10 @@ An explicitly classified connection between objects. Spatial parentage, logical 
 ## World checkpoint
 
 A versioned durable representation of one declared committed world boundary, together with the identities, schemas, compatibility information, and migration data required to validate and reconstruct it atomically.
+
+## World resource
+
+One declared state slot owned by a world rather than by an entity. A world has at most one admitted value for a given resource schema. A world resource is not a hidden singleton entity, process-global state, host service, or durable service merely because it exists.
 
 ## World lineage
 

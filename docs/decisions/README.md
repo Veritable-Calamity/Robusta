@@ -74,18 +74,11 @@ This is a new greenfield ADR sequence. It does not continue the numbering of the
 | 0036 | Use explicit durable identities and reference policies | Accepted | Not started |
 | 0037 | Keep live state stable unless explicitly migrated | Accepted | Not started |
 | 0038 | Edit map sources and preview them in isolated worlds | Accepted | Not started |
+| 0039 | Inspect running worlds through authorized snapshots | Accepted | Not started |
+| 0040 | Test isolated worlds through the supported runtime | Accepted | Not started |
+| 0041 | Record versioned authoritative replays with declared determinism | Accepted | Not started |
 
-ADR 0033 permits batteries-included station conveniences only as ordinary, separately versioned game or component packages built through the same published SDK and declared trust mechanisms available to independent developers. They receive no privileged platform internals and remain subject to every accepted ADR. ADR 0038 also permits authority-hosted collaborative mapping sessions for authenticated creators, while canonical source-document transactions and their history—not arbitrary live gameplay state—remain the authored truth.
-
-## Active drafts and proposals
-
-| ADR | Decision | Decision status | Implementation | Current review position |
-|---|---|---|---|---|
-| 0039 | Inspect running worlds through authorized snapshots | Proposed | Not started | Option A recommended |
-| 0040 | Test isolated worlds through the supported runtime | Proposed | Not started | Option A recommended |
-| 0041 | Record versioned authoritative replays with declared determinism | Proposed | Not started | Option A recommended |
-
-These proposals answer world-model questions 24-26 but do not settle them until explicitly accepted. Each states the exact amendment its acceptance would make to ADR 0014's first-release diagnostics or qualification floor.
+ADR 0033 permits batteries-included station conveniences only as ordinary, separately versioned game or component packages built through the same published SDK and declared trust mechanisms available to independent developers. They receive no privileged platform internals and remain subject to every accepted ADR. ADR 0038 also permits authority-hosted collaborative mapping sessions for authenticated creators, while canonical source-document transactions and their history—not arbitrary live gameplay state—remain the authored truth. ADRs 0039-0041 accept bounded authorized inspection, ordinary-runtime isolated testing, and verified in-domain authoritative replay via Option A; they amend ADR 0014's first-release floor, and ADR 0041 also removes only the replay-specific deferrals in ADRs 0042 and 0043.
 
 ## Accepted technical decisions
 
@@ -93,7 +86,7 @@ Their product-decision coverage is listed in [`technical/README.md`](technical/R
 
 | ADR | Decision | Decision status | Implementation |
 |---|---|---|---|
-| 0017 | Enforce explicit runtime ownership scopes | Accepted | Not started |
+| 0017 | Enforce explicit runtime ownership scopes | Accepted | In progress |
 | 0018 | Publish a layered Game SDK with capability boundaries | Accepted | Not started |
 | 0019 | Use generational entity handles and transactional structural commits | Accepted | Not started |
 | 0020 | Run fixed-step worlds through a deterministic phase scheduler | Accepted | Not started |
@@ -102,16 +95,38 @@ Their product-decision coverage is listed in [`technical/README.md`](technical/R
 | 0023 | Generate versioned authoritative replication schemas | Accepted | Not started |
 | 0024 | Supervise the creator loop as an observable transaction | Accepted | Not started |
 | 0025 | Migrate through a source-located intermediate model and conformance corpus | Accepted | Not started |
-| 0028 | Model sessions and worlds as sibling host scopes | Accepted | Not started |
+| 0028 | Model sessions and worlds as sibling host scopes | Accepted | In progress |
 | 0029 | Enforce phase-scoped access and buffered deterministic effects | Accepted | Not started |
+| 0042 | Use typed message kinds and transactional structural commits | Accepted | Not started |
+| 0043 | Use a typed identity and compatibility spine | Accepted | In progress |
+| 0044 | Generate bounded identity declarations and per-kind profiles | Accepted | Not started |
+| 0045 | Generate typed capability graphs and closed activation plans | Accepted | Not started |
+| 0046 | Coordinate owner shutdown through acquisition ledgers and fault profiles | Accepted | Not started |
+| 0047 | Evaluate dimensional compatibility through bounded exact policy profiles | Accepted | Not started |
+| 0048 | Generate stable component and world-resource schemas | Accepted | Not started |
+| 0049 | Keep ECS storage private behind world-owned envelopes | Accepted | Not started |
+| 0050 | Generate phase-scoped queries with canonical iteration | Accepted | Not started |
+| 0051 | Plan and publish structural changes through atomic commit frontiers | Accepted | Not started |
 
 Accepted product ADR 0037 amends ADR 0024's catalog-adoption rollback contract; it does not authorize arbitrary postcommit world rewind.
 
-## Proposed technical decisions
+ADR 0044 refines accepted ADR 0043 by selecting the declaration toolchain, allocation profiles, codec allow-list, and diagnostic-redaction rules. It is accepted via Option A; implementation has not started.
 
-| ADR | Decision | Decision status | Implementation | Current review position |
-|---|---|---|---|---|
-| 0042 | Use typed message kinds and transactional structural commits | Proposed | Not started | Option A recommended |
-| 0043 | Use a typed identity and compatibility spine | Proposed | Not started | Option A recommended |
+ADRs 0045-0047 were accepted independently via Option A. Their bounded first implementation scopes may proceed under their complete predecessor gates, but implementation remains `Not started`. ADR 0046's CP02 cleanup/fault profile and ADR 0047's CP01 core/Preview compatibility profile remain separate gates requiring review and approval before their profile-governed production behavior begins.
 
-Neither proposal authorizes implementation before review and acceptance.
+Accepted ADR 0041 amends ADRs 0042 and 0043 only to add the bounded replay product requirement. Replay's artifact, identities, mappings, compatibility profile, fault profile, and verifier remain separate `REPLAY-AUTHORITATIVE` work.
+
+## Accepted CP03 technical decisions
+
+The first CP03 simulation-kernel decision batch was accepted independently via Option A in strict dependency order: ADR 0048 defines semantic state, ADR 0049 keeps physical storage private, ADR 0050 defines generated query behavior, and ADR 0051 defines structural planning and atomic publication. All four retain implementation status `Not started`. Their acceptance satisfies the CP03 design gate but supplies no implementation evidence; production CP03 work still waits for the roadmap's CP02 predecessor/evidence boundary and every retained specification and profile gate.
+
+| ADR | Decision | Program ID | Decision status | Implementation | Accepted option |
+|---|---|---|---|---|---|
+| 0048 | [Generate stable component and world-resource schemas](technical/0048-generate-stable-component-and-world-resource-schemas.md) | `SIM-STATE` | Accepted | Not started | Option A |
+| 0049 | [Keep ECS storage private behind world-owned envelopes](technical/0049-keep-ecs-storage-private-behind-world-owned-envelopes.md) | `SIM-STORAGE` | Accepted | Not started | Option A |
+| 0050 | [Generate phase-scoped queries with canonical iteration](technical/0050-generate-phase-scoped-queries-with-canonical-iteration.md) | `SIM-QUERY` | Accepted | Not started | Option A |
+| 0051 | [Plan and publish structural changes through atomic commit frontiers](technical/0051-plan-and-publish-structural-changes-through-atomic-commit-frontiers.md) | `SIM-COMMIT` | Accepted | Not started | Option A |
+
+## Queued decision program
+
+The [`ADR development program`](../status/adr-development-program.md) consolidates the platform roadmap's 99 source questions into dependency-ordered product ADR, technical ADR, and specification-first work packages. Program entries are planning identifiers, reserve no ADR numbers, and have no decision authority until an ADR is drafted and accepted or a specification is reviewed under an already accepted parent ADR.

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "updated": "2026-07-19",
+  "updated": "2026-07-24",
   "evidenceRoot": "docs/status/evidence/packets",
   "entries": [
     { "adr": "0000", "promise": "The constitution governs the complete platform.", "owner": "governance-workstream", "targetOutcome": "release-qualification", "plannedMilestone": "M8", "scenarios": ["release-scorecard", "two-external-games"], "evidence": ["docs/product/platform-constitution.md"], "state": "specified" },
@@ -30,7 +30,10 @@
     { "adr": "0035", "promise": "World checkpoints atomically preserve declared durable state and migrate with backup.", "owner": "persistence-workstream", "targetOutcome": "delivery-trust-compatibility-and-operations", "plannedMilestone": "M5", "scenarios": ["atomic-world-checkpoint-and-reference-migration"], "evidence": [], "state": "planned" },
     { "adr": "0036", "promise": "Durable references are typed, scoped, stale-safe, and governed by explicit missing-target policies.", "owner": "persistence-workstream", "targetOutcome": "delivery-trust-compatibility-and-operations", "plannedMilestone": "M5", "scenarios": ["atomic-world-checkpoint-and-reference-migration"], "evidence": [], "state": "planned" },
     { "adr": "0037", "promise": "Catalog adoption leaves existing live state unchanged unless an explicit migration commits.", "owner": "creator-workflow", "targetOutcome": "complete-creator-workflow", "plannedMilestone": "M6", "scenarios": ["catalog-adoption-existing-state"], "evidence": [], "state": "planned" },
-    { "adr": "0038", "promise": "Creators edit map sources and preview them through supported isolated workflows.", "owner": "creator-workflow", "targetOutcome": "complete-creator-workflow", "plannedMilestone": "M6", "scenarios": ["isolated-map-edit-preview"], "evidence": [], "state": "planned" }
+    { "adr": "0038", "promise": "Creators edit map sources and preview them through supported isolated workflows.", "owner": "creator-workflow", "targetOutcome": "complete-creator-workflow", "plannedMilestone": "M6", "scenarios": ["isolated-map-edit-preview"], "evidence": [], "state": "planned" },
+    { "adr": "0039", "promise": "Authorized inspection exposes bounded read-only observations from complete committed world boundaries.", "owner": "runtime-workstream", "targetOutcome": "delivery-trust-compatibility-and-operations", "plannedMilestone": "M5", "scenarios": ["authorized-committed-world-inspection"], "evidence": [], "state": "planned" },
+    { "adr": "0040", "promise": "External games test isolated worlds through a published SDK using ordinary runtime activation, stepping, and cleanup.", "owner": "sdk-workstream", "targetOutcome": "complete-creator-workflow", "plannedMilestone": "M6", "scenarios": ["published-isolated-runtime-fixture"], "evidence": [], "state": "planned" },
+    { "adr": "0041", "promise": "Versioned authoritative replay verifies bounded committed outcomes inside an exact admitted compatibility domain.", "owner": "runtime-workstream", "targetOutcome": "delivery-trust-compatibility-and-operations", "plannedMilestone": "M5", "scenarios": ["bounded-authoritative-reexecution"], "evidence": [], "state": "planned" }
   ]
 }
 

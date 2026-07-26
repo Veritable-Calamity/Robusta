@@ -2,7 +2,7 @@
 
 **Working baseline:** 2026-07-18
 **Decision scope:** the greenfield, release-grade Robusta platform
-**Runtime capability status:** scaffold only; gameplay capabilities remain unproven
+**Runtime capability status:** ownership groundwork only; gameplay capabilities remain unproven
 **Release scope and evidence baseline:** established
 
 The repository contains a buildable scaffold and an established first-release scope and evidence baseline. The baseline defines scope, support, artifact-feed, measurement, migration-census, and evidence rules; it does not claim a gameplay capability.
@@ -26,17 +26,27 @@ tools/                       Product tool entry points
   PackageVerifier/           Package integrity and provenance checks
 tests/
   Robusta.Architecture.Tests/ Repository topology and dependency-boundary tests
+  Robusta.Runtime.Tests/      Internal runtime behavior tests
 docs/                        Product direction and decision records
 ```
 
-Project files have the same base name as their containing project directory. `Robusta.slnx` mirrors the physical `sdk`, `src`, `tools`, and `tests` layout.
+Directories provide logical organization; they do not define assembly boundaries. A
+subsystem can live in folders and namespaces within an existing project, and does
+not require its own project or project-specific directory. Add a project only when
+the code needs an independently enforced publication, dependency, executable,
+platform, side, trust, or deployment boundary.
+
+The current projects use separate directories as a convenience, not as a repository
+requirement. `Robusta.slnx` groups projects by their major logical area, but solution
+folders, project boundaries, and physical source folders do not need to mirror one
+another one-to-one.
 
 Build the scaffold with:
 
 ```powershell
 dotnet restore Robusta.slnx
 dotnet build Robusta.slnx --no-restore
-dotnet test tests/Robusta.Architecture.Tests/Robusta.Architecture.Tests.csproj --no-restore
+dotnet test Robusta.slnx --no-restore
 ```
 
 Build the versioned bootstrap artifact feed and verify ordinary package consumption with:

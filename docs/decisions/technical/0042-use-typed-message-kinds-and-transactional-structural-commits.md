@@ -1,13 +1,14 @@
 # ADR 0042: Use typed message kinds and transactional structural commits
 
-- **Decision status:** Proposed
+- **Decision status:** Accepted
 - **Implementation status:** Not started
-- **Date:** 2026-07-19
+- **Date:** 2026-07-21
 - **Decision level:** Technical
 - **Owners:** Runtime workstream
 - **Supersedes:** None
-- **Product decisions served:** 0002, 0003, 0005, 0006, 0011, 0012, 0013, 0015, 0016, 0026, 0030, 0031, 0032, 0035, 0037, 0038
-- **Related decisions:** 0018-0021, 0023, 0024, 0028, 0029, 0043
+- **Amended by:** ADR 0041, which adds bounded authoritative diagnostic replay without changing this ADR's message, ordering, commit, or effect-intent semantics
+- **Product decisions served:** 0002, 0003, 0005, 0006, 0011, 0012, 0013, 0015, 0016, 0026, 0030, 0031, 0032, 0035, 0037-0041
+- **Related decisions:** 0018-0021, 0023, 0024, 0028, 0029, 0039-0041, 0043-0051
 
 ## The question
 
@@ -41,13 +42,13 @@ It makes queries depend on handler order, permits reentrant lifecycle changes, c
 
 Make the event log the primary authoritative state and derive world state from it. This can offer powerful audit and replay properties.
 
-It would force event-sourcing constraints onto high-frequency spatial and simulation state before the product has selected replay guarantees, and it would make schema evolution and station-like workloads substantially more expensive. Durable logs may later consume this ADR's committed records without becoming the first-release mutation model.
+It would force event-sourcing constraints onto high-frequency spatial and simulation state beyond the bounded replay guarantee accepted in ADR 0041, and it would make schema evolution and station-like workloads substantially more expensive. Durable replay artifacts may consume this ADR's committed records without becoming the first-release mutation model.
 
-## Current review position
+## Decision
 
-Option A is recommended for review. This is a proposed technical position, not an accepted decision and not implementation authority.
+Robusta will use Option A: typed phase-bound channels with deterministic commit frontiers.
 
-If accepted, the mechanism contract would be:
+The mechanism contract is:
 
 1. Robusta exposes four nominal message kinds with separate generated manifests and SDK entry points:
    - a **request** is a synchronous, directed question against the caller's current phase-scoped read capabilities and returns one typed result;
@@ -110,9 +111,9 @@ The world needs bounded queues, result retention, trace sampling, redaction, and
 
 ## Bounded first-release scope
 
-The proposed 1.0 scope is in-process, world-local dispatch for generated SDK messages; deterministic event waves; requests with one handler or registered reducer; buffered entity, component-structure, runtime-map, spatial-frame, standard-relation, attachment, timer, and catalog-generation commands; immutable results and notifications; and the serial-oracle comparison required by ADR 0029.
+The 1.0 scope is in-process, world-local dispatch for generated SDK messages; deterministic event waves; requests with one handler or registered reducer; buffered entity, component-structure, runtime-map, spatial-frame, standard-relation, attachment, timer, and catalog-generation commands; immutable results and notifications; and the serial-oracle comparison required by ADR 0029.
 
-The 1.0 scope does not include a durable event store, distributed request bus, arbitrary cross-world commands, general cross-world graph transfer, semantic branch merging, postcommit world rewind, exactly-once external delivery, or a replay-file guarantee. Those capabilities may reuse committed records only after their own product and technical decisions.
+The 1.0 scope does not include a durable event store, distributed request bus, arbitrary cross-world commands, general cross-world graph transfer, semantic branch merging, postcommit world rewind, or exactly-once external delivery. Accepted ADR 0041 separately adds bounded authoritative diagnostic replay to 1.0. Its durable artifact, input ledger, replay-local identities, compatibility profile, and verifier remain governed by `REPLAY-AUTHORITATIVE`; this ADR supplies only the typed inputs, stable authority-assigned ordering, immutable terminal results, committed records, and effect-intent semantics that replay must preserve.
 
 ## How we will prove the decision works
 
@@ -130,15 +131,15 @@ The 1.0 scope does not include a durable event store, distributed request bus, a
 
 ## Implementation notes
 
-No generated message manifest, request dispatcher, event frontier, structural planner, conflict resolver, command-result store, commit record, continuation scheduler, or notification dispatcher exists. Existing project scaffolds provide no implementation evidence for this proposal.
+No generated message manifest, request dispatcher, event frontier, structural planner, conflict resolver, command-result store, commit record, continuation scheduler, or notification dispatcher exists. Existing project scaffolds provide no implementation evidence for this decision.
 
-## Dependencies and interaction with queued product decisions
+## Dependencies and interaction with accepted product decisions
 
-Acceptance should require the already accepted access, scheduler, lifecycle, ownership, and fault contracts in ADRs 0017, 0019, 0020, 0026, 0028, and 0029. It also relies on the product meanings of maps, relations, catalog adoption, checkpoints, and editing in ADRs 0030, 0031, 0035, 0037, and 0038. Concrete spatial stores may follow later without changing the channel distinctions.
+This decision requires the accepted access, scheduler, lifecycle, ownership, and fault contracts in ADRs 0017, 0019, 0020, 0026, 0028, and 0029. It also relies on the product meanings of maps, relations, catalog adoption, checkpoints, editing, inspection, isolated testing, and replay in ADRs 0030, 0031, and 0035-0041. Concrete spatial stores may follow later without changing the channel distinctions.
 
-Proposed product [ADR 0039](../product/0039-inspect-running-worlds-through-authorized-snapshots.md), [ADR 0040](../product/0040-test-isolated-worlds-through-the-supported-runtime.md), and [ADR 0041](../product/0041-record-versioned-authoritative-replays-with-declared-determinism.md) may later select runtime-inspection, isolated-test, and replay or determinism outcomes. This proposal deliberately does not require their acceptance: inspection can consume immutable manifests and commit records without acquiring authority; isolated tests can drive the same dispatcher and frontiers; and a future replay format can select which admitted inputs, committed outcomes, hashes, or diagnostics it records. This ADR does not preselect those product outcomes.
+Accepted product [ADR 0039](../product/0039-inspect-running-worlds-through-authorized-snapshots.md) consumes immutable terminal results and committed observations without acquiring authority. [ADR 0040](../product/0040-test-isolated-worlds-through-the-supported-runtime.md) drives the same dispatcher, authority-owned admission order, and commit frontiers through the published Test SDK. [ADR 0041](../product/0041-record-versioned-authoritative-replays-with-declared-determinism.md) records the admitted inputs, immutable terminal results, committed projections, and effect intents selected by its later technical contract; it does not turn notifications into a durable event store or alter this ADR's semantics.
 
-ADR 0043 is complementary rather than a prerequisite: this proposal requires typed operation and schema identities, while ADR 0043 proposes their common encoding, mapping, and compatibility rules. Either proposal can be reviewed independently, but their final schemas must agree before implementation begins.
+Accepted ADR 0043 is complementary rather than a prerequisite: this decision requires typed operation and schema identities, while ADR 0043 owns their common encoding, mapping, and compatibility rules. Their final schemas must agree before implementation begins.
 
 ## Follow-up decisions
 

@@ -1,7 +1,7 @@
 # ADR 0028: Model sessions and worlds as sibling host scopes
 
 - **Decision status:** Accepted
-- **Implementation status:** Not started
+- **Implementation status:** In progress
 - **Date:** 2026-07-19
 - **Decision level:** Technical
 - **Owners:** Runtime and multiplayer workstreams
@@ -117,7 +117,7 @@ Leak detection reports an attachment surviving either endpoint, a catalog genera
 
 ## Implementation notes
 
-No host, world, session, attachment, catalog-lease, or replication-scope implementation exists. This decision corrects the ownership model before those public and runtime contracts are frozen.
+The internal runtime now implements the first host-owned sibling world/session model, explicit session-world attachments, fresh attachment identities, endpoint-specific teardown, and world-owned catalog-generation leases. Participation roles, avatar association, replication state, networking budgets, typed endpoint capabilities beyond identity, and generated lifetime validation remain unimplemented. Focused evidence lives in [`OwnershipScopeTests`](../../../tests/Robusta.Runtime.Tests/Hosting/OwnershipScopeTests.cs).
 
 ## Follow-up decisions
 

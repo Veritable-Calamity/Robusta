@@ -3,9 +3,11 @@
 - **Decision status:** Accepted
 - **Implementation status:** In progress
 - **Date:** 2026-07-18
+- **Last reconciled:** 2026-07-24
 - **Decision level:** Product
 - **Owners:** Robusta maintainers
-- **Related decisions:** ADR 0000, ADR 0001, ADR 0002, ADR 0004, ADR 0008, ADR 0009
+- **Amended by:** ADR 0039 for bounded authorized inspection, ADR 0040 for the published Test SDK and qualification floor, and ADR 0041 for bounded authoritative diagnostic replay
+- **Related decisions:** ADR 0000, ADR 0001, ADR 0002, ADR 0004, ADR 0008, ADR 0009, ADR 0039, ADR 0040, ADR 0041
 
 ## The question
 
@@ -20,6 +22,8 @@ An independent team can develop and operate a 2D desktop multiplayer game on the
 Robusta 1.0 supports Windows 11 x64 (24H2 or later) and Ubuntu 24.04 LTS x64 for creator tools, desktop clients, and dedicated servers. Headless Linux containers built from the Ubuntu baseline are a supported server distribution. Other desktop Linux distributions may work but are not support claims for 1.0.
 
 The required feature boundary is the complete journey already named by the constitution: published Game SDK packages; 2D client and dedicated-server runtimes; deterministic content compilation; server-authoritative multiplayer; creator CLI; application packaging, verification, installation, update, exact rollback, and diagnostics; dedicated-server operation; capability-limited declarative public add-ons; and assisted Robust Toolbox migration. Offline play uses a local authority. Both external reference games and all M8 clean-machine journeys are release requirements.
+
+Accepted ADRs 0039, 0040, and 0041 amend that boundary. Robusta 1.0 also requires bounded authorized inspection of committed state, a published Test SDK and its external-game qualification floor, and bounded single-world authoritative diagnostic replay within a validated compatibility domain. Their technical schemas, protocols, profiles, and evidence remain separate implementation gates; this amendment does not claim those capabilities are implemented.
 
 Robusta 1.0 does not promise 3D rendering, mobile or console clients, arbitrary public scripting, a centralized marketplace, hosted accounts or servers, full Space Station 14 parity, binary Robust Toolbox compatibility, or live preservation of arbitrary worlds across code or schema changes.
 
@@ -39,5 +43,8 @@ The package registry stores and serves immutable artifacts and discovery metadat
 - Clean Windows and Ubuntu CI jobs build, test, pack, and restore an external consumer from the generated feed.
 - M2 proves the creator journey on both supported operating systems.
 - M5 proves immutable installation, process separation, verification, update, rollback, and server operation.
+- The accepted ADR 0039 scenario proves authorized, redacted, bounded inspection observes only complete committed state and grants no mutation authority.
+- The accepted ADR 0040 scenario proves a clean external project can consume the published Test SDK, drive ordinary runtime worlds without sleeps or private access, and close them without cross-fixture contamination.
+- The accepted ADR 0041 scenario proves real-sink-free authoritative re-execution only inside an admitted exact domain, with fresh runtime identities, fixed partition semantics, and explicit divergence or denial.
 - M8 publishes the complete support scorecard and known limitations.
 

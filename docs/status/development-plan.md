@@ -1,7 +1,7 @@
 # Robusta Development Plan
 
 - **Status:** Proposed living implementation plan
-- **Baseline date:** 2026-07-18; reconciled 2026-07-19
+- **Baseline date:** 2026-07-18; reconciled 2026-07-19; decision review updated 2026-07-26
 - **Planning horizon:** First supported platform release
 - **Decision authority:** Lower than the platform constitution and accepted ADRs
 - **Current implementation baseline:** First-release scope and evidence baseline established (roadmap M0 complete); gameplay capabilities remain scaffolded and unproven
@@ -10,6 +10,8 @@
 
 This plan turns the accepted product direction into an evidence-gated delivery sequence. It does not select mechanisms that require a technical ADR, treat queued questions as decided, or claim that a scaffolded project implements a product capability.
 
+This is the detailed first-release sequence. The broader [`platform-development-roadmap.md`](platform-development-roadmap.md) provides the whole-platform checkpoint spine through Multi-Z, server meshing, and sustained evolution, while [`adr-development-program.md`](adr-development-program.md) provides the normalized decision dependencies and implementation gates. The constitution and accepted ADRs govern all three.
+
 The target outcome is a release that an independent team can install, use to create and operate a game, upgrade safely, and diagnose without cloning or modifying Robusta. That outcome must be demonstrated by two separately maintained games consuming published artifacts: one station-like multiplayer slice and one meaningfully different game.
 
 ## Source basis
@@ -17,6 +19,7 @@ The target outcome is a release that an independent team can install, use to cre
 - [`platform-constitution.md`](../product/platform-constitution.md) defines the governing promises and conflict order.
 - [`quality-bar.md`](../product/quality-bar.md) defines capability completion and platform release quality.
 - [`decisions/README.md`](../decisions/README.md) records all accepted and active ADRs with separate implementation statuses.
+- [`adr-development-program.md`](adr-development-program.md) maps every roadmap-local decision question to one consolidated ADR or specification package and orders those packages by checkpoint dependency.
 - [`world-model-question-set.md`](../workshops/world-model-question-set.md) records accepted answers and unresolved product questions that gate later public contracts.
 - [`adr-coherence-and-first-release-baseline-2026-07-19.md`](adr-coherence-and-first-release-baseline-2026-07-19.md) records cross-ADR conflicts, implementation pressure, and the bounded 1.0 qualification profile.
 - [`first-release-technical-scope-matrix.md`](first-release-technical-scope-matrix.md) distinguishes required 1.0 behavior from deferred capability work.
@@ -44,13 +47,13 @@ Unless ADR 0014 is superseded through the normal decision process, this plan doe
 | Workstream | Principal outputs | Product ADRs |
 |---|---|---|
 | Governance and evidence | 1.0 boundary, support matrix, release scorecard, metrics, evidence ledger | 0000, 0001, 0002 |
-| Game SDK and runtime | Published contracts, analyzers and generators, hosts, worlds, entities, systems, events, inspection | 0001, 0003, 0011, 0012, 0013 |
+| Game SDK and runtime | Published contracts, analyzers and generators, hosts, worlds, entities, systems, events, inspection, Test SDK | 0001, 0003, 0011, 0012, 0013, 0039, 0040 |
 | Content | Deterministic package-aware compiler, diagnostics, catalog generations, resolved-form inspection | 0003, 0005, 0012 |
 | Persistence and authored worlds | Checkpoint capture and restore, durable references, catalog adoption, map documents, collaborative edit history | 0008, 0012, 0035-0038 |
 | Multiplayer | Server authority, declared synchronization, prediction, interest, correction, reconnection | 0003, 0006 |
 | Delivery and trust | Manifests, receipts, side-specific packages, verification, installation, process boundaries, rollback | 0004, 0007, 0008 |
 | Creator workflow | Templates, `robusta dev`, orchestration, change classification, supervised restart and reconnect | 0001, 0009 |
-| Operations | Dedicated-server configuration, health, structured diagnostics, graceful shutdown and recovery | 0001, 0002, 0004, 0008 |
+| Operations | Dedicated-server configuration, health, structured diagnostics, bounded authoritative replay, graceful shutdown and recovery | 0001, 0002, 0004, 0008, 0039, 0041 |
 | Migration | Usage census, importers, analyzers, code fixes, compatibility package, conformance reports | 0002, 0010 |
 | External validation | Station-like and contrasting games, clean-machine journeys, performance and reliability evidence | 0000, 0001, 0002 and every capability ADR |
 
@@ -80,7 +83,7 @@ The sequence is an order of evidence dependencies, not a requirement to serializ
 
 **Deliverables:**
 
-- Proposals for the exact 1.0 feature boundary, supported operating systems and distribution channels, and launcher versus package-registry responsibilities.
+- Accepted decisions and traceability for the exact 1.0 feature boundary, supported operating systems and distribution channels, and launcher versus package-registry responsibilities.
 - A traceability ledger mapping every product promise to executable scenarios and stored evidence.
 - A common evidence packet format covering tests, diagnostics, documentation, inspection, package behavior, compatibility, security, and performance where applicable.
 - Clean-machine CI images for the eventually selected support matrix.
@@ -105,11 +108,11 @@ The sequence is an order of evidence dependencies, not a requirement to serializ
 1. **Entity and time gate - accepted:** ADRs 0015 and 0016 define object birth and observability; death and cleanup; stale references; capability mutation; simulation steps; pause; timers; and rendering time.
 2. **Space and SDK gate - accepted at the product level:** ADRs 0030-0034 define maps; positions and coordinates; containment; map and world transfer; platform-owned foundations; game-owned concepts; and advanced extension boundaries. Their dependent technical mechanisms remain queued.
 3. **Persistence and tooling gate - accepted at the product level:** ADRs 0035-0038 define save promises and identities; missing or stale saved references; catalog changes affecting existing objects; and source-oriented map editing, including server-hosted collaborative mapping with isolated gameplay preview. Their dependent technical mechanisms remain queued.
-4. **Inspection, test, and replay gate - proposed:** ADRs 0039-0041 recommend Option A for authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within a declared compatibility domain. Each proposal states the corresponding amendment it would make to ADR 0014's first-release diagnostics or qualification floor. None is accepted, and no public SDK or durable replay contract may freeze from the proposals alone.
+4. **Inspection, test, and replay gate - accepted at the product level:** ADRs 0039-0041 accept Option A for authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within an exact validated compatibility domain and fixed declared partition scheme. They amend ADR 0014's first-release diagnostics or qualification floor. Their implementation statuses remain `Not started`; the technical packages, schemas, authorization boundaries, workload evidence, and compatibility and fault profiles named by each ADR remain separate gates.
 
 The [accepted review set](../workshops/2026-07-19-world-model-05-space-persistence-and-preview.md) records Option A for each ADR 0030-0038. ADR 0033 keeps any platform-maintained station kit on the same public package and trust paths available to independent games, and ADR 0038 adds authenticated server-hosted collaborative document editing without treating arbitrary gameplay-world state as map source. Acceptance authorizes the dependent technical ADR work; it does not claim implementation.
 
-The [proposed inspection, testing, and replay review set](../workshops/2026-07-19-world-model-06-inspection-testing-and-replay.md) records the recommended review order 0039, 0040, then 0041. These proposals make questions 24-26 reviewable but do not close them.
+The [accepted inspection, testing, and replay review set](../workshops/2026-07-19-world-model-06-inspection-testing-and-replay.md) records Option A for ADRs 0039, 0040, and 0041 and closes world-model questions 24-26 at the product level. ADR 0039 requires bounded owner-scoped committed observations, ADR 0040 requires a published Test SDK over ordinary runtime activation and cleanup, and ADR 0041 requires bounded authoritative re-execution without real external sinks. ADR 0041 does not promise universal bitwise or cross-platform numerical determinism; every replay guarantee is limited to its validated domain, covered canonical projections, and fixed declared partition scheme.
 
 The audit opened two product decisions that are now accepted:
 
@@ -129,16 +132,38 @@ The audit opened two product decisions that are now accepted:
 - [Creator process supervision, structured logs, change classification, reload transactions, restart, and reconnect behavior](../decisions/technical/0024-supervise-the-creator-loop-as-an-observable-transaction.md) — accepted.
 - [Assisted migration IR, rule classification, source edits, and conformance corpus](../decisions/technical/0025-migrate-through-a-source-located-intermediate-model-and-conformance-corpus.md) — accepted; typed migration leads, text replacement has a limited supporting role, and binary emulation is prohibited.
 
-**Proposed technical gates awaiting explicit review:**
+**Foundational technical gates accepted via Option A:**
 
-- [Typed message kinds and transactional structural commits](../decisions/technical/0042-use-typed-message-kinds-and-transactional-structural-commits.md) — Option A recommended; defines request, command, gameplay-event, notification, commit-frontier, result, conflict, and continuation semantics without changing the accepted serial oracle.
-- [Typed identity and compatibility spine](../decisions/technical/0043-use-a-typed-identity-and-compatibility-spine.md) — Option A recommended; defines nominal scoped identities, purpose-bound mappings, and operation-specific compatibility without merging identities or treating identity as authority.
+- [Typed message kinds and transactional structural commits](../decisions/technical/0042-use-typed-message-kinds-and-transactional-structural-commits.md) — accepted; defines request, command, gameplay-event, notification, commit-frontier, result, conflict, and continuation semantics without changing the accepted serial oracle. Implementation remains not started.
+- [Typed identity and compatibility spine](../decisions/technical/0043-use-a-typed-identity-and-compatibility-spine.md) — accepted; defines nominal scoped identities, purpose-bound mappings, and operation-specific compatibility without merging identities or treating identity as authority. Initial runtime-scope identities are in progress.
+- [Bounded identity declarations and per-kind profiles](../decisions/technical/0044-generate-bounded-identity-declarations.md) — accepted; selects a language-neutral semantic manifest, incremental generation, closed allocation profiles, default-deny codecs, and bounded diagnostic projection. Implementation remains not started.
+- [Typed capability graphs and closed activation plans](../decisions/technical/0045-generate-typed-capability-graphs-and-closed-activation-plans.md) — accepted; selects generated factories, explicit capability edges, lifetime-capture analysis, and all-or-none publication. Implementation remains not started.
+- [Owner shutdown and fault profiles](../decisions/technical/0046-coordinate-owner-shutdown-through-acquisition-ledgers-and-fault-profiles.md) — accepted; selects a shared close coordinator, acquisition ledger, typed integrity/escalation, and separately reviewed/approved owner profiles. Implementation remains not started.
+- [Dimensional compatibility and exact policy profiles](../decisions/technical/0047-evaluate-dimensional-compatibility-through-bounded-exact-policy-profiles.md) — accepted; selects canonical exact descriptors and one bounded declarative policy evaluator. Implementation remains not started.
+
+ADRs 0045-0047 were accepted independently via Option A. ADR 0046's CP02 cleanup/fault profile and ADR 0047's CP01 core/Preview compatibility profile remain separate gates requiring review and approval before their profile-governed production behavior.
+
+ADRs 0039-0041 were accepted independently via Option A. They unlock `OBS-INSPECTION`, `TEST-RUNTIME`, and `REPLAY-AUTHORITATIVE`; they do not publish those APIs or formats, approve their compatibility and fault profiles, create operator authority, or provide implementation evidence.
+
+**Simulation-kernel technical gates accepted via Option A:**
+
+- [Stable component and world-resource schemas](../decisions/technical/0048-generate-stable-component-and-world-resource-schemas.md) — accepted; selects typed source declarations and one normalized language-neutral semantic manifest. Implementation remains not started.
+- [Private world-owned ECS storage](../decisions/technical/0049-keep-ecs-storage-private-behind-world-owned-envelopes.md) — accepted; selects hybrid private storage families behind one storage-agnostic world envelope. Implementation remains not started.
+- [Phase-scoped canonical queries](../decisions/technical/0050-generate-phase-scoped-queries-with-canonical-iteration.md) — accepted; selects generated non-escapable views, canonical logical iteration, ordered partitions, conservative change tracking, and bounded observations. Implementation remains not started.
+- [Atomic structural commit frontiers](../decisions/technical/0051-plan-and-publish-structural-changes-through-atomic-commit-frontiers.md) — accepted; selects deterministic prepared plans, bounded reversal journals, complete terminal results, and one publication gate. Implementation remains not started.
+
+The four decisions satisfy the CP03 design gate. They do not satisfy the CP02 predecessor/evidence boundary, approve subordinate schemas or numeric profiles, implement an ECS, or provide CP03 evidence.
+
+**Client-platform research awaiting a mechanism decision:**
+
 - The [2D client/platform assessment](../reference/2d-client-platform-options.md) recommends an SDK-owned boundary and controlled SDL3, Silk.NET, MonoGame, UI, audio, and physics comparisons. It is research, not a backend selection or dependency approval.
 
-**Pre-M2 decision task bundle:**
+**Next implementation and decision batches:**
 
-- Accept a minimal client presentation and platform-thread ownership contract, then compare coherent backend candidates through the published evaluation plan.
-- Accept the smallest ordinary authority-session path: loopback transport, protected launcher rendezvous and credentials, receipt/schema compatibility, one generated bounded input and authoritative state exchange, invalid-input rejection, readiness, diagnostics, shutdown, and orphan cleanup.
+- Implement the bounded first slices authorized by ADRs 0044-0047 while separately reviewing and approving ADR 0046's CP02 cleanup/fault profile and ADR 0047's CP01 core/Preview compatibility profile.
+- Prepare bounded subordinate specifications, internal conformance fixtures, reference models, and workload characterization for accepted ADRs 0048 (`SIM-STATE`), 0049 (`SIM-STORAGE`), 0050 (`SIM-QUERY`), and 0051 (`SIM-COMMIT`). Production CP03 implementation waits for the CP02 predecessor/evidence boundary and every retained identity, activation, fault, compatibility, SDK, specification, and budget gate.
+- Draft and review `OBS-INSPECTION`, `TEST-RUNTIME`, and `REPLAY-AUTHORITATIVE`, followed by their inspection, test-execution or ordinary world-construction, replay-reexecution, and replay-owner profiles. Product acceptance does not bypass these subordinate gates.
+- Then accept a minimal client presentation and platform-thread ownership contract and the smallest ordinary authority-session path: loopback transport, protected launcher rendezvous and credentials, receipt/schema compatibility, one generated bounded input and authoritative state exchange, invalid-input rejection, readiness, diagnostics, shutdown, and orphan cleanup.
 - Keep prediction, broad replication, interest and secrecy, reconnect/resynchronization breadth, correction policy, and network-fault qualification in M4.
 
 **Exit gate:**
@@ -359,8 +384,19 @@ Each capability work item must carry this checklist from inception. `Not applica
 | 0036 - Explicit durable identities and references | M1 | M5 | Fresh runtime handles, typed reference resolution, missing-target policy, collision, and migration evidence |
 | 0037 - Stable live state under catalog adoption | M1 | M6 | Future-birth adoption, fenced reversible migration, client admission, and restart classification evidence |
 | 0038 - Source map editing and isolated preview | M1 | M6 | Deterministic source round-trip, collaborative creator authority, isolated preview, and production-capability exclusion evidence |
-
-Proposed ADRs 0039-0043 are intentionally absent from the binding traceability table until accepted. Their proposed proof and milestone effects remain in the ADRs and the current review set.
+| 0039 - Authorized committed-state inspection | M1 | M3-M5, then M8 | Owner-scoped immutable committed observations, provenance, authorization and redaction, bounded queries, attachment invalidation, and production-payload evidence |
+| 0040 - Isolated worlds through the supported Test SDK | M1 | M2-M8 | Clean-machine external Test SDK use, ordinary activation and ordered inputs, manual bounded steps, conforming parallel isolation, loopback journeys, and classified cleanup |
+| 0041 - Bounded in-domain authoritative replay | M1 | M5 and M8 | Exact-domain admission, complete ordered inputs and random state, fresh runtime identities, canonical committed-state and effect-intent comparison, sink exclusion, and divergence/resource-limit evidence |
+| 0042 - Typed messages and transactional commits | M1 | M2-M6 | Deterministic event waves, atomic structural publication, terminal results, notifications, and serial-oracle agreement |
+| 0043 - Typed identity and compatibility spine | M1 | M2-M6 | Cross-kind substitution rejection, bounded codecs, scoped mappings, and operation-specific compatibility explanations |
+| 0044 - Bounded identity declarations and per-kind profiles | M1 | M2-M6 | Deterministic generation, scope-bearing equality, collision and exhaustion behavior, codec denial, and diagnostic-redaction evidence |
+| 0045 - Typed capability graphs and closed activation plans | M1 | M2-M6 | Byte-stable graphs, generated factory and capture diagnostics, one-bootstrap enforcement, all-or-none publication, and conforming two-world isolation |
+| 0046 - Coordinated owner shutdown and fault profiles | M1 | M2-M6 | Admission-fence races, transactional ledger reconciliation, bounded coordinated close, leak and containment evidence, and deterministic escalation reports |
+| 0047 - Dimensional compatibility and exact policy profiles | M1 | M1, then M5-M8 | Exact descriptor and policy known-answer fixtures, complete dimensional findings, bounded pure evaluation, and fail-closed profile admission |
+| 0048 - Stable component and world-resource schemas | M1 | M3 | Deterministic normalized manifests, source-located semantic validation, side/authority/bounds enforcement, exact identity behavior, storage-equivalent projections, and adversarial corpus evidence |
+| 0049 - Private world-owned ECS storage | M1 | M3 | Cross-world isolation, stale-handle and generation safety, storage-family equivalence, allocation and churn behavior, relocation and compaction opacity, cleanup, and fault-injection evidence |
+| 0050 - Phase-scoped canonical queries | M1 | M3 | Generated access manifests, borrow non-escape, required/optional semantics, layout-independent canonical order, ordered partition recomposition, conservative changes, bounded observations, and invalidation evidence |
+| 0051 - Atomic structural commit frontiers | M1 | M3 | Deterministic planning and conflicts, prepared apply and reversal, all-store agreement, atomic publication and no-op behavior, complete command/group results, retention lifecycle, and integrity-fault evidence |
 
 ## Principal risks and controls
 
@@ -387,12 +423,12 @@ The following work does not require choosing unresolved world semantics:
 
 - Convert accepted ADR proof statements into technology-neutral scenario specifications and test names.
 - Establish the evidence ledger, scorecard schema, CI reporting, and clean-machine harness plan.
-- Prepare 1.0 scope, supported-platform, and launcher or registry proposals for explicit review.
+- Maintain ADR 0014's accepted 1.0 scope, supported-platform, and launcher or registry boundaries in roadmap traceability and executable evidence.
 - Define the ownership and published-artifact rules for both external reference games.
 - Run and version the Robust Toolbox usage census and representative migration corpus.
 - Draft technical ADRs and disposable spikes, clearly labeling them as unaccepted and non-contractual.
 
-Product semantics for world/entity lifecycle, time, maps and relations, transfer, saves, catalog adoption, and map authoring are accepted. Public APIs, durable and wire formats, storage, networking, transfer coordination, checkpoint repositories, collaborative edit protocols, and production migration automation remain gated by the applicable technical decisions. World-model questions 24-26 now have proposed Option A answers in ADRs 0039-0041 but remain open until explicitly accepted; technical ADRs 0042-0043 are likewise review-ready rather than authoritative.
+Product semantics for world/entity lifecycle, time, maps and relations, transfer, saves, catalog adoption, map authoring, bounded inspection, supported-runtime testing, and in-domain authoritative replay are accepted. ADRs 0039-0041 have implementation status `Not started` and authorize only the `OBS-INSPECTION`, `TEST-RUNTIME`, and `REPLAY-AUTHORITATIVE` technical work; their schemas, public surfaces, formats, authorization, compatibility and fault profiles, and evidence remain gated. Public APIs, durable and wire formats, storage, networking, transfer coordination, checkpoint repositories, collaborative edit protocols, and production migration automation remain gated by the applicable technical decisions. Technical ADRs 0042-0051 are accepted. ADR 0042 and ADRs 0044-0051 remain unimplemented and authorize only their bounded first implementation scopes; ADR 0046's CP02 profile still gates replacement of the ownership close path, ADR 0047's CP01 profile still gates repository and external-SDK compatibility behavior, and production CP03 work still waits for the CP02 predecessor/evidence boundary and the retained simulation specifications and profiles. The immediate decision work is the retained foundation profiles, the accepted CP03 subordinate specifications and conformance fixtures, the remaining CP04 decision set, and the three technical packages opened by ADRs 0039-0041.
 
 ## Plan maintenance
 

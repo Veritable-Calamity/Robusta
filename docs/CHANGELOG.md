@@ -1,5 +1,63 @@
 # Documentation Changelog
 
+## 2026-07-26 — Simulation kernel ADR batch accepted
+
+- Accepted technical ADRs 0048, 0049, 0050, and 0051 independently via Option A for generated semantic state manifests, private world-owned hybrid ECS storage, generated phase-scoped canonical queries, and deterministic prepared structural plans with one atomic publication gate.
+- Kept every implementation status `Not started`. The four-decision CP03 design gate is satisfied, but production implementation still waits for the CP02 predecessor/evidence boundary and the retained identity, activation, fault, compatibility, manifest, SDK, budget, and later-integration gates.
+- Moved the immediate simulation work from ADR review to bounded subordinate specifications, internal conformance fixtures, reference models, and workload characterization without claiming implementation evidence or supported scale.
+- Registered the four accepted technical gates in product-scenario dependencies and added null M3 measurement plans for schema, storage, query, and commit costs; the product-only evidence ledger remains unchanged because decision acceptance is not implementation evidence.
+
+## 2026-07-24 — Simulation kernel ADR batch proposed
+
+- Added proposed technical ADRs 0048-0051 for generated component and world-resource semantics, private world-owned ECS storage, generated phase-scoped canonical queries, and prepared structural plans with one atomic publication gate.
+- Recommended Option A independently for each ADR and recorded the strict review order 0048 → 0049 → 0050 → 0051.
+- Kept every implementation status `Not started`; production CP03 work remains gated on all four acceptances, the CP02 predecessor/evidence boundary, and the applicable identity, compatibility, fault, budget, and subordinate-specification reviews.
+- Recorded that logical folders and namespaces do not imply one project per package or one project-specific directory per project.
+
+## 2026-07-24 — Inspection, testing, and replay ADRs accepted
+
+- Accepted product ADRs 0039-0041 independently via Option A, closing world-model questions 24-26 while leaving implementation `Not started`.
+- Amended ADR 0014's first-release floor to require bounded authorized inspection, the published Test SDK and qualification path, and bounded authoritative diagnostic replay within a validated compatibility domain.
+- Amended only the replay-specific first-release deferrals in ADRs 0042 and 0043; their typed-message, commit, identity, mapping, and common compatibility semantics remain unchanged.
+- Opened the `OBS-INSPECTION`, `TEST-RUNTIME`, and `REPLAY-AUTHORITATIVE` technical work packages while retaining their compatibility, fault, authorization, schema, codec, and evidence gates.
+
+## 2026-07-23 — Foundation ADR batch accepted
+
+- Accepted technical ADRs 0045, 0046, and 0047 independently via Option A for generated capability activation, coordinated owner shutdown/fault handling, and bounded exact compatibility evaluation.
+- Kept each implementation status `Not started`; acceptance authorizes only the bounded first implementation scopes and does not claim implementation evidence.
+- Retained ADR 0046's CP02 cleanup/fault profile and ADR 0047's CP01 core/Preview compatibility profile as separate gates requiring review and approval before their profile-governed production behavior.
+
+## 2026-07-23 — Parallel foundation ADR review batch proposed
+
+- Added proposed technical ADRs 0045-0047 for generated activation and lifetime-capture enforcement, coordinated owner shutdown and fault profiles, and dimensional compatibility through bounded exact policy profiles.
+- Recommended Option A independently for each ADR and changed review cadence to dependency-safe batches without combining acceptance or implementation authority.
+- Kept owner-specific cleanup budgets and compatibility-operation profiles as separately reviewed specifications under complete accepted parents.
+
+## 2026-07-23 — Identity declaration ADR accepted
+
+- Accepted technical ADR 0044 via Option A for the `FND-IDENTITY` package, refining accepted ADR 0043 without reopening its nominal typing, scope, mapping, compatibility, or non-authority rules.
+- Selected a versioned language-neutral manifest with an incremental generator, closed per-kind allocation profiles, default-deny codecs, bounded parsing, and authorized diagnostic projection.
+- Kept implementation `Not started`; the current handwritten ownership identities remain pre-decision groundwork until the bounded CP02 slice is implemented.
+
+## 2026-07-21 — ADR development program normalized
+
+- Consolidated the roadmap's 99 source questions into 65 candidate ADRs and five specification-first packages without dropping or duplicating a source ID.
+- Preserved product/mechanism, identity, trust, persistence, inspection, operations, UGC, Multi-Z, and mesh boundaries where combining decisions would create ambiguous authority or failure semantics.
+- Added dependency waves, checkpoint decision sets, implementation guardrails, and a first drafting batch beginning with identity, activation, cleanup/fault, and compatibility foundations.
+- Added an architecture test that fails if a source ID or program package is dropped, duplicated, or miscounted.
+
+## 2026-07-21 — Complete platform checkpoint roadmap proposed
+
+- Added the whole-platform roadmap from repository groundwork through ECS, deterministic scheduling, content, SDK authoring, creator workflow, 2D client and space, multiplayer, persistence, delivery, operations, UGC, migration, 1.0, Multi-Z, server meshing, and sustained evolution.
+- Reconciled the expanded vision without silently changing ADR 0014: Multi-Z and server meshing have explicit product-decision gates and later checkpoints.
+- Added a roadmap-local ADR queue, proposed W5-W10 workloads, closure evidence rules, parallel lanes, risks, and immediate actions.
+
+## 2026-07-21 — Foundational technical ADRs accepted and ownership implementation started
+
+- Accepted technical ADRs 0042-0043 via Option A, selecting typed phase-bound message channels with transactional commit frontiers and a typed identity and operation-specific compatibility spine.
+- Began ADRs 0017, 0028, and 0043 with an internal host/world/session/attachment ownership kernel, nominal runtime-only scope identities, catalog-generation leases, ordered teardown, and focused runtime tests.
+- Kept ADR 0042 implementation `Not started`; this groundwork does not yet provide generated messages, event waves, structural commands, commit records, results, or notifications.
+
 ## 2026-07-19 — Inspection, testing, replay, and technical tasking proposed
 
 - Added proposed product ADRs 0039-0041, recommending authorized committed-state inspection, isolated tests through the supported runtime, and versioned authoritative replay within a declared compatibility domain. No proposal is accepted or implementation authority.

@@ -12,6 +12,7 @@
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Robusta.Architecture.Tests/Robusta.Architecture.Tests.csproj" />
+    <Project Path="tests/Robusta.Runtime.Tests/Robusta.Runtime.Tests.csproj" />
   </Folder>
   <Folder Name="/tools/">
     <Project Path="tools/Cli/Cli.csproj" />
